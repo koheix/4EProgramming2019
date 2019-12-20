@@ -17,7 +17,7 @@ public class Main extends Application {
     private final int height = 540;//ウインドウの大きさ
 
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
- 
+
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
         {
             put("lion", 1);
@@ -30,22 +30,22 @@ public class Main extends Application {
     public static void main(final String... args) {
         launch(args);
     }
- 
+
     GraphicsContext g;
- 
+
     @Override
     public void start(final Stage stage) {
         Group root = new Group();
- 
+
         //描画用キャンバスノードの作成
         Canvas cvs = new Canvas(width, height);//make a canvas
         root.getChildren().add(cvs);
- 
+
         this.g = cvs.getGraphicsContext2D();
         Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
         stage.setScene(scene);
         stage.show();//ウィンドウの表示
- 
+
         drawField();
         initialize(root);
 
@@ -53,9 +53,9 @@ public class Main extends Application {
     }
 
     private void mouseClicked(MouseEvent e){//マウスがクリックされた
-        
+
     }
- 
+
     private void drawField() {//描画のプログラム
         for(int i = 0;i < 4;i++){
             for(int j = 0;j < 3;j++){
@@ -73,31 +73,102 @@ public class Main extends Application {
         }
     }
 
-    public void drawChara(String animal , int x , int y ,Group root) {//x ,yは盤面の配列の座標
+    public void drawChara(String animal , int x , int y ,Group root ,int player) {//x ,yは盤面の配列の座標
         switch(animal){//動物判定
+          //画像を貼る処理
             case "lion":
-            //画像を貼る処理
-            ImageView lion = new ImageView("images/lion.png");
-            lion.setFitHeight(128);
-            lion.setFitWidth(128);
-            root.getChildren().add(lion);
-                break;
+              if(player==1){
+                ImageView lion1 = new ImageView("images/lion.png");
+                lion1.setFitHeight(128);lion1.setFitWidth(128);
+                lion1.setX(286+130*y);lion1.setY(11+130*x);
+                root.getChildren().add(lion1);
+                field[x][y] = 1;
+              }else{
+                ImageView lion2 = new ImageView("images/lion.png");
+                lion2.setFitHeight(128);lion2.setFitWidth(128);
+                lion2.setX(286+130*y);lion2.setY(11+130*x);
+                lion2.setRotate(180);
+                root.getChildren().add(lion2);
+                field[x][y] = -1;
+              }
+              break;
             case "elephant":
+              if(player==1){
+                ImageView elephant1 = new ImageView("images/zou.png");
+                elephant1.setFitHeight(128);elephant1.setFitWidth(128);
+                elephant1.setX(286+130*y);elephant1.setY(11+130*x);
+                root.getChildren().add(elephant1);
+                field[x][y] = 2;
+              }else{
+                ImageView elephant2 = new ImageView("images/zou.png");
+                elephant2.setFitHeight(128);elephant2.setFitWidth(128);
+                elephant2.setX(286+130*y);elephant2.setY(11+130*x);
+                elephant2.setRotate(180);
+                root.getChildren().add(elephant2);
+                field[x][y] = -2;
+              }
                 break;
             case "giraffe":
+              if(player==1){
+                ImageView giraffe1 = new ImageView("images/kirin.png");
+                giraffe1.setFitHeight(128);giraffe1.setFitWidth(128);
+                giraffe1.setX(286+130*y);giraffe1.setY(11+130*x);
+                root.getChildren().add(giraffe1);
+                field[x][y] = 3;
+              }else{
+                ImageView giraffe2 = new ImageView("images/kirin.png");
+                giraffe2.setFitHeight(128);giraffe2.setFitWidth(128);
+                giraffe2.setX(286+130*y);giraffe2.setY(11+130*x);
+                giraffe2.setRotate(180);
+                root.getChildren().add(giraffe2);
+                field[x][y] = -3;
+              }
                 break;
             case "chick":
+              if(player==1){
+                ImageView chick1 = new ImageView("images/hiyoko.png");
+                chick1.setFitHeight(128);chick1.setFitWidth(128);
+                chick1.setX(286+130*y);chick1.setY(11+130*x);
+                root.getChildren().add(chick1);
+                field[x][y] = 4;
+              }else{
+                ImageView chick2 = new ImageView("images/hiyoko.png");
+                chick2.setFitHeight(128);chick2.setFitWidth(128);
+                chick2.setX(286+130*y);chick2.setY(11+130*x);
+                chick2.setRotate(180);
+                root.getChildren().add(chick2);
+                field[x][y] = -4;
+              }
                 break;
             case "chicken":
+              if(player==1){
+                ImageView chicken1 = new ImageView("images/niwatori.png");
+                chicken1.setFitHeight(128);chicken1.setFitWidth(128);
+                chicken1.setX(286+130*y);chicken1.setY(11+130*x);
+                root.getChildren().add(chicken1);
+                field[x][y] = 5;
+              }else{
+                ImageView chicken2 = new ImageView("images/niwatori.png");
+                chicken2.setFitHeight(128);chicken2.setFitWidth(128);
+                chicken2.setX(286+130*y);chicken2.setY(11+130*x);
+                chicken2.setRotate(180);
+                root.getChildren().add(chicken2);
+                field[x][y] = -5;
+              }
                 break;
             default:
                 break;
         }
     }
     private void initialize(Group root){//はじめに実行
-        drawChara("lion" , 3 , 1 , root);
-        drawChara("chick" , 2 , 1 , root);
-        drawChara("elephant" , 3 , 0 , root);
-        drawChara("giraffe", 3, 2 , root);
+        drawChara("lion" , 3 , 1 , root , 1);
+        drawChara("chick" , 2 , 1 , root , 1);
+        drawChara("elephant" , 3 , 0 , root , 1);
+        drawChara("giraffe", 3, 2 , root , 1);
+        drawChara("lion" , 0 , 1 , root , -1);
+        drawChara("chick" , 1 , 1 , root , -1);
+        drawChara("elephant" , 0 , 2 , root , -1);
+        drawChara("giraffe", 0, 0 , root , -1);
+
     }
 }
