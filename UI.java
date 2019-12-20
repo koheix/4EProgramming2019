@@ -12,6 +12,8 @@ import java.util.Map;
 /* lion is 0 , elephant is 1 , giraffe is 2 , chick is 3 , chiken is 4*/
 
 public class UI extends Application {
+    private final int width = 960;
+    private final int height = 540;//ウインドウの大きさ
  
     /*Map<String, Integer>animals = new HashMap<String, Integer>() {
         {
@@ -33,21 +35,25 @@ public class UI extends Application {
         Group root = new Group();
  
         //描画用キャンバスノードの作成
-        Canvas cvs = new Canvas(1920, 1080);//make a canvas
+        Canvas cvs = new Canvas(width, height);//make a canvas
         root.getChildren().add(cvs);
  
         this.g = cvs.getGraphicsContext2D();
-        Scene scene = new Scene(root, 1920, 1080, Color.WHITE);//make a window its background color is white
+        Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
         stage.setScene(scene);
         stage.show();//ウィンドウの表示
  
         drawField();
     }
  
-    private void drawField() {//盤面描画のプログラム
+    private void drawField() {//描画のプログラム
         for(int i = 0;i < 4;i++){
             for(int j = 0;j < 3;j++){
-                g.strokeRect(100 + 260*j, 20 + 260*i, 260, 260);//盤面の描画//右上座標が100,20
+                g.strokeRect(
+                    (width / 2) - ((height - 20) / 4)*3/2 + ((height - 20) / 4)*j, 10 + ((height - 20) / 4)*i,(height - 20)/4, (height - 20) / 4
+                 );//盤面の描画//右上座標が100,20//盤面の描画
+
+
             }
         }
     }
