@@ -50,11 +50,14 @@ public class UI extends Application {
         for(int i = 0;i < 4;i++){
             for(int j = 0;j < 3;j++){
                 g.strokeRect(
-                    (width / 2) - ((height - 20) / 4)*3/2 + ((height - 20) / 4)*j, 10 + ((height - 20) / 4)*i,(height - 20)/4, (height - 20) / 4
+                    (width / 2) - ((height - 20) / 4)*3/2 + 130*j, 10 + 130*i,130, 130
                  );//盤面の描画//右上座標が100,20//盤面の描画
+                g.strokeRect(//もち米の枠
+                    10 , 370 , 240 , 160
+                );//左
                 g.strokeRect(
-
-                );
+                    710 , 370 , 240 , 160
+                );//右
 
             }
         }
