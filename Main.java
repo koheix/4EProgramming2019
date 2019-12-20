@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.*;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.input.MouseEvent;
 
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
@@ -47,6 +48,12 @@ public class Main extends Application {
  
         drawField();
         initialize(root);
+
+        scene.setOnMouseClicked(this::mouseClicked);
+    }
+
+    private void mouseClicked(MouseEvent e){
+        System.out.println(e.getX());
     }
  
     private void drawField() {//描画のプログラム
