@@ -7,7 +7,7 @@ public abstract class Piece {
 }
 
 class Lion extends Piece{
-    public boolean movable(){
+    public boolean movable(int x , int y){
         
     }
     public void move(){

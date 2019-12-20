@@ -52,8 +52,8 @@ public class Main extends Application {
         scene.setOnMouseClicked(this::mouseClicked);
     }
 
-    private void mouseClicked(MouseEvent e){
-        System.out.println(e.getX());
+    private void mouseClicked(MouseEvent e){//マウスがクリックされた
+        
     }
  
     private void drawField() {//描画のプログラム
