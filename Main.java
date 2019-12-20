@@ -9,21 +9,21 @@ import javafx.scene.image.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/* lion is 0 , elephant is 1 , giraffe is 2 , chick is 3 , chiken is 4*/
+/* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
-public class UI extends Application {
+public class Main extends Application {
     private final int width = 960;
     private final int height = 540;//ウインドウの大きさ
 
-    static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面
+    static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
  
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
         {
-            put("lion", 0);
-            put("elephant", 1);
-            put("giraffe" , 2);
-            put("chick" , 3);
-            put("chicken" , 4);
+            put("lion", 1);
+            put("elephant", 2);
+            put("giraffe" , 3);
+            put("chick" , 4);
+            put("chicken" , 5);
         }
     };
     public static void main(final String... args) {
