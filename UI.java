@@ -52,7 +52,9 @@ public class UI extends Application {
                 g.strokeRect(
                     (width / 2) - ((height - 20) / 4)*3/2 + ((height - 20) / 4)*j, 10 + ((height - 20) / 4)*i,(height - 20)/4, (height - 20) / 4
                  );//盤面の描画//右上座標が100,20//盤面の描画
+                g.strokeRect(
 
+                );
 
             }
         }
