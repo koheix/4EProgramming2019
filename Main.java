@@ -9,6 +9,9 @@ import javafx.scene.image.*;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
@@ -17,6 +20,7 @@ public class Main extends Application {
     private final int height = 540;//ウインドウの大きさ
 
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
+
 
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
         {
@@ -35,6 +39,7 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage stage) {
+        Group rootT = new Group();
         Group root = new Group();
 
         //描画用キャンバスノードの作成
@@ -42,12 +47,21 @@ public class Main extends Application {
         root.getChildren().add(cvs);
 
         this.g = cvs.getGraphicsContext2D();
-        Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
-        stage.setScene(scene);
-        stage.show();//ウィンドウの表示
 
-        drawField();
+        Scene title = new Scene(rootT, width, height, Color.WHITE);//make a title
+        Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
+
+        initTitle(stage,title,scene,rootT);
         initialize(root);
+        stage.setTitle("どうぶつしょうぎ");
+        stage.setScene(title);
+        stage.show();
+
+        //stage.setScene(scene);
+        //stage.show();//ウィンドウの表示
+
+        //drawField();
+        //initialize(root);
 
         scene.setOnMouseClicked(this::mouseClicked);
     }
@@ -55,6 +69,20 @@ public class Main extends Application {
     private void mouseClicked(MouseEvent e){//マウスがクリックされた
 
     }
+
+    private void initTitle(Stage stage, Scene title, Scene scene, Group rootT){
+      Button btn = new Button("スタート");
+      btn.setPrefWidth(100);
+      btn.setPrefHeight(50);
+      btn.setOnMouseClicked(event -> setScene(stage,scene));
+      rootT.getChildren().add(btn);
+      drawField();
+    }
+
+    public static  void setScene(Stage stage,Scene changeScene) {
+    stage.setScene(changeScene);
+    stage.show();
+  }
 
     private void drawField() {//描画のプログラム
         for(int i = 0;i < 4;i++){
