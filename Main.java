@@ -52,31 +52,40 @@ public class Main extends Application {
         Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
 
         initTitle(stage,title,scene,rootT);
-        initialize(root);
+        initialize(stage,title,root);
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
         stage.show();
 
-        //stage.setScene(scene);
-        //stage.show();//ウィンドウの表示
-
-        //drawField();
-        //initialize(root);
-
         scene.setOnMouseClicked(this::mouseClicked);
-    }
-
-    private void mouseClicked(MouseEvent e){//マウスがクリックされた
 
     }
+
+    private void mouseClicked(MouseEvent e){}//マウスがクリックされた
+
 
     private void initTitle(Stage stage, Scene title, Scene scene, Group rootT){
       Button btn = new Button("スタート");
-      btn.setPrefWidth(100);
-      btn.setPrefHeight(50);
+      btn.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> setScene(stage,scene));
       rootT.getChildren().add(btn);
       drawField();
+    }
+
+    private void initialize(Stage stage, Scene title, Group root){//はじめに実行
+        drawChara("lion" , 3 , 1 , root , 1);
+        drawChara("chick" , 2 , 1 , root , 1);
+        drawChara("elephant" , 3 , 0 , root , 1);
+        drawChara("giraffe", 3, 2 , root , 1);
+        drawChara("lion" , 0 , 1 , root , -1);
+        drawChara("chick" , 1 , 1 , root , -1);
+        drawChara("elephant" , 0 , 2 , root , -1);
+        drawChara("giraffe", 0, 0 , root , -1);
+
+        Button btn2 = new Button("タイトルへ");
+        btn2.setPrefSize(100,50);
+        btn2.setOnMouseClicked(event -> setScene(stage,title));
+        root.getChildren().add(btn2);
     }
 
     public static  void setScene(Stage stage,Scene changeScene) {
@@ -188,15 +197,5 @@ public class Main extends Application {
                 break;
         }
     }
-    private void initialize(Group root){//はじめに実行
-        drawChara("lion" , 3 , 1 , root , 1);
-        drawChara("chick" , 2 , 1 , root , 1);
-        drawChara("elephant" , 3 , 0 , root , 1);
-        drawChara("giraffe", 3, 2 , root , 1);
-        drawChara("lion" , 0 , 1 , root , -1);
-        drawChara("chick" , 1 , 1 , root , -1);
-        drawChara("elephant" , 0 , 2 , root , -1);
-        drawChara("giraffe", 0, 0 , root , -1);
 
-    }
 }
