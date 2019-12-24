@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.layout.BorderPane;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -39,7 +39,8 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage stage) {
-        Group rootT = new Group();
+        AnchorPane pane = new AnchorPane();
+      //  Group rootT = new Group();
         Group root = new Group();
 
         //描画用キャンバスノードの作成
@@ -48,10 +49,10 @@ public class Main extends Application {
 
         this.g = cvs.getGraphicsContext2D();
 
-        Scene title = new Scene(rootT, width, height, Color.WHITE);//make a title
+        Scene title = new Scene(pane, width, height, Color.WHITE);//make a title
         Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
 
-        initTitle(stage,title,scene,rootT);
+        initTitle(stage,title,scene,pane);
         initialize(stage,title,root);
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
@@ -64,11 +65,13 @@ public class Main extends Application {
     private void mouseClicked(MouseEvent e){}//マウスがクリックされた
 
 
-    private void initTitle(Stage stage, Scene title, Scene scene, Group rootT){
+    private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
       Button btn = new Button("スタート");
       btn.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> setScene(stage,scene));
-      rootT.getChildren().add(btn);
+      pane.getChildren().add(btn);
+      pane.setLeftAnchor(btn,430.);
+      pane.setTopAnchor(btn,240.);
       drawField();
     }
 
