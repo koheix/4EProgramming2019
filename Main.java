@@ -66,6 +66,9 @@ public class Main extends Application {
 
 
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
+      ImageView titleImage = new ImageView("images/title.png");
+      titleImage.setFitHeight(540);titleImage.setFitWidth(960);
+      pane.getChildren().add(titleImage);
       Button btn = new Button("スタート");
       btn.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> setScene(stage,scene));
