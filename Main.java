@@ -37,7 +37,12 @@ public class Main extends Application {
 
     GraphicsContext g;
     Group root = new Group();
-    ImageView redBack = new ImageView("images/redBack.png");
+    ImageView[][] redBack = new ImageView[4][3];
+    for(int i=0;i<4;i++){
+      for(int j=0;j<3;j++){
+          redBack[i][j]=new ImageView("images/redBack.png");
+        }
+      }
 
     @Override
     public void start(final Stage stage) {
@@ -70,12 +75,13 @@ public class Main extends Application {
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
             if(Piece.direction[i][j]==true){
-              redBack.setFitHeight(128);redBack.setFitWidth(128);
-              redBack.setX(286+130*i);redBack.setY(11+130*j);
-              root.getChildren().add(redBack);
+              redBack[i][j].setFitHeight(128);redBack[i][j].setFitWidth(128);
+              redBack[i][j].setX(286+130*i);redBack[i][j].setY(11+130*j);
+              root.getChildren().add(redBack[i][j]);
             }
           }
         }
+
       }
 
 
