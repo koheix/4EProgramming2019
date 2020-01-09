@@ -58,11 +58,14 @@ public class Main extends Application {
         stage.setScene(title);
         stage.show();
 
-        scene.setOnMouseClicked(this::mouseClicked);
+        scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
 
     }
 
-    private void mouseClicked(MouseEvent e){}//マウスがクリックされた
+    private void mouseClicked(MouseEvent e){//画面がクリックされた
+        GUI g = new GUI();
+        g.directionCheck(e.getX(),e.getY(),root);
+    }
 
 
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
