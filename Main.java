@@ -36,12 +36,14 @@ public class Main extends Application {
     }
 
     GraphicsContext g;
+    Group root = new Group();
+    ImageView redBack = new ImageView("images/redBack.png");
 
     @Override
     public void start(final Stage stage) {
         AnchorPane pane = new AnchorPane();
       //  Group rootT = new Group();
-        Group root = new Group();
+      //  Group root = new Group();
 
         //描画用キャンバスノードの作成
         Canvas cvs = new Canvas(width, height);//make a canvas
@@ -64,8 +66,17 @@ public class Main extends Application {
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
         GUI g = new GUI();
-        g.directionCheck(e.getX(),e.getY(),root);
-    }
+        g.directionCheck(e.getX(),e.getY());
+        for(int i=0;i<4;i++){
+          for(int j=0;j<3;j++){
+            if(Piece.direction[i][j]==true){
+              redBack.setFitHeight(128);redBack.setFitWidth(128);
+              redBack.setX(286+130*i);redBack.setY(11+130*j);
+              root.getChildren().add(redBack);
+            }
+          }
+        }
+      }
 
 
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
