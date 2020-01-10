@@ -38,10 +38,20 @@ public class Main extends Application {
     GraphicsContext g;
     Group root = new Group();
     ImageView[][] redBack = new ImageView[4][3];  //赤い背景
-    int click_count=0;  //クリックされた回数
+    boolean PieceClicked = false;  //クリックされた
+    int first = 0;
+    double previousX = 0,previousY = 0;
+    static boolean[][] directionCopy = new boolean[4][3];
+
+    static ImageView lion1 = new ImageView("images/lion.png");
 
     @Override
     public void start(final Stage stage) {
+        for(int i=0;i<4;i++){
+          for(int j=0;j<3;j++){
+            redBack[i][j]=new ImageView("images/redBack.png");
+          }
+        }
         AnchorPane pane = new AnchorPane();
       //  Group rootT = new Group();
       //  Group root = new Group();
@@ -66,8 +76,8 @@ public class Main extends Application {
     }
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
-        if(click_count==0){ //1回目クリックされたら実行
-            click_count++;
+        if(first==0){ //1回目クリックされたら実行
+            first=1;
         }else{
           for(int i=0;i<4;i++){
             for(int j=0;j<3;j++){
@@ -77,13 +87,20 @@ public class Main extends Application {
               }
             }
         }
+        for(int i=0;i<4;i++){
+          for(int j=0;j<3;j++){
+            directionCopy[i][j]=Piece.direction[i][j];
+          }
+        }
         GUI g = new GUI();
         g.directionCheck(e.getX(),e.getY());
-        System.out.println("hello");
+        Move m = new Move();
+        m.moveTo(previousX,previousY,e.getX(),e.getY());
+        previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
             if(Piece.direction[i][j]==true){
-              redBack[i][j]=new ImageView("images/redBack.png");
+          //    redBack[i][j]=new ImageView("images/redBack.png");
               redBack[i][j].setFitHeight(128);redBack[i][j].setFitWidth(128);
               redBack[i][j].setX(286+130*j);redBack[i][j].setY(11+130*i);
               root.getChildren().add(redBack[i][j]);
@@ -149,7 +166,7 @@ public class Main extends Application {
           //画像を貼る処理
             case "lion":
               if(player==1){
-                ImageView lion1 = new ImageView("images/lion.png");
+                //ImageView lion1 = new ImageView("images/lion.png");
                 lion1.setFitHeight(128);lion1.setFitWidth(128);
                 lion1.setX(286+130*y);lion1.setY(11+130*x);
                 root.getChildren().add(lion1);

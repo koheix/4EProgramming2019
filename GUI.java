@@ -33,7 +33,10 @@ public class GUI{
   public void directionCheck(double mouseX, double mouseY){
     int pieceX = (int)(mouseX - 285)/130; //field配列でのコマの位置
     int pieceY = (int)(mouseY - 10)/130;
-    if(!Piece.onBoard(pieceX,pieceY)) return;
+    if(!Piece.onBoard(pieceX,pieceY)){
+      Piece.directionReset();
+      return;
+    }
     switch(Main.field[pieceY][pieceX]){
       case 1:
         lion1.movable((int)mouseX,(int)mouseY,1);
@@ -42,9 +45,7 @@ public class GUI{
         elephant1.movable((int)mouseX,(int)mouseY,1);
         break;
       case 3:
-        System.out.println("kokomade");
         giraffe1.movable((int)mouseX,(int)mouseY,1);
-        System.out.println("kokokara");
         break;
       case 4:
         chick1.movable((int)mouseX,(int)mouseY,1);
