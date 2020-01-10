@@ -27,7 +27,7 @@ public class Piece {
     public boolean isKing(){
         return false;
     }//そのコマは王なのか
-    public boolean onBoard(int nextx , int nexty){//0 <= nextx <= 2 , 0 <= nexty <= 3
+    static boolean onBoard(int nextx , int nexty){//0 <= nextx <= 2 , 0 <= nexty <= 3
       if((0 <= nextx) && (nextx <= 2) && (0 <= nexty) && (nexty <= 3)) return true;
       else return false;
     }
