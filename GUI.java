@@ -18,14 +18,14 @@ public class GUI{
 
     Piece lion1 = new Lion();
     Piece lion2 = new Lion();
-  /*  Elephant elephant1 = new Elephant();
-    Elephant elephant2 = new Elephant();
-    Giraffe giraffe1 = new Giraffe();
-    Giraffe giraffe2 = new Giraffe();
-    Chick chick1 = new Chick();
-    Chick chick2 = new Chick();
-    Chicken chicken1 = new Chicken();
-    Chicken chicken2 = new Chicken();*/
+    Piece elephant1 = new Elephant();
+    Piece elephant2 = new Elephant();
+    Piece giraffe1 = new Giraffe();
+    Piece giraffe2 = new Giraffe();
+/*    Piece chick1 = new Chick();
+    Piece chick2 = new Chick();
+    Piece chicken1 = new Chicken();
+    Piece chicken2 = new Chicken();*/
 
 
 
@@ -35,34 +35,35 @@ public class GUI{
     int pieceY = (int)(mouseY - 10)/130;
     switch(Main.field[pieceY][pieceX]){
       case 1:
-        lion1.movable((int)mouseX,(int)mouseY);
+        lion1.movable((int)mouseX,(int)mouseY,1);
         break;
-  /*    case 2:
-        elephant1.movable(mouseX,mouseY);
+      case 2:
+        elephant1.movable((int)mouseX,(int)mouseY,1);
         break;
       case 3:
-        giraffe1.movable(mouseX,mouseY);
+        System.out.println("kokomade");
+        giraffe1.movable((int)mouseX,(int)mouseY,1);
         break;
-      case 4:
-        chick1.movable(mouseX,mouseY);
+/*      case 4:
+        chick1.movable((int)mouseX,(int)mouseY,1);
         break;
       case 5:
-        chicken1.movable(mouseX,mouseY);
+        chicken1.movable((int)mouseX,(int)mouseY,1);
         break;*/
       case -1:
-        lion2.movable((int)mouseX,(int)mouseY);
+        lion2.movable((int)mouseX,(int)mouseY,-1);
         break;
-/*      case -2:
-        elephant2.movable(mouseX,mouseY);
+      case -2:
+        elephant2.movable((int)mouseX,(int)mouseY,-1);
         break;
       case -3:
-        giraffe2.movable(mouseX,mouseY);
+        giraffe2.movable((int)mouseX,(int)mouseY,-1);
         break;
-      case -4:
-        chick2.movable(mouseX,mouseY);
+/*      case -4:
+        chick2.movable((int)mouseX,(int)mouseY,-1);
         break;
       case -5:
-        chicken2.movable(mouseX,mouseY);
+        chicken2.movable((int)mouseX,(int)mouseY,-1);
         break;*/
       default:
         break;

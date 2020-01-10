@@ -37,20 +37,11 @@ public class Main extends Application {
 
     GraphicsContext g;
     Group root = new Group();
-    ImageView[][] redBack = new ImageView[4][3];
-    /*for(int i=0;i<4;i++){
-      for(int j=0;j<3;j++){
-          redBack[i][j]=new ImageView("images/redBack.png");
-        }
-      }*/
+    ImageView[][] redBack = new ImageView[4][3];  //赤い背景
+    int click_count=0;  //クリックされた回数
 
     @Override
     public void start(final Stage stage) {
-      for(int i=0;i<4;i++){
-        for(int j=0;j<3;j++){
-            redBack[i][j]=new ImageView("images/redBack.png");
-          }
-        }
         AnchorPane pane = new AnchorPane();
       //  Group rootT = new Group();
       //  Group root = new Group();
@@ -75,18 +66,28 @@ public class Main extends Application {
     }
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
+        if(click_count==0){ //1回目クリックされたら実行
+            click_count++;
+        }else{
+          for(int i=0;i<4;i++){
+            for(int j=0;j<3;j++){
+                redBack[i][j]=new ImageView();
+              }
+            }
+        }
         GUI g = new GUI();
         g.directionCheck(e.getX(),e.getY());
+        System.out.println("hello");
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
             if(Piece.direction[i][j]==true){
+              redBack[i][j]=new ImageView("images/redBack.png");
               redBack[i][j].setFitHeight(128);redBack[i][j].setFitWidth(128);
               redBack[i][j].setX(286+130*j);redBack[i][j].setY(11+130*i);
               root.getChildren().add(redBack[i][j]);
             }
           }
         }
-
       }
 
 
