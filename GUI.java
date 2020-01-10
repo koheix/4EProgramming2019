@@ -16,8 +16,8 @@ import javafx.scene.layout.BorderPane;
 
 public class GUI{
 
-    Lion lion1 = new Lion();
-    Lion lion2 = new Lion();
+    Piece lion1 = new Lion();
+    Piece lion2 = new Lion();
   /*  Elephant elephant1 = new Elephant();
     Elephant elephant2 = new Elephant();
     Giraffe giraffe1 = new Giraffe();
@@ -31,11 +31,11 @@ public class GUI{
 
 
   public void directionCheck(double mouseX, double mouseY){
-    int pieceX = ((int)mouseX - 285)/130; //field配列でのコマの位置
-    int pieceY = ((int)mouseY - 10)/130;
+    int pieceX = (int)(mouseX - 285)/130; //field配列でのコマの位置
+    int pieceY = (int)(mouseY - 10)/130;
     switch(Main.field[pieceY][pieceX]){
       case 1:
-        lion1.movable(mouseX,mouseY);
+        lion1.movable((int)mouseX,(int)mouseY);
         break;
   /*    case 2:
         elephant1.movable(mouseX,mouseY);
@@ -50,7 +50,7 @@ public class GUI{
         chicken1.movable(mouseX,mouseY);
         break;*/
       case -1:
-        lion2.movable(mouseX,mouseY);
+        lion2.movable((int)mouseX,(int)mouseY);
         break;
 /*      case -2:
         elephant2.movable(mouseX,mouseY);
