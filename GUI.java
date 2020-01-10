@@ -22,9 +22,9 @@ public class GUI{
     Piece elephant2 = new Elephant();
     Piece giraffe1 = new Giraffe();
     Piece giraffe2 = new Giraffe();
-/*    Piece chick1 = new Chick();
+    Piece chick1 = new Chick();
     Piece chick2 = new Chick();
-    Piece chicken1 = new Chicken();
+/*    Piece chicken1 = new Chicken();
     Piece chicken2 = new Chicken();*/
 
 
@@ -33,6 +33,7 @@ public class GUI{
   public void directionCheck(double mouseX, double mouseY){
     int pieceX = (int)(mouseX - 285)/130; //field配列でのコマの位置
     int pieceY = (int)(mouseY - 10)/130;
+    if(!Piece.onBoard) return;
     switch(Main.field[pieceY][pieceX]){
       case 1:
         lion1.movable((int)mouseX,(int)mouseY,1);
@@ -43,11 +44,12 @@ public class GUI{
       case 3:
         System.out.println("kokomade");
         giraffe1.movable((int)mouseX,(int)mouseY,1);
+        System.out.println("kokokara");
         break;
-/*      case 4:
+      case 4:
         chick1.movable((int)mouseX,(int)mouseY,1);
         break;
-      case 5:
+  /*    case 5:
         chicken1.movable((int)mouseX,(int)mouseY,1);
         break;*/
       case -1:
@@ -59,13 +61,14 @@ public class GUI{
       case -3:
         giraffe2.movable((int)mouseX,(int)mouseY,-1);
         break;
-/*      case -4:
+      case -4:
         chick2.movable((int)mouseX,(int)mouseY,-1);
         break;
-      case -5:
+  /*    case -5:
         chicken2.movable((int)mouseX,(int)mouseY,-1);
         break;*/
       default:
+        Piece.directionReset();
         break;
     }
   }

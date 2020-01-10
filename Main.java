@@ -71,7 +71,9 @@ public class Main extends Application {
         }else{
           for(int i=0;i<4;i++){
             for(int j=0;j<3;j++){
-                redBack[i][j]=new ImageView();
+              if(Piece.direction[i][j]==true){
+                root.getChildren().remove(redBack[i][j]);
+              }
               }
             }
         }
