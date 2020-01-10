@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Piece {
     int directnum = 0;//すすめるマスの個数
     static boolean[][] direction = {{false , false , false},{false , false , false},{false , false , false}, {false, false , false}};//進めるところをtrueにする
@@ -14,8 +11,11 @@ public class Piece {
     }
     public boolean movable(int x , int y , int player){//正の向きのプレイヤーは1 , 負の向きは2
         directionReset();
-        int pieceX = (x - 285)/130; //field配列でのコマの位置
-        int pieceY = (y - 10)/130;
+        int pieceX, pieceY;
+        if(x < 285) pieceX = -1222; //field配列でのコマの位置
+        else pieceX = (x - 285)/130;
+        if(y < 10) pieceY = -560;
+        else pieceY = (y - 10)/130;
         if(!onBoard(pieceX, pieceY)) return false;//クリックされた場所が盤面上ではない
         setMovable(pieceX , pieceY, player);
         if(directnum >0) return true;//すすめるマスが一つでもあればtrueを返す
