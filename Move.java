@@ -30,7 +30,40 @@ public class Move{
     if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;
     System.out.println(Main.directionCopy[pieceY][pieceX]);
     if(Main.directionCopy[pieceY][pieceX]==true){
-
+      switch(Main.field[pieceY][pieceX]){
+        case 1:
+          Main.lion1.setX(0);Main.lion1.setY(0);
+          break;
+        case 2:
+          Main.elephant1.setX(0);Main.elephant1.setY(0);
+          break;
+        case 3:
+          Main.giraffe1.setX(0);Main.giraffe1.setY(0);
+          break;
+        case 4:
+          Main.chick1.setX(0);Main.chick1.setY(0);
+          break;
+        case 5:
+          Main.chicken1.setX(0);Main.chicken1.setY(0);
+          break;
+        case -1:
+          Main.lion2.setX(0);Main.lion2.setY(0);
+          break;
+        case -2:
+          Main.elephant2.setX(0);Main.elephant2.setY(0);
+          break;
+        case -3:
+          Main.giraffe2.setX(0);Main.giraffe2.setY(0);
+          break;
+        case -4:
+          Main.chick2.setX(0);Main.chick2.setY(0);
+          break;
+        case -5:
+          Main.chicken2.setX(0);Main.chicken2.setY(0);
+          break;
+        default:
+          break;
+      }
       switch(Main.field[prePieceY][prePieceX]){
         case 1:
           Main.lion1.setX(286+130*pieceX);Main.lion1.setY(11+130*pieceY);
@@ -40,7 +73,47 @@ public class Move{
         case 2:
           Main.elephant1.setX(286+130*pieceX);Main.elephant1.setY(11+130*pieceY);
           Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=1;
+          Main.field[pieceY][pieceX]=2;
+          break;
+        case 3:
+          Main.giraffe1.setX(286+130*pieceX);Main.giraffe1.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=3;
+          break;
+        case 4:
+          Main.chick1.setX(286+130*pieceX);Main.chick1.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=4;
+          break;
+        case 5:
+          Main.chicken1.setX(286+130*pieceX);Main.chicken1.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=5;
+          break;
+        case -1:
+          Main.lion2.setX(286+130*pieceX);Main.lion2.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=-1;
+          break;
+        case -2:
+          Main.elephant2.setX(286+130*pieceX);Main.elephant2.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=-2;
+          break;
+        case -3:
+          Main.giraffe2.setX(286+130*pieceX);Main.giraffe2.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=-3;
+          break;
+        case -4:
+          Main.chick2.setX(286+130*pieceX);Main.chick2.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=-4;
+          break;
+        case -5:
+          Main.chicken2.setX(286+130*pieceX);Main.chicken2.setY(11+130*pieceY);
+          Main.field[prePieceY][prePieceX]=0;
+          Main.field[pieceY][pieceX]=-5;
           break;
         default:
           break;

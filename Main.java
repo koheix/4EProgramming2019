@@ -45,6 +45,14 @@ public class Main extends Application {
 
     static ImageView lion1 = new ImageView("images/lion.png");
     static ImageView lion2 = new ImageView("images/lion.png");
+    static ImageView elephant1 = new ImageView("images/zou.png");
+    static ImageView elephant2 = new ImageView("images/zou.png");
+    static ImageView giraffe1 = new ImageView("images/kirin.png");
+    static ImageView giraffe2 = new ImageView("images/kirin.png");
+    static ImageView chick1 = new ImageView("images/hiyoko.png");
+    static ImageView chick2 = new ImageView("images/hiyoko.png");
+    static ImageView chicken1 = new ImageView("images/niwatori.png");
+    static ImageView chicken2 = new ImageView("images/niwatori.png");
 
     @Override
     public void start(final Stage stage) {
@@ -181,13 +189,11 @@ public class Main extends Application {
               break;
             case "elephant":
               if(player==1){
-                ImageView elephant1 = new ImageView("images/zou.png");
                 elephant1.setFitHeight(128);elephant1.setFitWidth(128);
                 elephant1.setX(286+130*y);elephant1.setY(11+130*x);
                 root.getChildren().add(elephant1);
                 field[x][y] = 2;
               }else{
-                ImageView elephant2 = new ImageView("images/zou.png");
                 elephant2.setFitHeight(128);elephant2.setFitWidth(128);
                 elephant2.setX(286+130*y);elephant2.setY(11+130*x);
                 elephant2.setRotate(180);
@@ -197,13 +203,11 @@ public class Main extends Application {
                 break;
             case "giraffe":
               if(player==1){
-                ImageView giraffe1 = new ImageView("images/kirin.png");
                 giraffe1.setFitHeight(128);giraffe1.setFitWidth(128);
                 giraffe1.setX(286+130*y);giraffe1.setY(11+130*x);
                 root.getChildren().add(giraffe1);
                 field[x][y] = 3;
               }else{
-                ImageView giraffe2 = new ImageView("images/kirin.png");
                 giraffe2.setFitHeight(128);giraffe2.setFitWidth(128);
                 giraffe2.setX(286+130*y);giraffe2.setY(11+130*x);
                 giraffe2.setRotate(180);
@@ -213,13 +217,11 @@ public class Main extends Application {
                 break;
             case "chick":
               if(player==1){
-                ImageView chick1 = new ImageView("images/hiyoko.png");
                 chick1.setFitHeight(128);chick1.setFitWidth(128);
                 chick1.setX(286+130*y);chick1.setY(11+130*x);
                 root.getChildren().add(chick1);
                 field[x][y] = 4;
               }else{
-                ImageView chick2 = new ImageView("images/hiyoko.png");
                 chick2.setFitHeight(128);chick2.setFitWidth(128);
                 chick2.setX(286+130*y);chick2.setY(11+130*x);
                 chick2.setRotate(180);
@@ -229,13 +231,11 @@ public class Main extends Application {
                 break;
             case "chicken":
               if(player==1){
-                ImageView chicken1 = new ImageView("images/niwatori.png");
                 chicken1.setFitHeight(128);chicken1.setFitWidth(128);
                 chicken1.setX(286+130*y);chicken1.setY(11+130*x);
                 root.getChildren().add(chicken1);
                 field[x][y] = 5;
               }else{
-                ImageView chicken2 = new ImageView("images/niwatori.png");
                 chicken2.setFitHeight(128);chicken2.setFitWidth(128);
                 chicken2.setX(286+130*y);chicken2.setY(11+130*x);
                 chicken2.setRotate(180);
