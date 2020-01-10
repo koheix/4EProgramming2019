@@ -33,42 +33,42 @@ public class Piece {
     }
     public void setMovable(int pieceX , int pieceY, int player){
       directnum = 0;
-      if((onBoard(pieceX , pieceY - 1)) && (Main.field[pieceY - 1][pieceX] <= 0)){//前はすすめる
+      if((onBoard(pieceX , pieceY - 1)) && ( ((player == 1)&&(Main.field[pieceY - 1][pieceX] <= 0)) ||((player == -1)&&(Main.field[pieceY - 1][pieceX] >= 0)) ) ){//前はすすめる
           direction[pieceY - 1][pieceX] = true;
           directnum++;
       }
 
-      if((onBoard(pieceX + 1 , pieceY - 1)) && (Main.field[pieceY - 1][pieceX + 1] <= 0)){//rightfdは進める
+      if( (onBoard(pieceX + 1 , pieceY - 1)) && ( ((player == 1)&&(Main.field[pieceY - 1][pieceX + 1] <= 0)) ||((player == -1)&&(Main.field[pieceY - 1][pieceX + 1] >= 0)) ) ){//rightfdは進める
           direction[pieceY - 1][pieceX + 1] = true;
           directnum++;
       }
 
-      if((onBoard(pieceX + 1 , pieceY)) && (Main.field[pieceY][pieceX + 1] <= 0)){//rightは進める
+      if((onBoard(pieceX + 1, pieceY)) && ( ((player == 1)&&(Main.field[pieceY][pieceX + 1] <= 0)) ||((player == -1)&&(Main.field[pieceY][pieceX + 1] >= 0)) ) ){//rightは進める
         direction[pieceY][pieceX + 1] = true;
         directnum++;
       }
 
-      if((onBoard(pieceX + 1 , pieceY + 1)) && (Main.field[pieceY + 1][pieceX + 1] <= 0)){//rightbkは進める
+      if((onBoard(pieceX + 1, pieceY + 1)) && ( ((player == 1)&&(Main.field[pieceY + 1][pieceX + 1] <= 0)) ||((player == -1)&&(Main.field[pieceY + 1][pieceX + 1] >= 0)) ) ){//rightbkは進める
         direction[pieceY + 1][pieceX + 1] = true;
         directnum++;
       }
 
-      if((onBoard(pieceX , pieceY + 1)) && (Main.field[pieceY + 1][pieceX] <= 0)){//bkは進める
+      if((onBoard(pieceX , pieceY + 1)) && ( ((player == 1)&&(Main.field[pieceY + 1][pieceX] <= 0)) ||((player == -1)&&(Main.field[pieceY + 1][pieceX] >= 0)) ) ){//bkは進める
         direction[pieceY + 1][pieceX] = true;
         directnum++;
       }
 
-      if((onBoard(pieceX - 1 , pieceY + 1)) && (Main.field[pieceY + 1][pieceX - 1] <= 0)){//leftbkは進める
+      if((onBoard(pieceX - 1 , pieceY + 1)) && ( ((player == 1)&&(Main.field[pieceY + 1][pieceX - 1] <= 0)) ||((player == -1)&&(Main.field[pieceY + 1][pieceX - 1] >= 0)) ) ){//leftbkは進める
         direction[pieceY + 1][pieceX - 1] = true;
         directnum++;
       }
 
-      if((onBoard(pieceX - 1 , pieceY)) && (Main.field[pieceY][pieceX - 1] <= 0)){//leftは進める
+      if((onBoard(pieceX - 1, pieceY)) && ( ((player == 1)&&(Main.field[pieceY][pieceX - 1] <= 0)) ||((player == -1)&&(Main.field[pieceY][pieceX - 1] >= 0)) ) ){//leftは進める
         direction[pieceY][pieceX - 1] = true;
         directnum++;
       }
 
-      if((onBoard(pieceX - 1 , pieceY - 1)) && (Main.field[pieceY - 1][pieceX - 1] <= 0)){//leftfdは進める
+      if((onBoard(pieceX - 1, pieceY - 1)) && ( ((player == 1)&&(Main.field[pieceY - 1][pieceX - 1] <= 0)) ||((player == -1)&&(Main.field[pieceY - 1][pieceX - 1] >= 0)) ) ){//leftfdは進める
         direction[pieceY - 1][pieceX - 1] = true;
         directnum++;
       }
