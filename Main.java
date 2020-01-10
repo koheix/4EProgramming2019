@@ -44,6 +44,7 @@ public class Main extends Application {
     static boolean[][] directionCopy = new boolean[4][3];
 
     static ImageView lion1 = new ImageView("images/lion.png");
+    static ImageView lion2 = new ImageView("images/lion.png");
 
     @Override
     public void start(final Stage stage) {
@@ -166,13 +167,11 @@ public class Main extends Application {
           //画像を貼る処理
             case "lion":
               if(player==1){
-                //ImageView lion1 = new ImageView("images/lion.png");
                 lion1.setFitHeight(128);lion1.setFitWidth(128);
                 lion1.setX(286+130*y);lion1.setY(11+130*x);
                 root.getChildren().add(lion1);
                 field[x][y] = 1;
               }else{
-                ImageView lion2 = new ImageView("images/lion.png");
                 lion2.setFitHeight(128);lion2.setFitWidth(128);
                 lion2.setX(286+130*y);lion2.setY(11+130*x);
                 lion2.setRotate(180);
