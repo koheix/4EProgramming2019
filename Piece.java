@@ -87,10 +87,10 @@ class Giraffe extends Piece{
   @Override
   public void setMovable(int pieceX , int pieceY, int player){
     super.setMovable(pieceX, pieceY, player);
-    if(onBoard(pieceY - 1, pieceX + 1)) direction[pieceY - 1][pieceX + 1] = false;
-    if(onBoard(pieceY + 1, pieceX + 1)) direction[pieceY + 1][pieceX + 1] = false;
-    if(onBoard(pieceY + 1, pieceX - 1)) direction[pieceY + 1][pieceX - 1] = false;
-    if(onBoard(pieceY - 1, pieceX - 1)) direction[pieceY - 1][pieceX - 1] = false;
+    if(onBoard(pieceX + 1, pieceY - 1)) direction[pieceY - 1][pieceX + 1] = false;
+    if(onBoard(pieceX + 1, pieceY + 1)) direction[pieceY + 1][pieceX + 1] = false;
+    if(onBoard(pieceX - 1, pieceY + 1)) direction[pieceY + 1][pieceX - 1] = false;
+    if(onBoard(pieceX - 1, pieceY - 1)) direction[pieceY - 1][pieceX - 1] = false;
   }
 }
 
@@ -98,10 +98,10 @@ class Elephant extends Piece{
   @Override
   public void setMovable(int pieceX, int pieceY, int player){
     super.setMovable(pieceX, pieceY, player);
-    if(onBoard(pieceY - 1, pieceX)) direction[pieceY - 1][pieceX] = false;
-    if(onBoard(pieceY, pieceX + 1)) direction[pieceY][pieceX + 1] = false;
-    if(onBoard(pieceY + 1, pieceX)) direction[pieceY + 1][pieceX] = false;
-    if(onBoard(pieceY, pieceX - 1)) direction[pieceY][pieceX - 1] = false;
+    if(onBoard(pieceX, pieceY - 1)) direction[pieceY - 1][pieceX] = false;
+    if(onBoard(pieceX + 1, pieceY)) direction[pieceY][pieceX + 1] = false;
+    if(onBoard(pieceX, pieceY + 1)) direction[pieceY + 1][pieceX] = false;
+    if(onBoard(pieceX - 1, pieceY)) direction[pieceY][pieceX - 1] = false;
   }
 }
 
@@ -110,22 +110,22 @@ class Chick extends Piece{
   public void setMovable(int pieceX, int pieceY, int player){
     super.setMovable(pieceX, pieceY, player);
     if(player == 1){//前向きのプレイヤー
-    direction[pieceY][pieceX + 1] = false;
-    direction[pieceY + 1][pieceX] = false;
-    direction[pieceY][pieceX - 1] = false;
-    direction[pieceY - 1][pieceX + 1] = false;
-    direction[pieceY + 1][pieceX + 1] = false;
-    direction[pieceY + 1][pieceX - 1] = false;
-    direction[pieceY - 1][pieceX - 1] = false;
+      if(onBoard(pieceX + 1, pieceY - 1)) direction[pieceY - 1][pieceX + 1] = false;
+      if(onBoard(pieceX + 1, pieceY + 1)) direction[pieceY + 1][pieceX + 1] = false;
+      if(onBoard(pieceX - 1, pieceY + 1)) direction[pieceY + 1][pieceX - 1] = false;
+      if(onBoard(pieceX - 1, pieceY - 1)) direction[pieceY - 1][pieceX - 1] = false;
+      if(onBoard(pieceX + 1, pieceY)) direction[pieceY][pieceX + 1] = false;
+      if(onBoard(pieceX, pieceY + 1)) direction[pieceY + 1][pieceX] = false;
+      if(onBoard(pieceX - 1, pieceY)) direction[pieceY][pieceX - 1] = false;
     }
     else{//後ろ向きのプレイヤー
-    direction[pieceY - 1][pieceX] = false;
-    direction[pieceY][pieceX + 1] = false;
-    direction[pieceY][pieceX - 1] = false;
-    direction[pieceY - 1][pieceX + 1] = false;
-    direction[pieceY + 1][pieceX + 1] = false;
-    direction[pieceY + 1][pieceX - 1] = false;
-    direction[pieceY - 1][pieceX - 1] = false;
+      if(onBoard(pieceX + 1, pieceY - 1)) direction[pieceY - 1][pieceX + 1] = false;
+      if(onBoard(pieceX + 1, pieceY + 1)) direction[pieceY + 1][pieceX + 1] = false;
+      if(onBoard(pieceX - 1, pieceY + 1)) direction[pieceY + 1][pieceX - 1] = false;
+      if(onBoard(pieceX - 1, pieceY - 1)) direction[pieceY - 1][pieceX - 1] = false;
+      if(onBoard(pieceX, pieceY - 1)) direction[pieceY - 1][pieceX] = false;
+      if(onBoard(pieceX + 1, pieceY)) direction[pieceY][pieceX + 1] = false;
+      if(onBoard(pieceX - 1, pieceY)) direction[pieceY][pieceX - 1] = false;
     }
   }
 }
