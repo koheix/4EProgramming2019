@@ -13,6 +13,7 @@ public class Piece {
         }
         int pieceX = (x - 285)/130; //field配列でのコマの位置
         int pieceY = (y - 10)/130;
+        if(!onBoard(pieceX, pieceY)) return false;//クリックされた場所が盤面上ではない
         setMovable(pieceX , pieceY);
         if(directnum >0) return true;//すすめるマスが一つでもあればtrueを返す
         else return false;
@@ -87,5 +88,24 @@ class Giraffe extends Piece{
     direction[pieceY + 1][pieceX + 1] = false;
     direction[pieceY + 1][pieceX - 1] = false;
     direction[pieceY - 1][pieceX - 1] = false;
+  }
+}
+
+class Elephant extends Piece{
+  @Override
+  public void setMovable(int pieceX, int pieceY){
+    super.setMovable(pieceX, pieceY);
+    direction[pieceY - 1][pieceX] = false;
+    direction[pieceY][pieceX + 1] = false;
+    direction[pieceY + 1][pieceX] = false;
+    direction[pieceY][pieceX - 1] = false;
+  }
+}
+
+class Chick extends Piece{
+  @Override
+  public void setMovable(int pieceX, int pieceY){
+    super.setMovable(pieceX, pieceY);
+
   }
 }
