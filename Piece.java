@@ -21,9 +21,6 @@ public class Piece {
         if(directnum >0) return true;//すすめるマスが一つでもあればtrueを返す
         else return false;
     }
-    public void move(String direction){
-
-    }//選択されたコマが動く処理
     public boolean isKing(){
         return false;
     }//そのコマは王なのか
