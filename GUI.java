@@ -31,8 +31,11 @@ public class GUI{
 
 
   public void directionCheck(double mouseX, double mouseY){
-    int pieceX = (int)(mouseX - 285)/130; //field配列でのコマの位置
-    int pieceY = (int)(mouseY - 10)/130;
+    int pieceX, pieceY;
+    if(mouseX < 285) pieceX = -1222; //field配列でのコマの位置
+    else pieceX = (int)(mouseX - 285)/130;
+    if(mouseY < 10) pieceY = -560;
+    else pieceY = (int)(mouseY - 10)/130;
     if(!Piece.onBoard(pieceX,pieceY)){
       Piece.directionReset();
       return;
