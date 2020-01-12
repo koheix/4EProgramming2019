@@ -187,7 +187,6 @@ public class Main extends Application {
         btn2.setOnMouseClicked(event -> {
           setScene(stage,title);
           initialize(stage, title, root);
-          System.out.println("aaa");
         });
     }
 
