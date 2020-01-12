@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.*;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -20,6 +21,7 @@ public class Main extends Application {
     private final int height = 540;//ウインドウの大きさ
 
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
+    static int[] king = {1 ,1};//王は普通ライオン1(この変数を変えれば王は変えられる)
 
 
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
@@ -53,6 +55,10 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
+    
+    static Text t1 = new Text(10, 250 , "あなたのターン");
+    static Text t2 = new Text(700, 250 , "あいてのターン");
+    Button btn2 = new Button("タイトルへ");//ゲーム中の戻るボタン
 
     @Override
     public void start(final Stage stage) {
@@ -76,9 +82,35 @@ public class Main extends Application {
 
         initTitle(stage,title,scene,pane);
         initialize(stage,title,root);
+
+        root.getChildren().add(lion1);
+        root.getChildren().add(lion2);
+        root.getChildren().add(elephant1);
+        root.getChildren().add(elephant2);
+        root.getChildren().add(giraffe1);
+        root.getChildren().add(giraffe2);
+        root.getChildren().add(chick1);
+        root.getChildren().add(chick2);
+
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
         stage.show();
+        final Text p1 = new Text(10, 350 , "プレイヤー1");
+        p1.setFont(new Font(35));
+        root.getChildren().add(p1);
+
+        final Text p2 = new Text(700, 350 , "プレイヤー2");
+        p2.setFont(new Font(35));
+        root.getChildren().add(p2);
+
+        t1.setFont(new Font(35));
+        root.getChildren().add(t1);
+
+        t2.setFont(new Font(35));
+        root.getChildren().add(t2);
+
+        btn2.setPrefSize(100,50);
+        root.getChildren().add(btn2);
 
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
 
@@ -133,6 +165,16 @@ public class Main extends Application {
     }
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
+        for(int i = 0;i < 4;i++){//fieldの初期化を行う
+          for(int j = 0;j < 3;j++){
+            field[i][j] = 0;
+          }
+        }
+        Turn.resetGame();//ターンの初期化を行う
+        t1.setText("あなたのターン");
+        t2.setText("あいてのターン");
+        t1.setUnderline(false);
+        t2.setUnderline(false);
         drawChara("lion" , 3 , 1 , root , 1);
         drawChara("chick" , 2 , 1 , root , 1);
         drawChara("elephant" , 3 , 0 , root , 1);
@@ -142,10 +184,11 @@ public class Main extends Application {
         drawChara("elephant" , 0 , 2 , root , -1);
         drawChara("giraffe", 0, 0 , root , -1);
 
-        Button btn2 = new Button("タイトルへ");
-        btn2.setPrefSize(100,50);
-        btn2.setOnMouseClicked(event -> setScene(stage,title));
-        root.getChildren().add(btn2);
+        btn2.setOnMouseClicked(event -> {
+          setScene(stage,title);
+          initialize(stage, title, root);
+          System.out.println("aaa");
+        });
     }
 
     public static  void setScene(Stage stage,Scene changeScene) {
@@ -177,13 +220,13 @@ public class Main extends Application {
               if(player==1){
                 lion1.setFitHeight(128);lion1.setFitWidth(128);
                 lion1.setX(286+130*y);lion1.setY(11+130*x);
-                root.getChildren().add(lion1);
+                //root.getChildren().add(lion1);
                 field[x][y] = 1;
               }else{
                 lion2.setFitHeight(128);lion2.setFitWidth(128);
                 lion2.setX(286+130*y);lion2.setY(11+130*x);
                 lion2.setRotate(180);
-                root.getChildren().add(lion2);
+                //root.getChildren().add(lion2);
                 field[x][y] = -1;
               }
               break;
@@ -191,13 +234,13 @@ public class Main extends Application {
               if(player==1){
                 elephant1.setFitHeight(128);elephant1.setFitWidth(128);
                 elephant1.setX(286+130*y);elephant1.setY(11+130*x);
-                root.getChildren().add(elephant1);
+                //root.getChildren().add(elephant1);
                 field[x][y] = 2;
               }else{
                 elephant2.setFitHeight(128);elephant2.setFitWidth(128);
                 elephant2.setX(286+130*y);elephant2.setY(11+130*x);
                 elephant2.setRotate(180);
-                root.getChildren().add(elephant2);
+                //root.getChildren().add(elephant2);
                 field[x][y] = -2;
               }
                 break;
@@ -205,13 +248,13 @@ public class Main extends Application {
               if(player==1){
                 giraffe1.setFitHeight(128);giraffe1.setFitWidth(128);
                 giraffe1.setX(286+130*y);giraffe1.setY(11+130*x);
-                root.getChildren().add(giraffe1);
+                //root.getChildren().add(giraffe1);
                 field[x][y] = 3;
               }else{
                 giraffe2.setFitHeight(128);giraffe2.setFitWidth(128);
                 giraffe2.setX(286+130*y);giraffe2.setY(11+130*x);
                 giraffe2.setRotate(180);
-                root.getChildren().add(giraffe2);
+                //root.getChildren().add(giraffe2);
                 field[x][y] = -3;
               }
                 break;
@@ -219,13 +262,13 @@ public class Main extends Application {
               if(player==1){
                 chick1.setFitHeight(128);chick1.setFitWidth(128);
                 chick1.setX(286+130*y);chick1.setY(11+130*x);
-                root.getChildren().add(chick1);
+                //root.getChildren().add(chick1);
                 field[x][y] = 4;
               }else{
                 chick2.setFitHeight(128);chick2.setFitWidth(128);
                 chick2.setX(286+130*y);chick2.setY(11+130*x);
                 chick2.setRotate(180);
-                root.getChildren().add(chick2);
+                //root.getChildren().add(chick2);
                 field[x][y] = -4;
               }
                 break;
@@ -233,13 +276,13 @@ public class Main extends Application {
               if(player==1){
                 chicken1.setFitHeight(128);chicken1.setFitWidth(128);
                 chicken1.setX(286+130*y);chicken1.setY(11+130*x);
-                root.getChildren().add(chicken1);
+                //root.getChildren().add(chicken1);
                 field[x][y] = 5;
               }else{
                 chicken2.setFitHeight(128);chicken2.setFitWidth(128);
                 chicken2.setX(286+130*y);chicken2.setY(11+130*x);
                 chicken2.setRotate(180);
-                root.getChildren().add(chicken2);
+                //root.getChildren().add(chicken2);
                 field[x][y] = -5;
               }
                 break;

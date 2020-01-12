@@ -14,4 +14,7 @@ public class Turn{
         if(turn == 1) return 1;
         else return 2;
     }
+    static public void resetGame(){//ゲームをもう一度開始する時に使う
+        turn = 1;
+    }
 }

@@ -29,9 +29,27 @@ public class Move{
     System.out.println(mouseX+","+mouseY);
     if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;
     System.out.println(Main.directionCopy[pieceY][pieceX]);
-    if(Main.directionCopy[pieceY][pieceX]==true){
-      if(Math.abs(Main.field[pieceY][pieceX]) == 1){//もしライオンが取られたらゲームオーバー
+    if(Main.directionCopy[pieceY][pieceX]){//そこへ動く
+      if(Turn.myTurn(1)){//プレイヤー1のターンがこの手でおわる//文字盤の変更
+        Main.t1.setText("あいてのターン");
+        Main.t2.setText("あなたのターン");
+      }
+      else{
+        Main.t1.setText("あなたのターン");
+        Main.t2.setText("あいてのターン");
+      }
+      if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[Turn.turnPlayer() - 1]){//もし王が取られたらゲームオーバー
         System.out.println("プレイヤー"+Turn.turnPlayer()+"の価値です。");
+        if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
+          Main.t1.setUnderline(true);
+          Main.t1.setText("あなたの勝利！");
+          Main.t2.setText("あなたは\n負けました");
+        }
+        else{//プレイヤー2の勝ち
+          Main.t2.setText("あなたの勝利！");
+          Main.t2.setUnderline(true);
+          Main.t1.setText("あなたは\n負けました");
+        }
         Turn.gameOver();
       }
       switch(Main.field[pieceY][pieceX]){
