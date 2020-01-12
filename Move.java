@@ -119,6 +119,7 @@ public class Move{
           break;
       }
       Piece.directionReset();
+      Turn.turnChange();//turnをchange & ASKA
     }
 }
 }

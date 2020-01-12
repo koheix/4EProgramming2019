@@ -1,4 +1,4 @@
-static public class Turn{
+public class Turn{
     public static int turn = 1;
     static public void turnChange() {
         turn *= -1;
