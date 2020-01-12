@@ -1,9 +1,9 @@
-public class Turn{
-    private int turn = 1;
-    public void turnChange(){
-        this.turn *= -1;
+static public class Turn{
+    public static int turn = 1;
+    static public void turnChange() {
+        turn *= -1;
     }
-    public boolean myTurn(int player){
+    static public boolean myTurn(int player){
         if(player == turn) return true;
         else return false;
     }

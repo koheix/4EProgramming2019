@@ -10,6 +10,10 @@ public class Piece {
       }
     }
     public boolean movable(int x , int y , int player){//正の向きのプレイヤーは1 , 負の向きは2
+        if(!Turn.myTurn(player)){//俺のターンじゃないやんけ
+          System.out.println("お前のターンじゃない。");
+          return false;
+        }
         directionReset();
         int pieceX, pieceY;
         if(x < 285) pieceX = -1222; //field配列でのコマの位置
