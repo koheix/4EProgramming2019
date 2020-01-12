@@ -30,6 +30,10 @@ public class Move{
     if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;
     System.out.println(Main.directionCopy[pieceY][pieceX]);
     if(Main.directionCopy[pieceY][pieceX]==true){
+      if(Math.abs(Main.field[pieceY][pieceX]) == 1){//もしライオンが取られたらゲームオーバー
+        System.out.println("プレイヤー"+Turn.turnPlayer()+"の価値です。");
+        Turn.gameOver();
+      }
       switch(Main.field[pieceY][pieceX]){
         case 1:
           Main.lion1.setX(0);Main.lion1.setY(0);
