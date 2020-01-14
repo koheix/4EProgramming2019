@@ -139,6 +139,20 @@ public class Main extends Application {
         GUI g = new GUI();
         g.directionCheck(e.getX(),e.getY());
         g.isValid(previousX,previousY,e.getX(),e.getY());
+        for(int i=0;i<3;i++){
+          if((field[0][i] == 4)&&(Turn.turn==-1)){
+            root.getChildren().remove(Move.animalToImage(i,0));
+            root.getChildren().add(chicken1);
+            field[0][i] = 5;
+            drawChara("chicken",0,i,1);
+          }else if((field[3][i] == -4)&&(Turn.turn==1)){
+            root.getChildren().remove(Move.animalToImage(i,3));
+            root.getChildren().add(chicken2);
+            field[3][i] = -5;
+            drawChara("chicken",3,i,-1);
+          }
+        }
+
         previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
@@ -167,6 +181,20 @@ public class Main extends Application {
     }
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
+      for(int i=0;i<4;i++){
+        for(int j=0;j<3;j++){
+          System.out.println(animal[i][j]+",");
+          if(animal[i][j]=="ch1"){
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            root.getChildren().remove(chicken1);
+            root.getChildren().add(chick1);
+          }else if(animal[i][j]=="ch2"){
+            root.getChildren().remove(chicken2);
+            root.getChildren().add(chick2);
+          }
+        }
+      }
+
         for(int i = 0;i < 4;i++){//fieldの初期化を行う
           for(int j = 0;j < 3;j++){
             field[i][j] = 0;
@@ -179,19 +207,20 @@ public class Main extends Application {
               root.getChildren().remove(redBack[i][j]);
             }
           }
+
         Turn.resetGame();//ターンの初期化を行う
         t1.setText("あなたのターン");
         t2.setText("あいてのターン");
         t1.setUnderline(false);
         t2.setUnderline(false);
-        drawChara("lion" , 3 , 1 , root , 1);
-        drawChara("chick" , 2 , 1 , root , 1);
-        drawChara("elephant" , 3 , 0 , root , 1);
-        drawChara("giraffe", 3, 2 , root , 1);
-        drawChara("lion" , 0 , 1 , root , -1);
-        drawChara("chick" , 1 , 1 , root , -1);
-        drawChara("elephant" , 0 , 2 , root , -1);
-        drawChara("giraffe", 0, 0 , root , -1);
+        drawChara("lion" , 3 , 1 , 1);
+        drawChara("chick" , 2 , 1 , 1);
+        drawChara("elephant" , 3 , 0 , 1);
+        drawChara("giraffe", 3, 2 , 1);
+        drawChara("lion" , 0 , 1 , -1);
+        drawChara("chick" , 1 , 1 , -1);
+        drawChara("elephant" , 0 , 2 , -1);
+        drawChara("giraffe", 0, 0 , -1);
 
         btn2.setOnMouseClicked(event -> {
           setScene(stage,title);
@@ -221,7 +250,7 @@ public class Main extends Application {
         }
     }
 
-    public void drawChara(String animalname , int x , int y ,Group root ,int player) {//x ,yは盤面の配列の座標
+    public void drawChara(String animalname , int x , int y ,int player) {//x ,yは盤面の配列の座標
         switch(animalname){//動物判定
           //画像を貼る処理
             case "lion":
