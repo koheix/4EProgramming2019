@@ -138,8 +138,7 @@ public class Main extends Application {
         }
         GUI g = new GUI();
         g.directionCheck(e.getX(),e.getY());
-        Move m = new Move();
-        m.moveTo(previousX,previousY,e.getX(),e.getY());
+        g.isValid(previousX,previousY,e.getX(),e.getY());
         previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
@@ -171,6 +170,7 @@ public class Main extends Application {
         for(int i = 0;i < 4;i++){//fieldの初期化を行う
           for(int j = 0;j < 3;j++){
             field[i][j] = 0;
+            animal[i][j] = null;
           }
         }
         Piece.directionReset();
@@ -221,21 +221,21 @@ public class Main extends Application {
         }
     }
 
-    public void drawChara(String animal , int x , int y ,Group root ,int player) {//x ,yは盤面の配列の座標
-        switch(animal){//動物判定
+    public void drawChara(String animalname , int x , int y ,Group root ,int player) {//x ,yは盤面の配列の座標
+        switch(animalname){//動物判定
           //画像を貼る処理
             case "lion":
               if(player==1){
                 lion1.setFitHeight(128);lion1.setFitWidth(128);
                 lion1.setX(286+130*y);lion1.setY(11+130*x);
                 //root.getChildren().add(lion1);
-                field[x][y] = 1;
+                field[x][y] = 1;animal[x][y] = "l1";
               }else{
                 lion2.setFitHeight(128);lion2.setFitWidth(128);
                 lion2.setX(286+130*y);lion2.setY(11+130*x);
                 lion2.setRotate(180);
                 //root.getChildren().add(lion2);
-                field[x][y] = -1;
+                field[x][y] = -1;animal[x][y] = "l2";
               }
               break;
             case "elephant":
@@ -243,13 +243,13 @@ public class Main extends Application {
                 elephant1.setFitHeight(128);elephant1.setFitWidth(128);
                 elephant1.setX(286+130*y);elephant1.setY(11+130*x);
                 //root.getChildren().add(elephant1);
-                field[x][y] = 2;
+                field[x][y] = 2;animal[x][y] = "e1";
               }else{
                 elephant2.setFitHeight(128);elephant2.setFitWidth(128);
                 elephant2.setX(286+130*y);elephant2.setY(11+130*x);
                 elephant2.setRotate(180);
                 //root.getChildren().add(elephant2);
-                field[x][y] = -2;
+                field[x][y] = -2;animal[x][y] = "e2";
               }
                 break;
             case "giraffe":
@@ -257,13 +257,13 @@ public class Main extends Application {
                 giraffe1.setFitHeight(128);giraffe1.setFitWidth(128);
                 giraffe1.setX(286+130*y);giraffe1.setY(11+130*x);
                 //root.getChildren().add(giraffe1);
-                field[x][y] = 3;
+                field[x][y] = 3;animal[x][y] = "g1";
               }else{
                 giraffe2.setFitHeight(128);giraffe2.setFitWidth(128);
                 giraffe2.setX(286+130*y);giraffe2.setY(11+130*x);
                 giraffe2.setRotate(180);
                 //root.getChildren().add(giraffe2);
-                field[x][y] = -3;
+                field[x][y] = -3;animal[x][y] = "g2";
               }
                 break;
             case "chick":
@@ -271,13 +271,13 @@ public class Main extends Application {
                 chick1.setFitHeight(128);chick1.setFitWidth(128);
                 chick1.setX(286+130*y);chick1.setY(11+130*x);
                 //root.getChildren().add(chick1);
-                field[x][y] = 4;
+                field[x][y] = 4;animal[x][y] = "c1";
               }else{
                 chick2.setFitHeight(128);chick2.setFitWidth(128);
                 chick2.setX(286+130*y);chick2.setY(11+130*x);
                 chick2.setRotate(180);
                 //root.getChildren().add(chick2);
-                field[x][y] = -4;
+                field[x][y] = -4;animal[x][y] = "c2";
               }
                 break;
             case "chicken":
@@ -285,13 +285,13 @@ public class Main extends Application {
                 chicken1.setFitHeight(128);chicken1.setFitWidth(128);
                 chicken1.setX(286+130*y);chicken1.setY(11+130*x);
                 //root.getChildren().add(chicken1);
-                field[x][y] = 5;
+                field[x][y] = 5;animal[x][y] = "ch1";
               }else{
                 chicken2.setFitHeight(128);chicken2.setFitWidth(128);
                 chicken2.setX(286+130*y);chicken2.setY(11+130*x);
                 chicken2.setRotate(180);
                 //root.getChildren().add(chicken2);
-                field[x][y] = -5;
+                field[x][y] = -5;animal[x][y] = "ch2";
               }
                 break;
             default:

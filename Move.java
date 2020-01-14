@@ -15,133 +15,56 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class Move{
-  public void moveTo(double previousX,double previousY,double mouseX, double mouseY){
-    int prePieceX,prePieceY,pieceX,pieceY;
-    if(previousX < 285) prePieceX = -1222;
-    else prePieceX = (int)(previousX - 285)/130;
-    if(previousY < 10) prePieceY = -560;
-    else prePieceY = (int)(previousY - 10)/130;
-    if(mouseX < 285) pieceX = -1222;
-    else pieceX = (int)(mouseX - 285)/130;
-    if(mouseY < 10) pieceY = -560;
-    else pieceY = (int)(mouseY - 10)/130;
-    System.out.println(previousX+","+previousY);
-    System.out.println(mouseX+","+mouseY);
-    if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;
-    System.out.println(Main.directionCopy[pieceY][pieceX]);
-    if(Main.directionCopy[pieceY][pieceX]){//そこへ動く
-      if(Turn.myTurn(1)){//プレイヤー1のターンがこの手でおわる//文字盤の変更
-        Main.t1.setText("あいてのターン");
-        Main.t2.setText("あなたのターン");
-      }
-      else{
-        Main.t1.setText("あなたのターン");
-        Main.t2.setText("あいてのターン");
-      }
-      if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[Turn.turnPlayer() - 1]){//もし王が取られたらゲームオーバー
-        System.out.println("プレイヤー"+Turn.turnPlayer()+"の価値です。");
-        if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
-          Main.t1.setUnderline(true);
-          Main.t1.setText("あなたの勝利！");
-          Main.t2.setText("あなたは\n負けました");
-        }
-        else{//プレイヤー2の勝ち
-          Main.t2.setText("あなたの勝利！");
-          Main.t2.setUnderline(true);
-          Main.t1.setText("あなたは\n負けました");
-        }
-        Turn.gameOver();
-      }
-      switch(Main.field[pieceY][pieceX]){
-        case 1:
-          Main.lion1.setX(0);Main.lion1.setY(0);
-          break;
-        case 2:
-          Main.elephant1.setX(0);Main.elephant1.setY(0);
-          break;
-        case 3:
-          Main.giraffe1.setX(0);Main.giraffe1.setY(0);
-          break;
-        case 4:
-          Main.chick1.setX(0);Main.chick1.setY(0);
-          break;
-        case 5:
-          Main.chicken1.setX(0);Main.chicken1.setY(0);
-          break;
-        case -1:
-          Main.lion2.setX(0);Main.lion2.setY(0);
-          break;
-        case -2:
-          Main.elephant2.setX(0);Main.elephant2.setY(0);
-          break;
-        case -3:
-          Main.giraffe2.setX(0);Main.giraffe2.setY(0);
-          break;
-        case -4:
-          Main.chick2.setX(0);Main.chick2.setY(0);
-          break;
-        case -5:
-          Main.chicken2.setX(0);Main.chicken2.setY(0);
-          break;
-        default:
-          break;
-      }
-      switch(Main.field[prePieceY][prePieceX]){
-        case 1:
-          Main.lion1.setX(286+130*pieceX);Main.lion1.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=1;
-          break;
-        case 2:
-          Main.elephant1.setX(286+130*pieceX);Main.elephant1.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=2;
-          break;
-        case 3:
-          Main.giraffe1.setX(286+130*pieceX);Main.giraffe1.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=3;
-          break;
-        case 4:
-          Main.chick1.setX(286+130*pieceX);Main.chick1.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=4;
-          break;
-        case 5:
-          Main.chicken1.setX(286+130*pieceX);Main.chicken1.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=5;
-          break;
-        case -1:
-          Main.lion2.setX(286+130*pieceX);Main.lion2.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=-1;
-          break;
-        case -2:
-          Main.elephant2.setX(286+130*pieceX);Main.elephant2.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=-2;
-          break;
-        case -3:
-          Main.giraffe2.setX(286+130*pieceX);Main.giraffe2.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=-3;
-          break;
-        case -4:
-          Main.chick2.setX(286+130*pieceX);Main.chick2.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=-4;
-          break;
-        case -5:
-          Main.chicken2.setX(286+130*pieceX);Main.chicken2.setY(11+130*pieceY);
-          Main.field[prePieceY][prePieceX]=0;
-          Main.field[pieceY][pieceX]=-5;
-          break;
-        default:
-          break;
-      }
-      Piece.directionReset();
-      Turn.turnChange();//turnをchange & ASKA
-    }
+  private ImageView animalToImage(int x,int y){
+  switch(Main.animal[y][x]){
+    case "l1":
+      System.out.println("hellobbbbbbbb");
+      return Main.lion1;
+    case "l2":
+      return Main.lion2;
+    case "e1":
+      return Main.elephant1;
+    case "e2":
+      return Main.elephant2;
+    case "g1":
+      return Main.giraffe1;
+    case "g2":
+      return Main.giraffe2;
+    case "c1":
+      return Main.chick1;
+    case "c2":
+      return Main.chick2;
+    case "ch1":
+      return Main.chicken1;
+    case "ch2":
+      return Main.chicken2;
+    default:
+      return null;
+  }
 }
+
+  public void movemove(int prePieceX, int prePieceY, int pieceX, int pieceY){
+
+      System.out.println(pieceX+","+pieceY+","+Main.field[pieceY][pieceX]+"kokode?");
+
+    if(Main.field[pieceY][pieceX]!=0){
+      if(Turn.turn==1){
+        animalToImage(pieceX,pieceY).setX(0);
+        animalToImage(pieceX,pieceY).setY(0);
+      }else{
+        animalToImage(pieceX,pieceY).setX(800);
+        animalToImage(pieceX,pieceY).setY(0);
+      }
+    }
+
+      animalToImage(prePieceX,prePieceY).setX(286+130*pieceX);
+      animalToImage(prePieceX,prePieceY).setY(11+130*pieceY);
+
+      Main.field[pieceY][pieceX]=Main.field[prePieceY][prePieceX];
+      Main.field[prePieceY][prePieceX]=0;
+      Main.animal[pieceY][pieceX]=Main.animal[prePieceY][prePieceX];
+      Main.animal[prePieceY][prePieceX]=null;
+      //Main.player=(-1)*Main.player;
+
+    }
 }

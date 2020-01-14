@@ -76,4 +76,48 @@ public class GUI{
         break;
     }
   }
+
+  public void isValid(double previousX,double previousY,double mouseX, double mouseY){
+    int prePieceX,prePieceY,pieceX,pieceY;
+    if(previousX < 285) prePieceX = -1222;
+    else prePieceX = (int)(previousX - 285)/130;
+    if(previousY < 10) prePieceY = -560;
+    else prePieceY = (int)(previousY - 10)/130;
+    if(mouseX < 285) pieceX = -1222;
+    else pieceX = (int)(mouseX - 285)/130;
+    if(mouseY < 10) pieceY = -560;
+    else pieceY = (int)(mouseY - 10)/130;
+    System.out.println(previousX+","+previousY);
+    System.out.println(mouseX+","+mouseY);
+    if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;
+    System.out.println(Main.directionCopy[pieceY][pieceX]);
+    if(Main.directionCopy[pieceY][pieceX]){//そこへ動く
+      if(Turn.myTurn(1)){//プレイヤー1のターンがこの手でおわる//文字盤の変更
+        Main.t1.setText("あいてのターン");
+        Main.t2.setText("あなたのターン");
+      }
+      else{
+        Main.t1.setText("あなたのターン");
+        Main.t2.setText("あいてのターン");
+      }
+      if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[Turn.turnPlayer() - 1]){//もし王が取られたらゲームオーバー
+        System.out.println("プレイヤー"+Turn.turnPlayer()+"の価値です。");
+        if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
+          Main.t1.setUnderline(true);
+          Main.t1.setText("あなたの勝利！");
+          Main.t2.setText("あなたは\n負けました");
+        }
+        else{//プレイヤー2の勝ち
+          Main.t2.setText("あなたの勝利！");
+          Main.t2.setUnderline(true);
+          Main.t1.setText("あなたは\n負けました");
+        }
+        Turn.gameOver();
+      }
+      Move m = new Move();
+      m.movemove(prePieceX,prePieceY,pieceX,pieceY);
+      Piece.directionReset();
+      Turn.turnChange();//turnをchange & ASKA
+    }
+}
 }
