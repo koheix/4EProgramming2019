@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class Move{
-  private ImageView animalToImage(int x,int y){
+  public static ImageView animalToImage(int x,int y){
   switch(Main.animal[y][x]){
     case "l1":
       System.out.println("hellobbbbbbbb");
