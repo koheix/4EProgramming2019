@@ -22,6 +22,9 @@ public class Main extends Application {
 
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
     static int[] king = {1 ,1};//王は普通ライオン1(この変数を変えれば王は変えられる)
+    static String[][] animal = {{"g2","l2","e2"},{null,"c2",null},{null,"c1",null},{"e1","l1","g1"}};
+    static String[][] animalp1 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
+    static String[][] animalp2 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
 
 
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
@@ -55,7 +58,7 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
-    
+
     static Text t1 = new Text(10, 250 , "あなたのターン");
     static Text t2 = new Text(700, 250 , "あいてのターン");
     Button btn2 = new Button("タイトルへ");//ゲーム中の戻るボタン
@@ -170,6 +173,12 @@ public class Main extends Application {
             field[i][j] = 0;
           }
         }
+        Piece.directionReset();
+        for(int i=0;i<4;i++){
+          for(int j=0;j<3;j++){
+              root.getChildren().remove(redBack[i][j]);
+            }
+          }
         Turn.resetGame();//ターンの初期化を行う
         t1.setText("あなたのターン");
         t2.setText("あいてのターン");
