@@ -22,9 +22,9 @@ public class Main extends Application {
 
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
     static int[] king = {1 ,1};//王は普通ライオン1(この変数を変えれば王は変えられる)
-    static String[][] animal = {{"g2","l2","e2"},{null,"c2",null},{null,"c1",null},{"e1","l1","g1"}};
-    static String[][] animalp1 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
-    static String[][] animalp2 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
+    static String[][] animal = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
+    //static String[][] animalp1 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
+    //static String[][] animalp2 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
 
 
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
