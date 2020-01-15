@@ -84,13 +84,19 @@ public static ImageView animalnameToImage(String animalname){
         animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnX());
         Main.mypiece.addPiece(Main.field[pieceY][pieceX],animalToImage(pieceX,pieceY));
       }*/
+      if(Turn.myTurn(1)){
+        Main.mypiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+        System.out.println("移動先："+Main.yourpiece.returnX()+","+Main.yourpiece.returnY());
+        animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
+        animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnY());
+      }else{
+        Main.yourpiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+        System.out.println("移動先："+Main.mypiece.returnX()+","+Main.mypiece.returnY());
+        animalToImage(pieceX,pieceY).setX(Main.mypiece.returnX());
+        animalToImage(pieceX,pieceY).setY(Main.mypiece.returnY());
+      }
 
-      System.out.println("移動先："+Main.yourpiece.returnX()+","+Main.yourpiece.returnY());
-      animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
-      animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnY());
-      Main.mypiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
       animalToImage(pieceX,pieceY).setFitHeight(80);animalToImage(pieceX,pieceY).setFitWidth(80);
-      System.out.println(90*(Turn.turn+1));
       animalToImage(pieceX,pieceY).setRotate(0);
     }
 
