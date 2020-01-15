@@ -130,3 +130,18 @@ class Chick extends Piece{
     }
   }
 }
+class Chicken extends Piece{
+  @Override
+  public void setMovable(int pieceX , int pieceY , int player){
+    super.setMovable(pieceX, pieceY, player);
+    if(player == 1){//プレイヤー1の場合
+      if(onBoard(pieceX + 1, pieceY + 1)) direction[pieceY + 1][pieceX + 1] = false;
+      if(onBoard(pieceX - 1, pieceY + 1)) direction[pieceY + 1][pieceX - 1] = false;
+    }
+    else{
+      if(onBoard(pieceX - 1, pieceY - 1)) direction[pieceY - 1][pieceX - 1] = false;
+      if(onBoard(pieceX + 1, pieceY - 1)) direction[pieceY - 1][pieceX + 1] = false;
+    }
+  }
+
+}
