@@ -24,6 +24,7 @@ public class MyPiece{
         mypiece.remove(element);
         preimage = myimage.get(element);
         myimage.remove(element);
+
         piecenum--;
     }
     public int getPieceNum(){//持ち駒の数を返す
