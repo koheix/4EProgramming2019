@@ -86,14 +86,14 @@ public static ImageView animalnameToImage(String animalname){
       }*/
       if(Turn.myTurn(1)){
         Main.mypiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
-        System.out.println("移動先："+Main.yourpiece.returnX()+","+Main.yourpiece.returnY());
-        animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
-        animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnY());
-      }else{
-        Main.yourpiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
         System.out.println("移動先："+Main.mypiece.returnX()+","+Main.mypiece.returnY());
         animalToImage(pieceX,pieceY).setX(Main.mypiece.returnX());
         animalToImage(pieceX,pieceY).setY(Main.mypiece.returnY());
+      }else{
+        Main.yourpiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+        System.out.println("移動先："+Main.yourpiece.returnX()+","+Main.yourpiece.returnY());
+        animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
+        animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnY());
       }
 
       animalToImage(pieceX,pieceY).setFitHeight(80);animalToImage(pieceX,pieceY).setFitWidth(80);
@@ -122,12 +122,13 @@ public static ImageView animalnameToImage(String animalname){
       }else{
         Main.yourpiece.removePiece(mouseX,mouseY);
       }
-
-      animalnameToImage(MyPiece.preimage).setX(286+130*pieceY);
+      System.out.println("追加先："+(286+130*pieceX)+","+(11+130*pieceY)+","+MyPiece.preimage+","+MyPiece.preanimal);
+      animalnameToImage(MyPiece.preimage).setX(286+130*pieceX);
       animalnameToImage(MyPiece.preimage).setY(11+130*pieceY);
       animalnameToImage(MyPiece.preimage).setFitHeight(128);
       animalnameToImage(MyPiece.preimage).setFitWidth(128);
       Main.field[pieceY][pieceX] = MyPiece.preanimal;
+
 
     }
 }
