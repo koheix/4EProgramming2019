@@ -48,6 +48,9 @@ public class Main extends Application {
     double previousX = 0,previousY = 0;
     static boolean[][] directionCopy = new boolean[4][3];
 
+    static MyPiece mypiece = new MyPiece();
+    static MyPiece yourpiece = new MyPiece();
+
     static ImageView lion1 = new ImageView("images/lion.png");
     static ImageView lion2 = new ImageView("images/lion.png");
     static ImageView elephant1 = new ImageView("images/zou.png");
@@ -123,7 +126,7 @@ public class Main extends Application {
         if(first==0){ //1回目クリックされたら実行
             first=1;
         }else{
-          for(int i=0;i<4;i++){
+          for(int i=0;i<4;i++){//赤枠を消去
             for(int j=0;j<3;j++){
               if(Piece.direction[i][j]==true){
                 root.getChildren().remove(redBack[i][j]);
@@ -137,9 +140,12 @@ public class Main extends Application {
           }
         }
         GUI g = new GUI();
-        g.directionCheck(e.getX(),e.getY());
-        g.isValid(previousX,previousY,e.getX(),e.getY());
-        for(int i=0;i<3;i++){
+        g.directionCheck(e.getX(),e.getY());//選択された駒がどこに進めるかを表示
+        g.isValid(previousX,previousY,e.getX(),e.getY());//駒が動かせるか判定→駒を動かす
+        if(GUI.removeCheck(previousX,previousY,e.getX(),e.getY())){
+          Move.doRemove(previousX,previousY,e.getX(),e.getY());
+        }
+        for(int i=0;i<3;i++){//ひよこ→にわとり
           if((field[0][i] == 4)&&(Turn.turn==-1)){
             root.getChildren().remove(Move.animalToImage(i,0));
             root.getChildren().add(chicken1);
@@ -166,7 +172,6 @@ public class Main extends Application {
         }
       }
 
-
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
       ImageView titleImage = new ImageView("images/title.png");
       titleImage.setFitHeight(540);titleImage.setFitWidth(960);
@@ -181,11 +186,9 @@ public class Main extends Application {
     }
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
-      for(int i=0;i<4;i++){
+      for(int i=0;i<4;i++){//鶏が盤面にあればひよこに戻す
         for(int j=0;j<3;j++){
-          System.out.println(animal[i][j]+",");
           if(animal[i][j]=="ch1"){
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             root.getChildren().remove(chicken1);
             root.getChildren().add(chick1);
           }else if(animal[i][j]=="ch2"){
@@ -194,6 +197,9 @@ public class Main extends Application {
           }
         }
       }
+
+        mypiece.removePiece();    //持ち駒のリセット
+        yourpiece.removePiece();
 
         for(int i = 0;i < 4;i++){//fieldの初期化を行う
           for(int j = 0;j < 3;j++){

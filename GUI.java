@@ -36,7 +36,7 @@ public class GUI{
     else pieceX = (int)(mouseX - 285)/130;
     if(mouseY < 10) pieceY = -560;
     else pieceY = (int)(mouseY - 10)/130;
-    if(!Piece.onBoard(pieceX,pieceY)){
+    if(!Piece.onBoard(pieceX,pieceY)){//クリックされた場所が盤上以外
       Piece.directionReset();
       return;
     }
@@ -75,6 +75,22 @@ public class GUI{
         Piece.directionReset();
         break;
     }
+  }
+
+  //選択された持ち駒が盤面に追加可能かどうかの判定
+  public static boolean removeCheck(double previousX,double previousY,double mouseX, double mouseY){
+    int pieceX, pieceY;
+    if(mouseX < 285) pieceX = -1222; //field配列でのコマの位置
+    else pieceX = (int)(mouseX - 285)/130;
+    if(mouseY < 10) pieceY = -560;
+    else pieceY = (int)(mouseY - 10)/130;
+    if(!Piece.onBoard(pieceX,pieceY)){//クリックされた場所が盤上以外
+      Piece.directionReset();
+      return false;
+    }
+    if((MyPiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
+      return true;
+    }else{return false;}
   }
 
   public void isValid(double previousX,double previousY,double mouseX, double mouseY){
