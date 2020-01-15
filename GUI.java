@@ -88,7 +88,10 @@ public class GUI{
       Piece.directionReset();
       return false;
     }
-    if((MyPiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
+    MyPiece.onMyPiece(mouseX,mouseY);
+    if((Main.mypiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
+      return true;
+    }else if((Main.yourpiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
       return true;
     }else{return false;}
   }

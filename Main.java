@@ -198,8 +198,8 @@ public class Main extends Application {
         }
       }
 
-        mypiece.removePiece();    //持ち駒のリセット
-        yourpiece.removePiece();
+        mypiece.reset();    //持ち駒のリセット
+        yourpiece.reset();
 
         for(int i = 0;i < 4;i++){//fieldの初期化を行う
           for(int j = 0;j < 3;j++){

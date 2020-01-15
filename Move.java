@@ -43,7 +43,7 @@ public class Move{
   }
 }
 
-public ImageView animalnameToImage(String animalname){
+public static ImageView animalnameToImage(String animalname){
   switch(animalname){
     case "l1":
       return Main.lion1;
@@ -85,11 +85,13 @@ public ImageView animalnameToImage(String animalname){
         Main.mypiece.addPiece(Main.field[pieceY][pieceX],animalToImage(pieceX,pieceY));
       }*/
 
+      System.out.println("移動先："+Main.yourpiece.returnX()+","+Main.yourpiece.returnY());
       animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
-      animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnX());
-      Main.mypiece.addPiece(Main.field[pieceY][pieceX],animalToImage(pieceX,pieceY));
+      animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnY());
+      Main.mypiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
       animalToImage(pieceX,pieceY).setFitHeight(80);animalToImage(pieceX,pieceY).setFitWidth(80);
-      animalToImage(pieceX,pieceY).setRotate(90*(Turn.turn+1));
+      System.out.println(90*(Turn.turn+1));
+      animalToImage(pieceX,pieceY).setRotate(0);
     }
 
       animalToImage(prePieceX,prePieceY).setX(286+130*pieceX);
@@ -109,11 +111,16 @@ public ImageView animalnameToImage(String animalname){
       else pieceX = (int)(mouseX - 285)/130;
       if(mouseY < 10) pieceY = -560;
       else pieceY = (int)(mouseY - 10)/130;
-      mypiece.removePiece(animalToImage(pieceX,pieceY));
-      animalnameToImage(MyPiece.preimage).setX();
-      animalnameToImage(MyPiece.preimage).setY();
+      if(Turn.turn==1){
+        Main.mypiece.removePiece(mouseX,mouseY);
+      }else{
+        Main.yourpiece.removePiece(mouseX,mouseY);
+      }
+
+      animalnameToImage(MyPiece.preimage).setX(286+130*pieceY);
+      animalnameToImage(MyPiece.preimage).setY(11+130*pieceY);
       animalnameToImage(MyPiece.preimage).setFitHeight(128);
-      animalnameToImage(MyPiece.preimage)..setFitWidth(128);
+      animalnameToImage(MyPiece.preimage).setFitWidth(128);
       Main.field[pieceY][pieceX] = MyPiece.preanimal;
 
     }
