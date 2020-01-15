@@ -88,12 +88,19 @@ public class GUI{
       Piece.directionReset();
       return false;
     }
-    MyPiece.onMyPiece(mouseX,mouseY);
-    if((Main.mypiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
-      return true;
-    }else if((Main.yourpiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
-      return true;
-    }else{return false;}
+    if(!MyPiece.onMyPiece(previousX,previousY))return false;
+    if(Turn.myTurn(1)){
+      if((Main.mypiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
+        System.out.println("おけます");
+        return true;
+      }
+    }else{
+      if((Main.yourpiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
+        return true;
+      }
+    }
+    return false;
+
   }
 
   public void isValid(double previousX,double previousY,double mouseX, double mouseY){
