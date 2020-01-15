@@ -118,16 +118,22 @@ public static ImageView animalnameToImage(String animalname){
       if(mouseY < 10) pieceY = -560;
       else pieceY = (int)(mouseY - 10)/130;
       if(Turn.turn==1){
-        Main.mypiece.removePiece(mouseX,mouseY);
+        Main.mypiece.removePiece(previousX,previousY);
+        System.out.println("aaaaaaaaaaaaaa");
       }else{
-        Main.yourpiece.removePiece(mouseX,mouseY);
+        Main.yourpiece.removePiece(previousX,previousY);
       }
       System.out.println("追加先："+(286+130*pieceX)+","+(11+130*pieceY)+","+MyPiece.preimage+","+MyPiece.preanimal);
       animalnameToImage(MyPiece.preimage).setX(286+130*pieceX);
       animalnameToImage(MyPiece.preimage).setY(11+130*pieceY);
       animalnameToImage(MyPiece.preimage).setFitHeight(128);
       animalnameToImage(MyPiece.preimage).setFitWidth(128);
+      if(MyPiece.preanimal<0){
+        animalnameToImage(MyPiece.preimage).setRotate(180);
+      }
       Main.field[pieceY][pieceX] = MyPiece.preanimal;
+      Main.animal[pieceY][pieceX] = MyPiece.preimage;
+      Turn.turnChange();
 
 
     }

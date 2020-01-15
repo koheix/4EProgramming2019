@@ -24,8 +24,8 @@ public class GUI{
     Piece giraffe2 = new Giraffe();
     Piece chick1 = new Chick();
     Piece chick2 = new Chick();
-/*    Piece chicken1 = new Chicken();
-    Piece chicken2 = new Chicken();*/
+    Piece chicken1 = new Chicken();
+    Piece chicken2 = new Chicken();
 
 
 
@@ -53,9 +53,9 @@ public class GUI{
       case 4:
         chick1.movable((int)mouseX,(int)mouseY,1);
         break;
-  /*    case 5:
+      case 5:
         chicken1.movable((int)mouseX,(int)mouseY,1);
-        break;*/
+        break;
       case -1:
         lion2.movable((int)mouseX,(int)mouseY,-1);
         break;
@@ -68,9 +68,9 @@ public class GUI{
       case -4:
         chick2.movable((int)mouseX,(int)mouseY,-1);
         break;
-  /*    case -5:
+      case -5:
         chicken2.movable((int)mouseX,(int)mouseY,-1);
-        break;*/
+        break;
       default:
         Piece.directionReset();
         break;
