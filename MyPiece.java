@@ -42,7 +42,7 @@ public class MyPiece{
     }
 
     public int returnY(){//駒を獲得した時に、ImageViewを移動させる先の左上のy座標を返す
-        if(piecenum < 3) return 370;
+        if(piecenum < 4) return 370;
         else return 370 + 80;
     }
     static boolean onMyPiece(double pieceX , double pieceY){//引数はマウスの値
