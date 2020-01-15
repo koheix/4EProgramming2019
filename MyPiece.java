@@ -31,12 +31,12 @@ public class MyPiece{
     }
     public int returnX(){//駒を獲得した時に、ImageViewを移動させる先の左上のx座標を返す
         if(Turn.myTurn(1)){//プレイヤー1の場合
-            if(piecenum < 3) return 10 + (piecenum - 1) * 80;//持ち駒が3つより少ない
-            else return 10 * (piecenum - 4) * 80;
+            if(piecenum < 2) return 10 + (piecenum) * 80;//持ち駒が3つより少ない
+            else return 10 * (piecenum - 3) * 80;
         }
         else{
-            if(piecenum < 3) return 710 + (piecenum - 1) * 80;
-            else return 710 * (piecenum - 4) * 80;
+            if(piecenum < 2) return 710 + (piecenum) * 80;
+            else return 710 * (piecenum - 3) * 80;
         }
     }
 
