@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.*;
+import java.util.*;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -41,7 +42,7 @@ public class Main extends Application {
     }
 
     GraphicsContext g;
-    Group root = new Group();
+    static Group root = new Group();
     ImageView[][] redBack = new ImageView[4][3];  //赤い背景
     boolean PieceClicked = false;  //クリックされた
     int first = 0;
@@ -147,14 +148,29 @@ public class Main extends Application {
         }
         for(int i=0;i<3;i++){//ひよこ→にわとり
           if((field[0][i] == 4)&&(Turn.turn==-1)){
-            root.getChildren().remove(Move.animalToImage(i,0));
-            root.getChildren().add(chicken1);
-            field[0][i] = 5;
+            if(animal[0][i]=="c1"){
+              root.getChildren().add(chicken1);
+              root.getChildren().remove(chick1);
+              animal[0][i]="ch1";
+            }else{
+              root.getChildren().add(chicken2);
+              root.getChildren().remove(chick2);
+              animal[0][i]="ch2";
+            }
             drawChara("chicken",0,i,1);
           }else if((field[3][i] == -4)&&(Turn.turn==1)){
-            root.getChildren().remove(Move.animalToImage(i,3));
-            root.getChildren().add(chicken2);
-            field[3][i] = -5;
+            System.out.println("なんで");
+            if(animal[3][i]=="c1"){
+              root.getChildren().add(chicken1);
+              root.getChildren().remove(chick1);
+              animal[3][i]="ch1";
+            }else{
+            System.out.println("なんで");
+              root.getChildren().add(chicken2);
+              root.getChildren().remove(chick2);
+              animal[3][i]="ch2";
+            }
+            //root.getChildren().remove(Move.animalToImage(i,3));
             drawChara("chicken",3,i,-1);
           }
         }
@@ -171,6 +187,11 @@ public class Main extends Application {
           }
         }
       }
+
+      public static void resetChicken(ImageView animalname1,ImageView animalname2){
+        root.getChildren().remove(animalname1);
+        root.getChildren().add(animalname2);
+      } 
 
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
       ImageView titleImage = new ImageView("images/title.png");
@@ -191,12 +212,15 @@ public class Main extends Application {
           if(animal[i][j]=="ch1"){
             root.getChildren().remove(chicken1);
             root.getChildren().add(chick1);
-          }else if(animal[i][j]=="ch2"){
+          }
+          if(animal[i][j]=="ch2"){
             root.getChildren().remove(chicken2);
             root.getChildren().add(chick2);
           }
         }
       }
+
+        
 
         mypiece.reset();    //持ち駒のリセット
         yourpiece.reset();
@@ -317,16 +341,16 @@ public class Main extends Application {
                 break;
             case "chicken":
               if(player==1){
-                chicken1.setFitHeight(128);chicken1.setFitWidth(128);
-                chicken1.setX(286+130*y);chicken1.setY(11+130*x);
+                Move.animalToImage(y,x).setFitHeight(128);Move.animalToImage(y,x).setFitWidth(128);
+                Move.animalToImage(y,x).setX(286+130*y);Move.animalToImage(y,x).setY(11+130*x);
                 //root.getChildren().add(chicken1);
-                field[x][y] = 5;animal[x][y] = "ch1";
+                field[x][y] = 5;//animal[x][y] = "ch1";
               }else{
-                chicken2.setFitHeight(128);chicken2.setFitWidth(128);
-                chicken2.setX(286+130*y);chicken2.setY(11+130*x);
-                chicken2.setRotate(180);
+                Move.animalToImage(y,x).setFitHeight(128);Move.animalToImage(y,x).setFitWidth(128);
+                Move.animalToImage(y,x).setX(286+130*y);Move.animalToImage(y,x).setY(11+130*x);
+                Move.animalToImage(y,x).setRotate(180);
                 //root.getChildren().add(chicken2);
-                field[x][y] = -5;animal[x][y] = "ch2";
+                field[x][y] = -5;//animal[x][y] = "ch2";
               }
                 break;
             default:

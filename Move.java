@@ -85,21 +85,46 @@ public static ImageView animalnameToImage(String animalname){
         Main.mypiece.addPiece(Main.field[pieceY][pieceX],animalToImage(pieceX,pieceY));
       }*/
       if(Turn.myTurn(1)){
-        Main.mypiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+        if(Main.field[pieceY][pieceX]==-5){
+          if(Main.animal[pieceY][pieceX]=="ch1"){
+            Main.mypiece.addPiece(-4,"c1");
+            Main.resetChicken(Main.chicken1,Main.chick1);
+            Main.animal[pieceY][pieceX]="c1";
+          }else{
+            Main.mypiece.addPiece(-4,"c2");
+            Main.resetChicken(Main.chicken2,Main.chick2);
+            Main.animal[pieceY][pieceX]="c2";
+          }
+        }else{
+          Main.mypiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+        }
         System.out.println("移動先："+Main.mypiece.returnX()+","+Main.mypiece.returnY());
         animalToImage(pieceX,pieceY).setX(Main.mypiece.returnX());
         animalToImage(pieceX,pieceY).setY(Main.mypiece.returnY());
       }else{
-        Main.yourpiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+        if(Main.field[pieceY][pieceX]==5){
+          if(Main.animal[pieceY][pieceX]=="ch1"){
+          System.out.println("ok");
+            Main.yourpiece.addPiece(4,"c1");
+            Main.resetChicken(Main.chicken1,Main.chick1);
+            Main.animal[pieceY][pieceX]="c1";
+          }else{
+            Main.yourpiece.addPiece(4,"c2");
+            Main.resetChicken(Main.chicken2,Main.chick2);
+            Main.animal[pieceY][pieceX]="c2";
+          }
+          }else{
+            Main.yourpiece.addPiece(Main.field[pieceY][pieceX],Main.animal[pieceY][pieceX]);
+          }
         System.out.println("移動先："+Main.yourpiece.returnX()+","+Main.yourpiece.returnY());
         animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
         animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnY());
       }
-
       animalToImage(pieceX,pieceY).setFitHeight(80);animalToImage(pieceX,pieceY).setFitWidth(80);
       animalToImage(pieceX,pieceY).setRotate(0);
-    }
+      }
 
+      
       animalToImage(prePieceX,prePieceY).setX(286+130*pieceX);
       animalToImage(prePieceX,prePieceY).setY(11+130*pieceY);
 
