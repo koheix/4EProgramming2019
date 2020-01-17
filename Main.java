@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.*;
 import java.util.*;
+import javafx.scene.input.*;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -43,6 +44,7 @@ public class Main extends Application {
 
     GraphicsContext g;
     static Group root = new Group();
+     Group root2 = new Group();
     ImageView[][] redBack = new ImageView[4][3];  //赤い背景
     boolean PieceClicked = false;  //クリックされた
     int first = 0;
@@ -63,9 +65,14 @@ public class Main extends Application {
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
 
+    ImageView select1 = new ImageView("images/select1.png");
+    ImageView select2 = new ImageView("images/select2.png");
+    int select = 0;
+
     static Text t1 = new Text(10, 250 , "あなたのターン");
     static Text t2 = new Text(700, 250 , "あいてのターン");
-    Button btn2 = new Button("タイトルへ");//ゲーム中の戻るボタン
+    Button btn2 = new Button();//ゲーム中の戻るボタン
+    ImageView modoru = new ImageView("images/return.png");
 
     @Override
     public void start(final Stage stage) {
@@ -76,7 +83,7 @@ public class Main extends Application {
         }
         AnchorPane pane = new AnchorPane();
       //  Group rootT = new Group();
-      //  Group root = new Group();
+       
 
         //描画用キャンバスノードの作成
         Canvas cvs = new Canvas(width, height);//make a canvas
@@ -86,8 +93,9 @@ public class Main extends Application {
 
         Scene title = new Scene(pane, width, height, Color.WHITE);//make a title
         Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
+        Scene selectScene = new Scene(root2 ,width ,height , Color.WHITE);
 
-        initTitle(stage,title,scene,pane);
+        initTitle(stage,title,scene,selectScene,pane);
         initialize(stage,title,root);
 
         root.getChildren().add(lion1);
@@ -116,10 +124,55 @@ public class Main extends Application {
         t2.setFont(new Font(35));
         root.getChildren().add(t2);
 
-        btn2.setPrefSize(100,50);
+        modoru.setFitHeight(50);modoru.setFitWidth(100);
+        btn2.setGraphic(modoru);
         root.getChildren().add(btn2);
 
+        select1.setFitHeight(540);select1.setFitWidth(960);
+        select2.setFitHeight(540);select2.setFitWidth(960);
+
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
+        selectScene.setOnKeyPressed((event)->{
+          if(select==1){
+            if((event.getCode()==KeyCode.UP)||(event.getCode()==KeyCode.DOWN)||(event.getCode()==KeyCode.RIGHT)||(event.getCode()==KeyCode.LEFT)){
+            root2.getChildren().remove(select1);
+            root2.getChildren().add(select2);
+            select=2;
+            }
+            if(event.getCode()==KeyCode.UP){
+              System.out.println("上1");
+              king[0] = 4;
+            }if(event.getCode()==KeyCode.DOWN){
+              System.out.println("下1");
+              king[0] = 1;
+            }if(event.getCode()==KeyCode.RIGHT){
+              System.out.println("右1");
+              king[0] = 3;
+            }if(event.getCode()==KeyCode.LEFT){
+              System.out.println("左1");
+              king[0] = 2;
+            }
+          }else if(select==2){
+            if((event.getCode()==KeyCode.UP)||(event.getCode()==KeyCode.DOWN)||(event.getCode()==KeyCode.RIGHT)||(event.getCode()==KeyCode.LEFT)){
+            root2.getChildren().remove(select2);
+            select=0;
+            setScene(stage,scene);
+            }
+            if(event.getCode()==KeyCode.UP){
+              System.out.println("上2");
+              king[1] = 4;
+            }if(event.getCode()==KeyCode.DOWN){
+              System.out.println("下2");
+              king[1] = 1;
+            }if(event.getCode()==KeyCode.RIGHT){
+              System.out.println("右2");
+              king[1] = 3;
+            }if(event.getCode()==KeyCode.LEFT){
+              System.out.println("左2");
+              king[1] = 2;
+            }
+          }
+        });
 
     }
 
@@ -195,18 +248,33 @@ public class Main extends Application {
         root.getChildren().add(animalname2);
       } 
 
-    private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
+    private void initTitle(Stage stage, Scene title, Scene scene,Scene selectScene, AnchorPane pane){
       ImageView titleImage = new ImageView("images/title.png");
       titleImage.setFitHeight(540);titleImage.setFitWidth(960);
       pane.getChildren().add(titleImage);
-      Button btn = new Button("スタート");
+      Button btn = new Button("ノーマルモード");
+      Button btn_s1 = new Button("王を選択モード");
       btn.setPrefSize(100,50);
+      btn_s1.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> setScene(stage,scene));
+      btn_s1.setOnMouseClicked(event -> {
+        setScene(stage,selectScene);
+        root2.getChildren().add(select1);
+        select = 1;
+      });
       pane.getChildren().add(btn);
+      pane.getChildren().add(btn_s1);
       pane.setLeftAnchor(btn,430.);
       pane.setTopAnchor(btn,240.);
+      pane.setLeftAnchor(btn_s1,430.);
+      pane.setTopAnchor(btn_s1,300.);
       drawField();
     }
+
+   /* public void selectKing(){
+      System.out.println("セレクト画面");
+      select = 1;
+    }*/
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
       for(int i=0;i<4;i++){//鶏が盤面にあればひよこに戻す

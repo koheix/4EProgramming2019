@@ -126,7 +126,7 @@ public class GUI{
         Main.t1.setText("あなたのターン");
         Main.t2.setText("あいてのターン");
       }
-      if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[Turn.turnPlayer() - 1]){//もし王が取られたらゲームオーバー
+      if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[1-(Turn.turnPlayer() - 1)]){//もし王が取られたらゲームオーバー
         System.out.println("プレイヤー"+Turn.turnPlayer()+"の価値です。");
         if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
           Main.t1.setUnderline(true);
