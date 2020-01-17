@@ -1,6 +1,7 @@
 public class Piece {
     int directnum = 0;//すすめるマスの個数
     static boolean[][] direction = {{false , false , false},{false , false , false},{false , false , false}, {false, false , false}};//進めるところをtrueにする
+    //static int king = 1;//王は誰だ？？？
 
     static void directionReset(){//direction配列をリセットする
       for(int i = 0; i < 4;i++){
@@ -25,7 +26,7 @@ public class Piece {
         if(directnum >0) return true;//すすめるマスが一つでもあればtrueを返す
         else return false;
     }
-    public boolean isKing(){
+    public boolean isKing(int player){
         return false;
     }//そのコマは王なのか
     static boolean onBoard(int nextx , int nexty){//0 <= nextx <= 2 , 0 <= nexty <= 3
@@ -79,8 +80,9 @@ public class Piece {
 
 class Lion extends Piece{
     @Override
-    public boolean isKing(){
-        return true;
+    public boolean isKing(int player){
+        if(Main.king[player] == 1) return true;
+        else return false;
     }
 }
 
@@ -93,6 +95,12 @@ class Giraffe extends Piece{
     if(onBoard(pieceX - 1, pieceY + 1)) direction[pieceY + 1][pieceX - 1] = false;
     if(onBoard(pieceX - 1, pieceY - 1)) direction[pieceY - 1][pieceX - 1] = false;
   }
+
+  @Override
+    public boolean isKing(int player){
+        if(Main.king[player] == 3) return true;
+        else return false;
+    }
 }
 
 class Elephant extends Piece{
@@ -104,6 +112,12 @@ class Elephant extends Piece{
     if(onBoard(pieceX, pieceY + 1)) direction[pieceY + 1][pieceX] = false;
     if(onBoard(pieceX - 1, pieceY)) direction[pieceY][pieceX - 1] = false;
   }
+
+  @Override
+    public boolean isKing(int player){
+        if(Main.king[player] == 2) return true;
+        else return false;
+    }
 }
 
 class Chick extends Piece{
@@ -129,6 +143,12 @@ class Chick extends Piece{
       if(onBoard(pieceX - 1, pieceY)) direction[pieceY][pieceX - 1] = false;
     }
   }
+
+  @Override
+    public boolean isKing(int player){
+        if(Main.king[player] == 4) return true;
+        else return false;
+    }
 }
 class Chicken extends Piece{
   @Override
@@ -143,5 +163,11 @@ class Chicken extends Piece{
       if(onBoard(pieceX + 1, pieceY - 1)) direction[pieceY - 1][pieceX + 1] = false;
     }
   }
+
+  @Override
+    public boolean isKing(int player){
+        if(Main.king[player] == 5) return true;
+        else return false;
+    }
 
 }
