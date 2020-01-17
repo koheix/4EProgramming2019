@@ -159,6 +159,7 @@ public static ImageView animalnameToImage(String animalname){
       Main.field[pieceY][pieceX] = MyPiece.preanimal;
       Main.animal[pieceY][pieceX] = MyPiece.preimage;
       Turn.turnChange();
+      //Main.turnChangeEffect();
 
 
     }
