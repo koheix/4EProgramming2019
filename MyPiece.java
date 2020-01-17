@@ -55,7 +55,7 @@ public class MyPiece{
             else return false;
         }
     }
-    private int MouseToElement(double pieceX , double pieceY){
+    public int MouseToElement(double pieceX , double pieceY){
         int element = 0;
         if(Turn.myTurn(1)){//プレイヤー1のターンである場合
             element = (int)((pieceX - 10.0) / 80.0);
