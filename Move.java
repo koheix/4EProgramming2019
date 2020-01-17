@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import java.util.*;
 
 public class Move{
   public static ImageView animalToImage(int x,int y){
@@ -158,6 +159,7 @@ public static ImageView animalnameToImage(String animalname){
       }
       Main.field[pieceY][pieceX] = MyPiece.preanimal;
       Main.animal[pieceY][pieceX] = MyPiece.preimage;
+      Move.moveMyPiece();
       Turn.turnChange();
       //Main.turnChangeEffect();
 
@@ -165,13 +167,20 @@ public static ImageView animalnameToImage(String animalname){
     }
 
     public static void moveMyPiece(){
-      for(int i=0;i<Main.mypiece.getPieceNum();i++){
+      if(Turn.turn==1){
+        for(int i=0;i<Main.mypiece.getPieceNum();i++){
+        System.out.println(Main.mypiece.eleToX(i));
         animalnameToImage(Main.mypiece.myimage.get(i)).setX(Main.mypiece.eleToX(i));
         animalnameToImage(Main.mypiece.myimage.get(i)).setY(Main.mypiece.eleToY(i));
       }
-      for(int i=0;i<Main.yourpiece.getPieceNum();i++){
+      }else{
+        for(int i=0;i<Main.yourpiece.getPieceNum();i++){
+        System.out.println("2:"+Main.yourpiece.eleToX(i));
         animalnameToImage(Main.yourpiece.myimage.get(i)).setX(Main.yourpiece.eleToX(i));
         animalnameToImage(Main.yourpiece.myimage.get(i)).setY(Main.yourpiece.eleToY(i));
       }
+      }
+      
+      
     }
 }

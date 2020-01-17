@@ -62,9 +62,6 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
-    static ImageView player1Turn = new ImageView("images/player1_turn.png");
-    static ImageView player2Turn = new ImageView("images/player2_turn.png");
-
 
     static Text t1 = new Text(10, 250 , "あなたのターン");
     static Text t2 = new Text(700, 250 , "あいてのターン");
@@ -101,11 +98,6 @@ public class Main extends Application {
         root.getChildren().add(giraffe2);
         root.getChildren().add(chick1);
         root.getChildren().add(chick2);
-
-        player1Turn.setFitWidth(960);player1Turn.setFitHeight(400);
-        player1Turn.setX(0);player1Turn.setY(100);
-        player2Turn.setFitWidth(960);player2Turn.setFitHeight(400);
-        player2Turn.setX(0);player2Turn.setY(100);
 
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
@@ -154,7 +146,6 @@ public class Main extends Application {
         if(GUI.removeCheck(previousX,previousY,e.getX(),e.getY())){
           Move.doRemove(previousX,previousY,e.getX(),e.getY());
         }
-        Move.moveMyPiece();
         for(int i=0;i<3;i++){//ひよこ→にわとり
           if((field[0][i] == 4)&&(Turn.turn==-1)){
             if(animal[0][i]=="c1"){
@@ -183,6 +174,8 @@ public class Main extends Application {
             drawChara("chicken",3,i,-1);
           }
         }
+        
+        
 
         previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
@@ -200,27 +193,7 @@ public class Main extends Application {
       public static void resetChicken(ImageView animalname1,ImageView animalname2){
         root.getChildren().remove(animalname1);
         root.getChildren().add(animalname2);
-      }
-
-      /*public static void turnChangeEffect(){
-        if(Turn.turn==1){
-          root.getChildren().add(player1Turn);
-        }else{
-          root.getChildren().add(player2Turn);
-        }
-        try {
-            System.out.println("5秒停止します");
-            Thread.sleep(5000);
-            System.out.println("一時停止を解除しました。");
-        } catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        if(Turn.turn==1){
-          root.getChildren().remove(player1Turn);
-        }else{
-          root.getChildren().remove(player2Turn);
-        }
-      }*/
+      } 
 
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
       ImageView titleImage = new ImageView("images/title.png");
@@ -249,7 +222,7 @@ public class Main extends Application {
         }
       }
 
-
+        
 
         mypiece.reset();    //持ち駒のリセット
         yourpiece.reset();
