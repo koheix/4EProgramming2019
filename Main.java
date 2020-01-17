@@ -146,6 +146,7 @@ public class Main extends Application {
         if(GUI.removeCheck(previousX,previousY,e.getX(),e.getY())){
           Move.doRemove(previousX,previousY,e.getX(),e.getY());
         }
+        Move.moveMyPiece();
         for(int i=0;i<3;i++){//ひよこ→にわとり
           if((field[0][i] == 4)&&(Turn.turn==-1)){
             if(animal[0][i]=="c1"){
@@ -191,7 +192,7 @@ public class Main extends Application {
       public static void resetChicken(ImageView animalname1,ImageView animalname2){
         root.getChildren().remove(animalname1);
         root.getChildren().add(animalname2);
-      } 
+      }
 
     private void initTitle(Stage stage, Scene title, Scene scene, AnchorPane pane){
       ImageView titleImage = new ImageView("images/title.png");
@@ -220,7 +221,7 @@ public class Main extends Application {
         }
       }
 
-        
+
 
         mypiece.reset();    //持ち駒のリセット
         yourpiece.reset();

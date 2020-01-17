@@ -124,7 +124,7 @@ public static ImageView animalnameToImage(String animalname){
       animalToImage(pieceX,pieceY).setRotate(0);
       }
 
-      
+
       animalToImage(prePieceX,prePieceY).setX(286+130*pieceX);
       animalToImage(prePieceX,prePieceY).setY(11+130*pieceY);
 
@@ -161,5 +161,16 @@ public static ImageView animalnameToImage(String animalname){
       Turn.turnChange();
 
 
+    }
+
+    public static void moveMyPiece(){
+      for(int i=0;i<Main.mypiece.getPieceNum();i++){
+        animalnameToImage(Main.mypiece.myimage.get(i)).setX(Main.mypiece.eleToX(i));
+        animalnameToImage(Main.mypiece.myimage.get(i)).setY(Main.mypiece.eleToY(i));
+      }
+      for(int i=0;i<Main.yourpiece.getPieceNum();i++){
+        animalnameToImage(Main.yourpiece.myimage.get(i)).setX(Main.yourpiece.eleToX(i));
+        animalnameToImage(Main.yourpiece.myimage.get(i)).setY(Main.yourpiece.eleToY(i));
+      }
     }
 }
