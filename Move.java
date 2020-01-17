@@ -143,10 +143,10 @@ public static ImageView animalnameToImage(String animalname){
       else pieceX = (int)(mouseX - 285)/130;
       if(mouseY < 10) pieceY = -560;
       else pieceY = (int)(mouseY - 10)/130;
-      if(Turn.turn==1){
+      if(Turn.myTurn(1)){
         Main.mypiece.removePiece(previousX,previousY);
         System.out.println("aaaaaaaaaaaaaa");
-      }else{
+      }else if(Turn.myTurn(-1)){
         Main.yourpiece.removePiece(previousX,previousY);
       }
       System.out.println("追加先："+(286+130*pieceX)+","+(11+130*pieceY)+","+MyPiece.preimage+","+MyPiece.preanimal);
@@ -167,13 +167,13 @@ public static ImageView animalnameToImage(String animalname){
     }
 
     public static void moveMyPiece(){
-      if(Turn.turn==1){
+      if(Turn.myTurn(1)){
         for(int i=0;i<Main.mypiece.getPieceNum();i++){
         System.out.println(Main.mypiece.eleToX(i));
         animalnameToImage(Main.mypiece.myimage.get(i)).setX(Main.mypiece.eleToX(i));
         animalnameToImage(Main.mypiece.myimage.get(i)).setY(Main.mypiece.eleToY(i));
       }
-      }else{
+      }else if(Turn.myTurn(-1)){
         for(int i=0;i<Main.yourpiece.getPieceNum();i++){
         System.out.println("2:"+Main.yourpiece.eleToX(i));
         animalnameToImage(Main.yourpiece.myimage.get(i)).setX(Main.yourpiece.eleToX(i));

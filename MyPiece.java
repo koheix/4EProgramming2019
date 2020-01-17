@@ -74,7 +74,7 @@ public class MyPiece{
         else return false;
     }
     public int eleToX(int element){//要素数から駒の左上のx座標を返す
-        if(piecenum < 4){
+        if(element < 3){
             if(Turn.turn==1){
                 return 10 + (80 * element);
             }else{
@@ -89,7 +89,7 @@ public class MyPiece{
         }
     }
     public int eleToY(int element){//要素数から駒の左上のy座標を返す
-        if(piecenum < 4) return 370;
+        if(element < 3) return 370;
         else return 370 + 80;
     }
 }

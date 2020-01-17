@@ -28,6 +28,10 @@ public class Main extends Application {
     //static String[][] animalp1 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
     //static String[][] animalp2 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
 
+    int mypiecesellectionflag = 0;//持ち駒が選択されているかどうかのフラグ
+    int x, y;//持ち駒光らせる座標
+    
+
 
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
         {
@@ -64,6 +68,7 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
+    static ImageView tmpredback = new ImageView("images/redBack.png");
 
     ImageView select1 = new ImageView("images/select1.png");
     ImageView select2 = new ImageView("images/select2.png");
@@ -130,6 +135,7 @@ public class Main extends Application {
 
         select1.setFitHeight(540);select1.setFitWidth(960);
         select2.setFitHeight(540);select2.setFitWidth(960);
+        tmpredback.setFitHeight(80);tmpredback.setFitWidth(80);//選択された持ち駒を光らせるやつの大きさ
 
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
         selectScene.setOnKeyPressed((event)->{
@@ -177,6 +183,31 @@ public class Main extends Application {
     }
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
+      if(mypiecesellectionflag == 1){//持ち駒の赤いやつを消す
+        root.getChildren().remove(tmpredback);
+        mypiecesellectionflag = 0;
+      }
+      if(Turn.myTurn(1)){//プレイヤー1のターンである
+        if(mypiece.isAnimal(e.getX(), e.getY()) && MyPiece.onMyPiece(e.getX(), e.getY())){//持ち駒が押されたなら
+          x = mypiece.eleToX(mypiece.MouseToElement(e.getX(), e.getY()));// 赤くする右上の座標
+          y = mypiece.eleToY(mypiece.MouseToElement(e.getX(), e.getY()));// 赤くする右上の座標
+          tmpredback.setX(x);
+          tmpredback.setY(y);// redbackを選択された持ち駒の座標にセット
+          Main.root.getChildren().add(tmpredback);
+          mypiecesellectionflag = 1;//持ち駒のredbackが表示されている
+        }
+      }
+      else if(Turn.myTurn(-1)){//プレイヤー2のターンである
+        if(yourpiece.isAnimal(e.getX(), e.getY()) && MyPiece.onMyPiece(e.getX(), e.getY())){//持ち駒が押されたなら
+          x = yourpiece.eleToX(yourpiece.MouseToElement(e.getX(), e.getY()));// 赤くする右上の座標
+          y = yourpiece.eleToY(yourpiece.MouseToElement(e.getX(), e.getY()));// 赤くする右上の座標
+          tmpredback.setX(x);
+          tmpredback.setY(y);// redbackを選択された持ち駒の座標にセット
+          Main.root.getChildren().add(tmpredback);
+          mypiecesellectionflag = 1;//持ち駒のredbackが表示されている
+        }
+      }
+
         if(first==0){ //1回目クリックされたら実行
             first=1;
         }else{

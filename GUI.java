@@ -94,7 +94,7 @@ public class GUI{
         System.out.println("おけます");
         return true;
       }
-    }else{
+    }else if(Turn.myTurn(-1)){
       if((Main.yourpiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
         return true;
       }
