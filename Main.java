@@ -30,7 +30,7 @@ public class Main extends Application {
 
     int mypiecesellectionflag = 0;//持ち駒が選択されているかどうかのフラグ
     int x, y;//持ち駒光らせる座標
-    
+
 
 
     static Map<String, Integer>animals = new HashMap<String, Integer>() {
@@ -68,7 +68,8 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
-    static ImageView tmpredback = new ImageView("images/redBack.png");
+    static ImageView tmpredback = new ImageView("images/redBack.png");//持ち駒を囲む用
+    static ImageView[][] fldtmpredback = new ImageView[4][3];//持ち駒洗濯時における場所を照らす用
 
     ImageView select1 = new ImageView("images/select1.png");
     ImageView select2 = new ImageView("images/select2.png");
@@ -84,11 +85,12 @@ public class Main extends Application {
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
             redBack[i][j]=new ImageView("images/redBack.png");
+            fldtmpredback[i][j] = new ImageView("images/redBack.png");
           }
         }
         AnchorPane pane = new AnchorPane();
       //  Group rootT = new Group();
-       
+
 
         //描画用キャンバスノードの作成
         Canvas cvs = new Canvas(width, height);//make a canvas
@@ -185,8 +187,20 @@ public class Main extends Application {
     private void mouseClicked(MouseEvent e){//画面がクリックされた
       if(mypiecesellectionflag == 1){//持ち駒の赤いやつを消す
         root.getChildren().remove(tmpredback);
+        for(int i = 0;i < 4;i++){
+          for(int j = 0;j < 3;j++){
+            try{
+              root.getChildren().remove(fldtmpredback[i][j]);//追加されていれば消す
+            }
+            catch(Exception ewes){
+              //
+            }
+          }
+        }
+
         mypiecesellectionflag = 0;
       }
+
       if(Turn.myTurn(1)){//プレイヤー1のターンである
         if(mypiece.isAnimal(e.getX(), e.getY()) && MyPiece.onMyPiece(e.getX(), e.getY())){//持ち駒が押されたなら
           x = mypiece.eleToX(mypiece.MouseToElement(e.getX(), e.getY()));// 赤くする右上の座標
@@ -194,6 +208,17 @@ public class Main extends Application {
           tmpredback.setX(x);
           tmpredback.setY(y);// redbackを選択された持ち駒の座標にセット
           Main.root.getChildren().add(tmpredback);
+
+          for(int i = 0;i < 4;i++){
+            for(int j = 0;j < 3;j++){
+              if(field[i][j] == 0){//何もおいてないとこなら
+                fldtmpredback[i][j].setFitHeight(128);fldtmpredback[i][j].setFitWidth(128);
+                fldtmpredback[i][j].setX(286+130*j);fldtmpredback[i][j].setY(11+130*i);
+                root.getChildren().add(fldtmpredback[i][j]);
+              }
+            }
+          }
+
           mypiecesellectionflag = 1;//持ち駒のredbackが表示されている
         }
       }
@@ -204,6 +229,17 @@ public class Main extends Application {
           tmpredback.setX(x);
           tmpredback.setY(y);// redbackを選択された持ち駒の座標にセット
           Main.root.getChildren().add(tmpredback);
+
+          for(int i = 0;i < 4;i++){
+            for(int j = 0;j < 3;j++){
+              if(field[i][j] == 0){//何もおいてないとこなら
+                fldtmpredback[i][j].setFitHeight(128);fldtmpredback[i][j].setFitWidth(128);
+                fldtmpredback[i][j].setX(286+130*j);fldtmpredback[i][j].setY(11+130*i);
+                root.getChildren().add(fldtmpredback[i][j]);
+              }
+            }
+          }
+
           mypiecesellectionflag = 1;//持ち駒のredbackが表示されている
         }
       }
@@ -258,8 +294,8 @@ public class Main extends Application {
             drawChara("chicken",3,i,-1);
           }
         }
-        
-        
+
+
 
         previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
@@ -277,7 +313,7 @@ public class Main extends Application {
       public static void resetChicken(ImageView animalname1,ImageView animalname2){
         root.getChildren().remove(animalname1);
         root.getChildren().add(animalname2);
-      } 
+      }
 
     private void initTitle(Stage stage, Scene title, Scene scene,Scene selectScene, AnchorPane pane){
       ImageView titleImage = new ImageView("images/title.png");
@@ -321,7 +357,14 @@ public class Main extends Application {
         }
       }
 
-        
+        //持ち駒のやつreset
+          try{
+            root.getChildren().remove(tmpredback);//追加されていれば消す
+          }
+          catch(Exception ewes){
+            //
+          }
+
 
         mypiece.reset();    //持ち駒のリセット
         yourpiece.reset();
