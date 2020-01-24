@@ -119,15 +119,15 @@ public class GUI{
     System.out.println(Main.directionCopy[pieceY][pieceX]);
     if(Main.directionCopy[pieceY][pieceX]){//そこへ動く
       if(Turn.myTurn(1)){//プレイヤー1のターンがこの手でおわる//文字盤の変更
-        Main.t1.setText("あいてのターン");
-        Main.t2.setText("あなたのターン");
+        Main.t1.setText("");
+        Main.t2.setText("PLAYER2のターン");
       }
       else{
-        Main.t1.setText("あなたのターン");
-        Main.t2.setText("あいてのターン");
+        Main.t1.setText("PLAYER1のターン");
+        Main.t2.setText("");
       }
       if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[1-(Turn.turnPlayer() - 1)]){//もし王が取られたらゲームオーバー
-        System.out.println("プレイヤー"+Turn.turnPlayer()+"の価値です。");
+        System.out.println("プレイヤー"+Turn.turnPlayer()+"の勝ちです。");
         if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
           Main.t1.setUnderline(true);
           Main.t1.setText("あなたの勝利！");

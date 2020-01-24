@@ -75,8 +75,8 @@ public class Main extends Application {
     ImageView select2 = new ImageView("images/select2.png");
     int select = 0;
 
-    static Text t1 = new Text(10, 250 , "あなたのターン");
-    static Text t2 = new Text(700, 250 , "あいてのターン");
+    static Text t1 = new Text(10, 250 , "PLAYER1のターン");
+    static Text t2 = new Text(700, 250 , "");
     Button btn2 = new Button();//ゲーム中の戻るボタン
     ImageView modoru = new ImageView("images/return.png");
 
@@ -125,10 +125,10 @@ public class Main extends Application {
         p2.setFont(new Font(35));
         root.getChildren().add(p2);
 
-        t1.setFont(new Font(35));
+        t1.setFont(new Font(30));
         root.getChildren().add(t1);
 
-        t2.setFont(new Font(35));
+        t2.setFont(new Font(30));
         root.getChildren().add(t2);
 
         modoru.setFitHeight(50);modoru.setFitWidth(100);
@@ -383,8 +383,8 @@ public class Main extends Application {
           }
 
         Turn.resetGame();//ターンの初期化を行う
-        t1.setText("あなたのターン");
-        t2.setText("あいてのターン");
+        t1.setText("PLAYER1のターン");
+        t2.setText("");
         t1.setUnderline(false);
         t2.setUnderline(false);
         drawChara("lion" , 3 , 1 , 1);
