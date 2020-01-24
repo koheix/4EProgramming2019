@@ -75,7 +75,7 @@ public class Main extends Application {
 
     static boolean putchick = false; 
 
-    ImageView select1 = new ImageView("images/select1.png");
+    ImageView select1 = new ImageView("images/select1.png");  //王選択画面の背景画像
     ImageView select2 = new ImageView("images/select2.png");
     int select = 0;
 
@@ -86,6 +86,9 @@ public class Main extends Application {
     Button btn2 = new Button();//ゲーム中の戻るボタン
     ImageView modoru = new ImageView("images/return.png");
 
+    ImageView normal = new ImageView("images/normal.png");//タイトル画面のボタンの画像
+    ImageView selectking = new ImageView("images/selectking.png");
+
     @Override
     public void start(final Stage stage) {
         for(int i=0;i<4;i++){
@@ -95,7 +98,6 @@ public class Main extends Application {
           }
         }
         AnchorPane pane = new AnchorPane();
-      //  Group rootT = new Group();
 
 
         //描画用キャンバスノードの作成
@@ -149,7 +151,9 @@ public class Main extends Application {
         t2.setFont(new Font(30));
         root.getChildren().add(t2);
 
-        modoru.setFitHeight(50);modoru.setFitWidth(100);
+
+
+        modoru.setFitHeight(50);modoru.setFitWidth(100);//戻るボタンの設定
         btn2.setStyle("-fx-base:#ff9900");
         btn2.setGraphic(modoru);
         root.getChildren().add(btn2);
@@ -353,8 +357,14 @@ public class Main extends Application {
       ImageView titleImage = new ImageView("images/title.png");
       titleImage.setFitHeight(540);titleImage.setFitWidth(960);
       pane.getChildren().add(titleImage);
-      Button btn = new Button("ノーマルモード");
-      Button btn_s1 = new Button("王を選択モード");
+      Button btn = new Button();
+      Button btn_s1 = new Button();
+      normal.setFitHeight(50);normal.setFitWidth(200);//ノーマルボタンの設定
+      btn.setStyle("-fx-base:#ff9900");
+      btn.setGraphic(normal);
+      selectking.setFitHeight(50);selectking.setFitWidth(200);//戻るボタンの設定
+      btn_s1.setStyle("-fx-base:#ff9900");
+      btn_s1.setGraphic(selectking);
       btn.setPrefSize(100,50);
       btn_s1.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> setScene(stage,scene));
@@ -365,9 +375,9 @@ public class Main extends Application {
       });
       pane.getChildren().add(btn);
       pane.getChildren().add(btn_s1);
-      pane.setLeftAnchor(btn,430.);
-      pane.setTopAnchor(btn,240.);
-      pane.setLeftAnchor(btn_s1,430.);
+      pane.setLeftAnchor(btn,360.);
+      pane.setTopAnchor(btn,235.);
+      pane.setLeftAnchor(btn_s1,360.);
       pane.setTopAnchor(btn_s1,300.);
       //drawField();
     }
