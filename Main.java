@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.*;
 import java.util.*;
 import javafx.scene.input.*;
+import java.io.File;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -76,6 +77,8 @@ public class Main extends Application {
     ImageView select2 = new ImageView("images/select2.png");
     int select = 0;
 
+    ImageView backImage = new ImageView("images/background.png");
+
     static Text t1 = new Text(10, 250 , "PLAYER1のターン");
     static Text t2 = new Text(700, 250 , "");
     Button btn2 = new Button();//ゲーム中の戻るボタン
@@ -103,6 +106,9 @@ public class Main extends Application {
         Scene scene = new Scene(root, width, height, Color.WHITE);//make a window its background color is white
         Scene selectScene = new Scene(root2 ,width ,height , Color.WHITE);
 
+        backImage.setFitHeight(540);backImage.setFitWidth(960);//ゲーム画面の背景
+        root.getChildren().add(backImage);
+
         initTitle(stage,title,scene,selectScene,pane);
         initialize(stage,title,root);
 
@@ -118,13 +124,22 @@ public class Main extends Application {
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
         stage.show();
-        final Text p1 = new Text(50, 100 , "PLAYER1");
-        p1.setFont(new Font(35));
+
+        final Text p1 = new Text(50, 150 , "PLAYER1");
+        p1.setFont(Font.font(35));
         root.getChildren().add(p1);
 
-        final Text p2 = new Text(700, 350 , "PLAYER2");
+        final Text p2 = new Text(740, 150 , "PLAYER2");
         p2.setFont(new Font(35));
         root.getChildren().add(p2);
+
+        final Text mp1 = new Text(70, 360 , "持ち駒");
+        mp1.setFont(Font.font(30));
+        root.getChildren().add(mp1);
+
+        final Text mp2 = new Text(760, 360 , "持ち駒");
+        mp2.setFont(new Font(30));
+        root.getChildren().add(mp2);
 
         t1.setFont(new Font(30));
         root.getChildren().add(t1);
@@ -144,7 +159,7 @@ public class Main extends Application {
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
         selectScene.setOnKeyPressed((event)->{
           mode = 1;
-          if(select==1){
+          if(select==1){//王選択画面
             if((event.getCode()==KeyCode.UP)||(event.getCode()==KeyCode.DOWN)||(event.getCode()==KeyCode.RIGHT)||(event.getCode()==KeyCode.LEFT)){
             root2.getChildren().remove(select1);
             root2.getChildren().add(select2);
@@ -344,7 +359,7 @@ public class Main extends Application {
       pane.setTopAnchor(btn,240.);
       pane.setLeftAnchor(btn_s1,430.);
       pane.setTopAnchor(btn_s1,300.);
-      drawField();
+      //drawField();
     }
 
    /* public void selectKing(){
@@ -353,6 +368,7 @@ public class Main extends Application {
     }*/
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
+      mode = 0;
       for(int i=0;i<4;i++){//鶏が盤面にあればひよこに戻す
         for(int j=0;j<3;j++){
           if(animal[i][j]=="ch1"){
@@ -373,7 +389,7 @@ public class Main extends Application {
             //
           }
 
-
+        first = 0;
         mypiece.reset();    //持ち駒のリセット
         yourpiece.reset();
 
@@ -416,7 +432,7 @@ public class Main extends Application {
     stage.show();
   }
 
-    private void drawField() {//描画のプログラム
+    /*private void drawField() {//描画のプログラム
         for(int i = 0;i < 4;i++){
             for(int j = 0;j < 3;j++){
                 g.strokeRect(//盤面の左上は(285 , 10)
@@ -431,7 +447,7 @@ public class Main extends Application {
 
             }
         }
-    }
+    }*/
 
     public void drawChara(String animalname , int x , int y ,int player) {//x ,yは盤面の配列の座標
         switch(animalname){//動物判定
