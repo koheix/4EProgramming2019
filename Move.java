@@ -139,6 +139,9 @@ public static ImageView animalnameToImage(String animalname){
       animalnameToImage(MyPiece.preimage).setY(11+130*pieceY);
       animalnameToImage(MyPiece.preimage).setFitHeight(128);
       animalnameToImage(MyPiece.preimage).setFitWidth(128);
+      if(MyPiece.preimage == c1 || MyPiece.preimage == c2){//ひよこが盤面に置かれたら
+        Main.putchick = true;//直前にひよっこが置かれた
+      }
       if(MyPiece.preanimal<0){
         animalnameToImage(MyPiece.preimage).setRotate(180);
       }
@@ -148,7 +151,7 @@ public static ImageView animalnameToImage(String animalname){
       Turn.turnChange();
     }
 
-    public static void moveMyPiece(){
+    public static void moveMyPiece(){//持ち駒を詰めるショル
       if(Turn.myTurn(1)){
         for(int i=0;i<Main.mypiece.getPieceNum();i++){
         System.out.println(Main.mypiece.eleToX(i));
