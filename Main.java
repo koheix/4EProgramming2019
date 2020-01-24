@@ -117,11 +117,11 @@ public class Main extends Application {
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
         stage.show();
-        final Text p1 = new Text(10, 350 , "プレイヤー1");
+        final Text p1 = new Text(50, 100 , "PLAYER1");
         p1.setFont(new Font(35));
         root.getChildren().add(p1);
 
-        final Text p2 = new Text(700, 350 , "プレイヤー2");
+        final Text p2 = new Text(700, 350 , "PLAYER2");
         p2.setFont(new Font(35));
         root.getChildren().add(p2);
 
@@ -132,6 +132,7 @@ public class Main extends Application {
         root.getChildren().add(t2);
 
         modoru.setFitHeight(50);modoru.setFitWidth(100);
+        btn2.setStyle("-fx-base:#ff9900");
         btn2.setGraphic(modoru);
         root.getChildren().add(btn2);
 
