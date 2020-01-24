@@ -20,15 +20,13 @@ import java.io.File;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
-    private final int width = 960;
-    private final int height = 540;//ウインドウの大きさ
+    private final int width = 960;//ウインドウの大きさ
+    private final int height = 540;
 
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
     static int[] king = {1 ,1};//王は普通ライオン1(この変数を変えれば王は変えられる)
     static String[][] animal = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
     static int mode = 0;//ゲームモードが0は通常,1は王変更モード
-    //static String[][] animalp1 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
-    //static String[][] animalp2 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
 
     int mypiecesellectionflag = 0;//持ち駒が選択されているかどうかのフラグ
     int x, y;//持ち駒光らせる座標
@@ -49,18 +47,17 @@ public class Main extends Application {
     }
 
     GraphicsContext g;
-    static Group root = new Group();
-     Group root2 = new Group();
-    ImageView[][] redBack = new ImageView[4][3];  //赤い背景
+    static Group root = new Group();//ゲーム画面のGroup
+    Group root2 = new Group();//選択画面のGroup
     boolean PieceClicked = false;  //クリックされた
     int first = 0;
     double previousX = 0,previousY = 0;
     static boolean[][] directionCopy = new boolean[4][3];
 
-    static MyPiece mypiece = new MyPiece();
+    static MyPiece mypiece = new MyPiece();//持ち駒クラスのインスタンス変数
     static MyPiece yourpiece = new MyPiece();
 
-    static ImageView lion1 = new ImageView("images/lion.png");
+    static ImageView lion1 = new ImageView("images/lion.png");//コマの画像
     static ImageView lion2 = new ImageView("images/lion.png");
     static ImageView elephant1 = new ImageView("images/zou.png");
     static ImageView elephant2 = new ImageView("images/zou.png");
@@ -72,32 +69,34 @@ public class Main extends Application {
     static ImageView chicken2 = new ImageView("images/niwatori.png");
     static ImageView tmpredback = new ImageView("images/redBack.png");//持ち駒を囲む用
     static ImageView[][] fldtmpredback = new ImageView[4][3];//持ち駒洗濯時における場所を照らす用
+    ImageView[][] redBack = new ImageView[4][3];  //赤い背景
+    static ImageView yellowback = new ImageView("images/yellowback.png");
+    ImageView backImage = new ImageView("images/background.png");//ゲーム画面の背景
+    ImageView select1 = new ImageView("images/select1.png");  //王選択画面の背景画像
+    ImageView select2 = new ImageView("images/select2.png");
+    ImageView normal = new ImageView("images/normal.png");//タイトル画面のボタンの画像
+    ImageView selectking = new ImageView("images/selectking.png");
+    ImageView modoru = new ImageView("images/return.png");//戻るボタンの画像
 
     static boolean putchick = false; 
 
-    ImageView select1 = new ImageView("images/select1.png");  //王選択画面の背景画像
-    ImageView select2 = new ImageView("images/select2.png");
     int select = 0;
 
-    ImageView backImage = new ImageView("images/background.png");
 
-    static Text t1 = new Text(10, 250 , "PLAYER1のターン");
-    static Text t2 = new Text(700, 250 , "");
+    static Text t1 = new Text(30, 250 , "PLAYER1のターン");
+    static Text t2 = new Text(730, 250 , "");
     Button btn2 = new Button();//ゲーム中の戻るボタン
-    ImageView modoru = new ImageView("images/return.png");
 
-    ImageView normal = new ImageView("images/normal.png");//タイトル画面のボタンの画像
-    ImageView selectking = new ImageView("images/selectking.png");
 
     @Override
     public void start(final Stage stage) {
-        for(int i=0;i<4;i++){
+        for(int i=0;i<4;i++){//赤い枠の初期化
           for(int j=0;j<3;j++){
             redBack[i][j]=new ImageView("images/redBack.png");
             fldtmpredback[i][j] = new ImageView("images/redBack.png");
           }
         }
-        AnchorPane pane = new AnchorPane();
+        AnchorPane pane = new AnchorPane();//タイトル画面のpane
 
 
         //描画用キャンバスノードの作成
@@ -161,6 +160,7 @@ public class Main extends Application {
         select1.setFitHeight(540);select1.setFitWidth(960);
         select2.setFitHeight(540);select2.setFitWidth(960);
         tmpredback.setFitHeight(80);tmpredback.setFitWidth(80);//選択された持ち駒を光らせるやつの大きさ
+        yellowback.setFitHeight(128);yellowback.setFitWidth(128);//選択された盤上の駒を光らせるやつの大きさ
 
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
         selectScene.setOnKeyPressed((event)->{
@@ -205,13 +205,12 @@ public class Main extends Application {
             }
           }
         });
-
     }
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
       if(mypiecesellectionflag == 1){//持ち駒の赤いやつを消す
         root.getChildren().remove(tmpredback);
-        for(int i = 0;i < 4;i++){
+        for(int i = 0;i < 4;i++){//赤い枠の初期化
           for(int j = 0;j < 3;j++){
             try{
               root.getChildren().remove(fldtmpredback[i][j]);//追加されていれば消す
@@ -221,7 +220,6 @@ public class Main extends Application {
             }
           }
         }
-
         mypiecesellectionflag = 0;
       }
 
@@ -285,7 +283,13 @@ public class Main extends Application {
           }
         }
         GUI g = new GUI();
-        g.directionCheck(e.getX(),e.getY());//選択された駒がどこに進めるかを表示
+        g.directionCheck(e.getX(),e.getY());//選択された駒がどこに進めるかを判定し配列に格納
+        /*if(g.selected(e.getX(),e.getY())){
+          root.getChildren().add(yellowback);
+        }else{
+          root.getChildren().remove(yellowback);
+        }*/
+        
         g.isValid(previousX,previousY,e.getX(),e.getY());//駒が動かせるか判定→駒を動かす
         if(GUI.removeCheck(previousX,previousY,e.getX(),e.getY())){
           Move.doRemove(previousX,previousY,e.getX(),e.getY());
@@ -314,13 +318,11 @@ public class Main extends Application {
               putchick = false;
               continue;
             }
-            System.out.println("なんで");
             if(animal[3][i]=="c1"){
               root.getChildren().add(chicken1);
               root.getChildren().remove(chick1);
               animal[3][i]="ch1";
             }else{
-            System.out.println("なんで");
               root.getChildren().add(chicken2);
               root.getChildren().remove(chick2);
               animal[3][i]="ch2";
@@ -334,12 +336,17 @@ public class Main extends Application {
         }
 
 
-
+       /* if((e.getX()>285)&&(e.getX()<675)&&(e.getY()>10)&&(e.getY()<530)){
+          yellowback.setX(e.getX()-(e.getX()-285)%130);
+          yellowback.setY(e.getY()-(e.getY()-10)%130);
+          root.getChildren().add(yellowback);
+        }else{
+          root.getChildren().remove(yellowback);
+        }*/
         previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
             if(Piece.direction[i][j]==true){
-          //    redBack[i][j]=new ImageView("images/redBack.png");
               redBack[i][j].setFitHeight(128);redBack[i][j].setFitWidth(128);
               redBack[i][j].setX(286+130*j);redBack[i][j].setY(11+130*i);
               root.getChildren().add(redBack[i][j]);
@@ -359,10 +366,10 @@ public class Main extends Application {
       pane.getChildren().add(titleImage);
       Button btn = new Button();
       Button btn_s1 = new Button();
-      normal.setFitHeight(50);normal.setFitWidth(200);//ノーマルボタンの設定
+      normal.setFitHeight(50);normal.setFitWidth(210);//ノーマルボタンの設定
       btn.setStyle("-fx-base:#ff9900");
       btn.setGraphic(normal);
-      selectking.setFitHeight(50);selectking.setFitWidth(200);//戻るボタンの設定
+      selectking.setFitHeight(50);selectking.setFitWidth(210);//戻るボタンの設定
       btn_s1.setStyle("-fx-base:#ff9900");
       btn_s1.setGraphic(selectking);
       btn.setPrefSize(100,50);
@@ -375,17 +382,13 @@ public class Main extends Application {
       });
       pane.getChildren().add(btn);
       pane.getChildren().add(btn_s1);
-      pane.setLeftAnchor(btn,360.);
+      pane.setLeftAnchor(btn,355.);
       pane.setTopAnchor(btn,235.);
-      pane.setLeftAnchor(btn_s1,360.);
+      pane.setLeftAnchor(btn_s1,355.);
       pane.setTopAnchor(btn_s1,300.);
       //drawField();
     }
 
-   /* public void selectKing(){
-      System.out.println("セレクト画面");
-      select = 1;
-    }*/
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
       mode = 0;
@@ -476,13 +479,11 @@ public class Main extends Application {
               if(player==1){
                 lion1.setFitHeight(128);lion1.setFitWidth(128);
                 lion1.setX(286+130*y);lion1.setY(11+130*x);
-                //root.getChildren().add(lion1);
                 field[x][y] = 1;animal[x][y] = "l1";
               }else{
                 lion2.setFitHeight(128);lion2.setFitWidth(128);
                 lion2.setX(286+130*y);lion2.setY(11+130*x);
                 lion2.setRotate(180);
-                //root.getChildren().add(lion2);
                 field[x][y] = -1;animal[x][y] = "l2";
               }
               break;
@@ -490,13 +491,11 @@ public class Main extends Application {
               if(player==1){
                 elephant1.setFitHeight(128);elephant1.setFitWidth(128);
                 elephant1.setX(286+130*y);elephant1.setY(11+130*x);
-                //root.getChildren().add(elephant1);
                 field[x][y] = 2;animal[x][y] = "e1";
               }else{
                 elephant2.setFitHeight(128);elephant2.setFitWidth(128);
                 elephant2.setX(286+130*y);elephant2.setY(11+130*x);
                 elephant2.setRotate(180);
-                //root.getChildren().add(elephant2);
                 field[x][y] = -2;animal[x][y] = "e2";
               }
                 break;
@@ -504,13 +503,11 @@ public class Main extends Application {
               if(player==1){
                 giraffe1.setFitHeight(128);giraffe1.setFitWidth(128);
                 giraffe1.setX(286+130*y);giraffe1.setY(11+130*x);
-                //root.getChildren().add(giraffe1);
                 field[x][y] = 3;animal[x][y] = "g1";
               }else{
                 giraffe2.setFitHeight(128);giraffe2.setFitWidth(128);
                 giraffe2.setX(286+130*y);giraffe2.setY(11+130*x);
                 giraffe2.setRotate(180);
-                //root.getChildren().add(giraffe2);
                 field[x][y] = -3;animal[x][y] = "g2";
               }
                 break;
@@ -518,13 +515,11 @@ public class Main extends Application {
               if(player==1){
                 chick1.setFitHeight(128);chick1.setFitWidth(128);
                 chick1.setX(286+130*y);chick1.setY(11+130*x);
-                //root.getChildren().add(chick1);
                 field[x][y] = 4;animal[x][y] = "c1";
               }else{
                 chick2.setFitHeight(128);chick2.setFitWidth(128);
                 chick2.setX(286+130*y);chick2.setY(11+130*x);
                 chick2.setRotate(180);
-                //root.getChildren().add(chick2);
                 field[x][y] = -4;animal[x][y] = "c2";
               }
                 break;
@@ -532,14 +527,12 @@ public class Main extends Application {
               if(player==1){
                 Move.animalToImage(y,x).setFitHeight(128);Move.animalToImage(y,x).setFitWidth(128);
                 Move.animalToImage(y,x).setX(286+130*y);Move.animalToImage(y,x).setY(11+130*x);
-                //root.getChildren().add(chicken1);
-                field[x][y] = 5;//animal[x][y] = "ch1";
+                field[x][y] = 5;
               }else{
                 Move.animalToImage(y,x).setFitHeight(128);Move.animalToImage(y,x).setFitWidth(128);
                 Move.animalToImage(y,x).setX(286+130*y);Move.animalToImage(y,x).setY(11+130*x);
                 Move.animalToImage(y,x).setRotate(180);
-                //root.getChildren().add(chicken2);
-                field[x][y] = -5;//animal[x][y] = "ch2";
+                field[x][y] = -5;
               }
                 break;
             default:

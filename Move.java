@@ -19,7 +19,6 @@ public class Move{
   public static ImageView animalToImage(int x,int y){
   switch(Main.animal[y][x]){
     case "l1":
-      System.out.println("hellobbbbbbbb");
       return Main.lion1;
     case "l2":
       return Main.lion2;
@@ -71,7 +70,7 @@ public static ImageView animalnameToImage(String animalname){
   }
 }
 
-  public void movemove(int prePieceX, int prePieceY, int pieceX, int pieceY){
+  public void movemove(int prePieceX, int prePieceY, int pieceX, int pieceY){//盤面の駒の移動
     if(Main.field[pieceY][pieceX]!=0){//画像を持ち駒の位置に移動
       if(Turn.myTurn(1)){
         if(Main.field[pieceY][pieceX]==-5){
@@ -123,7 +122,7 @@ public static ImageView animalnameToImage(String animalname){
       Main.animal[prePieceY][prePieceX]=null;
     }
 
-    public static void doRemove(double previousX,double previousY,double mouseX, double mouseY){
+    public static void doRemove(double previousX,double previousY,double mouseX, double mouseY){//持ち駒を盤面に追加
       int pieceX, pieceY;
       if(mouseX < 285) pieceX = -1222; //field配列でのコマの位置
       else pieceX = (int)(mouseX - 285)/130;
@@ -151,7 +150,7 @@ public static ImageView animalnameToImage(String animalname){
       Turn.turnChange();
     }
 
-    public static void moveMyPiece(){//持ち駒を詰めるショル
+    public static void moveMyPiece(){//持ち駒を左上に詰める処理
       if(Turn.myTurn(1)){
         for(int i=0;i<Main.mypiece.getPieceNum();i++){
         System.out.println(Main.mypiece.eleToX(i));

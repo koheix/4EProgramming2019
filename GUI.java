@@ -29,7 +29,7 @@ public class GUI{
 
 
 
-
+  //クリックされた駒が進める位置を判定
   public void directionCheck(double mouseX, double mouseY){
     int pieceX, pieceY;
     if(mouseX < 285) pieceX = -1222; //field配列でのコマの位置
@@ -91,7 +91,6 @@ public class GUI{
     if(!MyPiece.onMyPiece(previousX,previousY))return false;
     if(Turn.myTurn(1)){
       if((Main.mypiece.isAnimal(previousX,previousY))&&(Main.field[pieceY][pieceX]==0)){
-        System.out.println("おけます");
         return true;
       }
     }else if(Turn.myTurn(-1)){
@@ -103,7 +102,8 @@ public class GUI{
 
   }
 
-  public void isValid(double previousX,double previousY,double mouseX, double mouseY){
+  //クリックされた場所に移動可能かどうか判定
+  public void isValid(double previousX,double previousY,double mouseX, double mouseY){//
     int prePieceX,prePieceY,pieceX,pieceY;
     if(previousX < 285) prePieceX = -1222;
     else prePieceX = (int)(previousX - 285)/130;
@@ -113,9 +113,9 @@ public class GUI{
     else pieceX = (int)(mouseX - 285)/130;
     if(mouseY < 10) pieceY = -560;
     else pieceY = (int)(mouseY - 10)/130;
-    System.out.println(previousX+","+previousY);
-    System.out.println(mouseX+","+mouseY);
-    if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;
+    System.out.println(previousX+","+previousY);//一回前にクリックした座標
+    System.out.println(mouseX+","+mouseY);//最後にクリックした座標
+    if(!Piece.onBoard(prePieceX,prePieceY) || !Piece.onBoard(pieceX,pieceY))return;//最後にクリックされた２回が盤面以外であれば強制送還
     System.out.println(Main.directionCopy[pieceY][pieceX]);
     if(Main.directionCopy[pieceY][pieceX]){//そこへ動く
       if(Turn.myTurn(1)){//プレイヤー1のターンがこの手でおわる//文字盤の変更
@@ -131,12 +131,12 @@ public class GUI{
         if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
           Main.t1.setUnderline(true);
           Main.t1.setText("あなたの勝利！");
-          Main.t2.setText("あなたは\n負けました");
+          Main.t2.setText("あなたの負け...");
         }
         else{//プレイヤー2の勝ち
           Main.t2.setText("あなたの勝利！");
           Main.t2.setUnderline(true);
-          Main.t1.setText("あなたは\n負けました");
+          Main.t1.setText("あなたの負け...");
         }
         Turn.gameOver();
       }
@@ -146,4 +146,20 @@ public class GUI{
       Turn.turnChange();//turnをchange & ASKA
     }
 }
+
+/*public boolean selected(double mouseX,double mouseY){
+  int pieceX,pieceY;
+  if(mouseX < 285) pieceX = -1222;
+    else pieceX = (int)(mouseX - 285)/130;
+    if(mouseY < 10) pieceY = -560;
+    else pieceY = (int)(mouseY - 10)/130;
+    if(Piece.onBoard(pieceX,pieceY)){
+          System.out.println("helllllllllllll");
+          Main.yellowback.setX(mouseX-(mouseX-285)%130);
+          Main.yellowback.setY(mouseY-(mouseY-10)%130);
+          return true;
+        }else{
+          return false;
+        }
+}*/
 }
