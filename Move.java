@@ -139,7 +139,7 @@ public static ImageView animalnameToImage(String animalname){
       animalnameToImage(MyPiece.preimage).setY(11+130*pieceY);
       animalnameToImage(MyPiece.preimage).setFitHeight(128);
       animalnameToImage(MyPiece.preimage).setFitWidth(128);
-      if(MyPiece.preimage == c1 || MyPiece.preimage == c2){//ひよこが盤面に置かれたら
+      if(MyPiece.preimage == "c1" || MyPiece.preimage == "c2"){//ひよこが盤面に置かれたら
         Main.putchick = true;//直前にひよっこが置かれた
       }
       if(MyPiece.preanimal<0){

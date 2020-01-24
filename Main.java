@@ -73,6 +73,8 @@ public class Main extends Application {
     static ImageView tmpredback = new ImageView("images/redBack.png");//持ち駒を囲む用
     static ImageView[][] fldtmpredback = new ImageView[4][3];//持ち駒洗濯時における場所を照らす用
 
+    static boolean putchick = false; 
+
     ImageView select1 = new ImageView("images/select1.png");
     ImageView select2 = new ImageView("images/select2.png");
     int select = 0;
@@ -286,6 +288,10 @@ public class Main extends Application {
         }
         for(int i=0;i<3;i++){//ひよこ→にわとり
           if((field[0][i] == 4)&&(Turn.turn==-1)){
+            if(putchick == true){
+              putchick = false;
+              continue;
+            }
             if(animal[0][i]=="c1"){
               root.getChildren().add(chicken1);
               root.getChildren().remove(chick1);
@@ -300,6 +306,10 @@ public class Main extends Application {
             }
             drawChara("chicken",0,i,1);
           }else if((field[3][i] == -4)&&(Turn.turn==1)){
+            if(putchick == true){
+              putchick = false;
+              continue;
+            }
             System.out.println("なんで");
             if(animal[3][i]=="c1"){
               root.getChildren().add(chicken1);
