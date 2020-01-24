@@ -25,6 +25,7 @@ public class Main extends Application {
     static int[][] field = {{0 , 0 , 0},{0 , 0 , 0} , {0 , 0 , 0} , {0 , 0 , 0}};//盤面//最初はコマがnull//逆のコマは負の数がつく
     static int[] king = {1 ,1};//王は普通ライオン1(この変数を変えれば王は変えられる)
     static String[][] animal = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
+    static int mode = 0;//ゲームモードが0は通常,1は王変更モード
     //static String[][] animalp1 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
     //static String[][] animalp2 = {{null,null,null},{null,null,null},{null,null,null},{null,null,null}};
 
@@ -142,6 +143,7 @@ public class Main extends Application {
 
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
         selectScene.setOnKeyPressed((event)->{
+          mode = 1;
           if(select==1){
             if((event.getCode()==KeyCode.UP)||(event.getCode()==KeyCode.DOWN)||(event.getCode()==KeyCode.RIGHT)||(event.getCode()==KeyCode.LEFT)){
             root2.getChildren().remove(select1);
@@ -278,6 +280,9 @@ public class Main extends Application {
               root.getChildren().remove(chick2);
               animal[0][i]="ch2";
             }
+            if(mode == 1){//もしゲームモードが王変更モードなら
+              king[0] = 5;//王を5に変える
+            }
             drawChara("chicken",0,i,1);
           }else if((field[3][i] == -4)&&(Turn.turn==1)){
             System.out.println("なんで");
@@ -292,6 +297,9 @@ public class Main extends Application {
               animal[3][i]="ch2";
             }
             //root.getChildren().remove(Move.animalToImage(i,3));
+            if(mode == 1){//もしゲームモードが王変更モードなら
+              king[1] = 5;//王を5に変える
+            }
             drawChara("chicken",3,i,-1);
           }
         }
@@ -357,7 +365,6 @@ public class Main extends Application {
           }
         }
       }
-
         //持ち駒のやつreset
           try{
             root.getChildren().remove(tmpredback);//追加されていれば消す
@@ -398,6 +405,7 @@ public class Main extends Application {
         drawChara("giraffe", 0, 0 , -1);
 
         btn2.setOnMouseClicked(event -> {
+          king[0] = 1;king[1] = 1;
           setScene(stage,title);
           initialize(stage, title, root);
         });
