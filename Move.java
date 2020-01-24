@@ -72,19 +72,7 @@ public static ImageView animalnameToImage(String animalname){
 }
 
   public void movemove(int prePieceX, int prePieceY, int pieceX, int pieceY){
-
-      System.out.println(pieceX+","+pieceY+","+Main.field[pieceY][pieceX]+"kokode?");
-
     if(Main.field[pieceY][pieceX]!=0){//画像を持ち駒の位置に移動
-      /*if(Turn.turn==1){
-        animalToImage(pieceX,pieceY).setX(Main.mypiece.returnX());
-        animalToImage(pieceX,pieceY).setY(Main.mypiece.returnY());
-        Main.mypiece.addPiece(Main.field[pieceY][pieceX],animalToImage(pieceX,pieceY));
-      }else{
-        animalToImage(pieceX,pieceY).setX(Main.yourpiece.returnX());
-        animalToImage(pieceX,pieceY).setY(Main.yourpiece.returnX());
-        Main.mypiece.addPiece(Main.field[pieceY][pieceX],animalToImage(pieceX,pieceY));
-      }*/
       if(Turn.myTurn(1)){
         if(Main.field[pieceY][pieceX]==-5){
           if(Main.animal[pieceY][pieceX]=="ch1"){
@@ -133,8 +121,6 @@ public static ImageView animalnameToImage(String animalname){
       Main.field[prePieceY][prePieceX]=0;
       Main.animal[pieceY][pieceX]=Main.animal[prePieceY][prePieceX];
       Main.animal[prePieceY][prePieceX]=null;
-      //Main.player=(-1)*Main.player;
-
     }
 
     public static void doRemove(double previousX,double previousY,double mouseX, double mouseY){
@@ -145,11 +131,10 @@ public static ImageView animalnameToImage(String animalname){
       else pieceY = (int)(mouseY - 10)/130;
       if(Turn.myTurn(1)){
         Main.mypiece.removePiece(previousX,previousY);
-        System.out.println("aaaaaaaaaaaaaa");
       }else if(Turn.myTurn(-1)){
         Main.yourpiece.removePiece(previousX,previousY);
       }
-      System.out.println("追加先："+(286+130*pieceX)+","+(11+130*pieceY)+","+MyPiece.preimage+","+MyPiece.preanimal);
+      System.out.println("追加先："+(286+130*pieceX)+","+(11+130*pieceY));
       animalnameToImage(MyPiece.preimage).setX(286+130*pieceX);
       animalnameToImage(MyPiece.preimage).setY(11+130*pieceY);
       animalnameToImage(MyPiece.preimage).setFitHeight(128);
@@ -161,9 +146,6 @@ public static ImageView animalnameToImage(String animalname){
       Main.animal[pieceY][pieceX] = MyPiece.preimage;
       Move.moveMyPiece();
       Turn.turnChange();
-      //Main.turnChangeEffect();
-
-
     }
 
     public static void moveMyPiece(){
@@ -175,12 +157,10 @@ public static ImageView animalnameToImage(String animalname){
       }
       }else if(Turn.myTurn(-1)){
         for(int i=0;i<Main.yourpiece.getPieceNum();i++){
-        System.out.println("2:"+Main.yourpiece.eleToX(i));
-        animalnameToImage(Main.yourpiece.myimage.get(i)).setX(Main.yourpiece.eleToX(i));
-        animalnameToImage(Main.yourpiece.myimage.get(i)).setY(Main.yourpiece.eleToY(i));
+          System.out.println("2:"+Main.yourpiece.eleToX(i));
+          animalnameToImage(Main.yourpiece.myimage.get(i)).setX(Main.yourpiece.eleToX(i));
+          animalnameToImage(Main.yourpiece.myimage.get(i)).setY(Main.yourpiece.eleToY(i));
+        }
       }
-      }
-      
-      
     }
 }
