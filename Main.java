@@ -67,7 +67,7 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
-    static ImageView tmpredback = new ImageView("images/redBack.png");//持ち駒を囲む用
+    static ImageView tmpredback = new ImageView("images/yellowback.png");//持ち駒を囲む用
     static ImageView[][] fldtmpredback = new ImageView[4][3];//持ち駒洗濯時における場所を照らす用
     ImageView[][] redBack = new ImageView[4][3];  //赤い背景
     static ImageView yellowback = new ImageView("images/yellowback.png");
@@ -81,6 +81,7 @@ public class Main extends Application {
     static boolean putchick = false; 
 
     int select = 0;
+    static int yellowDisplayed = 0;//黄色の枠が表示されていれば1
 
 
     static Text t1 = new Text(30, 250 , "PLAYER1のターン");
@@ -284,11 +285,17 @@ public class Main extends Application {
         }
         GUI g = new GUI();
         g.directionCheck(e.getX(),e.getY());//選択された駒がどこに進めるかを判定し配列に格納
-        /*if(g.selected(e.getX(),e.getY())){
-          root.getChildren().add(yellowback);
+        if(g.selected(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
+          if(yellowDisplayed==0){
+            root.getChildren().add(yellowback);
+            yellowDisplayed = 1;
+          }
         }else{
-          root.getChildren().remove(yellowback);
-        }*/
+          if(yellowDisplayed==1){
+            root.getChildren().remove(yellowback);
+            yellowDisplayed = 0;
+          }
+        }
         
         g.isValid(previousX,previousY,e.getX(),e.getY());//駒が動かせるか判定→駒を動かす
         if(GUI.removeCheck(previousX,previousY,e.getX(),e.getY())){

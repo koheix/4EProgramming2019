@@ -147,19 +147,21 @@ public class GUI{
     }
 }
 
-/*public boolean selected(double mouseX,double mouseY){
+//クリックされた場所が動かせる駒ならTrueを返す
+public boolean selected(double mouseX,double mouseY){
   int pieceX,pieceY;
   if(mouseX < 285) pieceX = -1222;
     else pieceX = (int)(mouseX - 285)/130;
     if(mouseY < 10) pieceY = -560;
     else pieceY = (int)(mouseY - 10)/130;
-    if(Piece.onBoard(pieceX,pieceY)){
-          System.out.println("helllllllllllll");
-          Main.yellowback.setX(mouseX-(mouseX-285)%130);
+    if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
+          if(Main.field[pieceY][pieceX]*Turn.turn <= 0) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
+          System.out.println("黄色:"+pieceY+","+pieceX);
+          Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
           Main.yellowback.setY(mouseY-(mouseY-10)%130);
           return true;
         }else{
           return false;
         }
-}*/
+}
 }
