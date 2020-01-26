@@ -474,11 +474,9 @@ public class Main extends Application {
 
     //勝ったプレイヤーの画像を消す
     public void deleteEndImage(int winPlayer){
-      if(winPlayer==1){
-        root.getChildren().remove(win1);
-      }else{
-        root.getChildren().remove(win2);
-      }
+      System.out.println("現在のプレイヤーは："+winPlayer);
+      root.getChildren().remove(win1);
+      root.getChildren().remove(win2);
     }
 
     public static  void setScene(Stage stage,Scene changeScene) {
