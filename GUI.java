@@ -128,7 +128,7 @@ public class GUI{
       }
       if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[1-(Turn.turnPlayer() - 1)]){//もし王が取られたらゲームオーバー
         System.out.println("プレイヤー"+Turn.turnPlayer()+"の勝ちです。");
-        if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
+        /*if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
           Main.t1.setUnderline(true);
           Main.t1.setText("あなたの勝利！");
           Main.t2.setText("あなたの負け...");
@@ -137,7 +137,8 @@ public class GUI{
           Main.t2.setText("あなたの勝利！");
           Main.t2.setUnderline(true);
           Main.t1.setText("あなたの負け...");
-        }
+        }*/
+        Main.endImage(Turn.turnPlayer());
         Turn.gameOver();
       }
       Move m = new Move();
@@ -155,7 +156,7 @@ public boolean selected(double mouseX,double mouseY){
     if(mouseY < 10) pieceY = -560;
     else pieceY = (int)(mouseY - 10)/130;
     if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
-          if(Main.field[pieceY][pieceX]*Turn.turn <= 0) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
+          if((Main.field[pieceY][pieceX]*Turn.turn <= 0)||(Turn.turn==1225)||(Turn.turn==-1225)) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
           System.out.println("黄色:"+pieceY+","+pieceX);
           Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
           Main.yellowback.setY(mouseY-(mouseY-10)%130);

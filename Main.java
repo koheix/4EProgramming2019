@@ -77,6 +77,9 @@ public class Main extends Application {
     ImageView normal = new ImageView("images/normal.png");//タイトル画面のボタンの画像
     ImageView selectking = new ImageView("images/selectking.png");
     ImageView modoru = new ImageView("images/return.png");//戻るボタンの画像
+    static ImageView win1 = new ImageView("images/win1.png");//勝った場合の画面
+    static ImageView win2 = new ImageView("images/win2.png");
+    static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
 
     static boolean putchick = false; 
 
@@ -376,7 +379,7 @@ public class Main extends Application {
       normal.setFitHeight(50);normal.setFitWidth(210);//ノーマルボタンの設定
       btn.setStyle("-fx-base:#ff9900");
       btn.setGraphic(normal);
-      selectking.setFitHeight(50);selectking.setFitWidth(210);//戻るボタンの設定
+      selectking.setFitHeight(50);selectking.setFitWidth(210);
       btn_s1.setStyle("-fx-base:#ff9900");
       btn_s1.setGraphic(selectking);
       btn.setPrefSize(100,50);
@@ -451,10 +454,31 @@ public class Main extends Application {
         drawChara("giraffe", 0, 0 , -1);
 
         btn2.setOnMouseClicked(event -> {
+          deleteEndImage(Turn.turnPlayer());//"●●が勝ち！！！"を消す
           king[0] = 1;king[1] = 1;
           setScene(stage,title);
           initialize(stage, title, root);
         });
+    }
+
+    //勝ったプレイヤーの画像を表示
+    public static void endImage(int winPlayer){
+      win1.setFitHeight(540);win1.setFitWidth(960);
+      win2.setFitHeight(540);win2.setFitWidth(960);
+      if(winPlayer==1){
+        root.getChildren().add(win1);
+      }else{
+        root.getChildren().add(win2);
+      }
+    }
+
+    //勝ったプレイヤーの画像を消す
+    public void deleteEndImage(int winPlayer){
+      if(winPlayer==1){
+        root.getChildren().remove(win1);
+      }else{
+        root.getChildren().remove(win2);
+      }
     }
 
     public static  void setScene(Stage stage,Scene changeScene) {
