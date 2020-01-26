@@ -84,7 +84,7 @@ public class Main extends Application {
     static boolean putchick = false; 
 
     int select = 0;
-    static int yellowDisplayed = 0;//黄色の枠が表示されていれば1
+    static int yellowDisplayed = 0;//黄色の枠が表示されていれば1,確定したら２
 
 
     static Text t1 = new Text(30, 250 , "PLAYER1のターン");
@@ -132,20 +132,22 @@ public class Main extends Application {
         stage.setScene(title);
         stage.show();
 
-        final Text p1 = new Text(50, 150 , "PLAYER1");
-        p1.setFont(Font.font(35));
+        final Text p1 = new Text(55, 325 , "PLAYER1");
+        p1.setFont(Font.font("impact",35));
+        //p1.setFont(Font.font(35));
         root.getChildren().add(p1);
 
-        final Text p2 = new Text(740, 150 , "PLAYER2");
-        p2.setFont(new Font(35));
+        final Text p2 = new Text(745, 325 , "PLAYER2");
+        p2.setFont(Font.font("impact",35));
+        //p2.setFont(new Font(35));
         root.getChildren().add(p2);
 
         final Text mp1 = new Text(70, 360 , "持ち駒");
-        mp1.setFont(Font.font(30));
+        mp1.setFont(Font.font("impact",FontWeight.BLACK,30));
         root.getChildren().add(mp1);
 
         final Text mp2 = new Text(760, 360 , "持ち駒");
-        mp2.setFont(new Font(30));
+        mp2.setFont(Font.font("impact",FontWeight.BLACK,30));
         root.getChildren().add(mp2);
 
         t1.setFont(new Font(30));
@@ -167,6 +169,7 @@ public class Main extends Application {
         yellowback.setFitHeight(128);yellowback.setFitWidth(128);//選択された盤上の駒を光らせるやつの大きさ
 
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
+        scene.setOnMouseMoved(this::mouseMoved);
         selectScene.setOnKeyPressed((event)->{
           mode = 1;
           if(select==1){//王選択画面
@@ -209,6 +212,23 @@ public class Main extends Application {
             }
           }
         });
+    }
+
+    //マウスが移動した時の処理
+    private void mouseMoved(MouseEvent e){
+       GUI g = new GUI();
+        if(g.onMouse(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
+          if(yellowDisplayed==0){
+            root.getChildren().add(yellowback);
+            yellowDisplayed=1;
+          }
+        }else{
+          if(yellowDisplayed!=2){
+            root.getChildren().remove(yellowback);
+            yellowDisplayed = 0;
+          }
+          
+        }
     }
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
@@ -289,12 +309,11 @@ public class Main extends Application {
         GUI g = new GUI();
         g.directionCheck(e.getX(),e.getY());//選択された駒がどこに進めるかを判定し配列に格納
         if(g.selected(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
-          if(yellowDisplayed==0){
-            root.getChildren().add(yellowback);
-            yellowDisplayed = 1;
+          if(yellowDisplayed==1){
+            yellowDisplayed = 2;
           }
         }else{
-          if(yellowDisplayed==1){
+          if(yellowDisplayed==2){
             root.getChildren().remove(yellowback);
             yellowDisplayed = 0;
           }
