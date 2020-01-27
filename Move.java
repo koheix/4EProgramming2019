@@ -148,6 +148,7 @@ public static ImageView animalnameToImage(String animalname){
       Main.animal[pieceY][pieceX] = MyPiece.preimage;
       Move.moveMyPiece();
       Turn.turnChange();
+      Main.root.play();
     }
 
     public static void moveMyPiece(){//持ち駒を左上に詰める処理

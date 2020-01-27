@@ -17,6 +17,8 @@ import javafx.scene.text.*;
 import java.util.*;
 import javafx.scene.input.*;
 import java.io.File;
+import javafx.animation.*;
+import javafx.util.Duration;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -47,7 +49,7 @@ public class Main extends Application {
     }
 
     GraphicsContext g;
-    static Group root = new Group();//ゲーム画面のGroup
+    static View root = new View();//ゲーム画面のGroup
     Group root2 = new Group();//選択画面のGroup
     boolean PieceClicked = false;  //クリックされた
     int first = 0;
@@ -82,7 +84,7 @@ public class Main extends Application {
     static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
 
     static boolean putchick = false; 
-
+    static int flag = 0;
     int select = 0;
     static int yellowDisplayed = 0;//黄色の枠が表示されていれば1,確定したら２
 
@@ -196,6 +198,7 @@ public class Main extends Application {
             root2.getChildren().remove(select2);
             select=0;
             setScene(stage,scene);
+            root.play();
             }
             if(event.getCode()==KeyCode.UP){
               System.out.println("上2");
@@ -403,7 +406,10 @@ public class Main extends Application {
       btn_s1.setGraphic(selectking);
       btn.setPrefSize(100,50);
       btn_s1.setPrefSize(100,50);
-      btn.setOnMouseClicked(event -> setScene(stage,scene));
+      btn.setOnMouseClicked(event -> {
+        root.play();
+        setScene(stage,scene);
+      });
       btn_s1.setOnMouseClicked(event -> {
         setScene(stage,selectScene);
         root2.getChildren().add(select1);
@@ -588,4 +594,36 @@ public class Main extends Application {
         }
     }
 
+}
+
+class View extends Group{
+  public View(){
+  }
+
+  public void play(){
+    if(Turn.turn==-1225)return;
+    int y = 250;
+    Text text1 = new Text(0,0, "PLAYER"+Turn.turnPlayer()+"のターン");
+    text1.setFont(Font.font("impact",40));
+    text1.setFill(Color.BLACK);
+    getChildren().add(text1);
+    TranslateTransition animation1 = new TranslateTransition(Duration.seconds(0.4),text1);
+    TranslateTransition animation2 = new TranslateTransition(Duration.seconds(0.6),text1);
+    TranslateTransition animation3 = new TranslateTransition(Duration.seconds(0.4),text1);
+    animation1.setFromY(y);
+    animation1.setToY(y);
+    animation1.setFromX(960);
+    animation1.setToX(380);
+    animation2.setFromY(y);
+    animation2.setToY(y);
+    animation2.setFromX(380);
+    animation2.setToX(380);
+    animation3.setFromY(y);
+    animation3.setToY(y);
+    animation3.setFromX(380);
+    animation3.setToX(-260);
+
+    SequentialTransition animation = new SequentialTransition(animation1,animation2,animation3);
+    animation.play();
+  }
 }

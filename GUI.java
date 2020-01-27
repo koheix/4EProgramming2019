@@ -145,6 +145,7 @@ public class GUI{
       m.movemove(prePieceX,prePieceY,pieceX,pieceY);
       Piece.directionReset();
       Turn.turnChange();//turnをchange & ASKA
+      Main.root.play();
     }
 }
 
@@ -164,5 +165,23 @@ public boolean selected(double mouseX,double mouseY){
         }else{
           return false;
         }
+}
+
+//マウスがあるところが選択できる駒ならTrue
+public boolean onMouse(double mouseX,double mouseY){
+  int pieceX,pieceY;
+  if(mouseX < 285) pieceX = -1222;
+  else pieceX = (int)(mouseX - 285)/130;
+  if(mouseY < 10) pieceY = -560;
+  else pieceY = (int)(mouseY - 10)/130;
+  if(Main.yellowDisplayed==2)return false;
+  if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
+    if((Main.field[pieceY][pieceX]*Turn.turn <= 0)||(Turn.turn==1225)||(Turn.turn==-1225)) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
+    Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
+    Main.yellowback.setY(mouseY-(mouseY-10)%130);
+    return true;
+  }else{
+    return false;
+  }
 }
 }
