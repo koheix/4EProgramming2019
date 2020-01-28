@@ -81,7 +81,7 @@ public class Main extends Application {
     ImageView modoru = new ImageView("images/return.png");//戻るボタンの画像
     static ImageView win1 = new ImageView("images/win1.png");//勝った場合の画面
     static ImageView win2 = new ImageView("images/win2.png");
-    static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
+    //static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
 
     static boolean putchick = false; 
     static int flag = 0;
