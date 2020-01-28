@@ -92,6 +92,10 @@ public class Main extends Application {
     static int yellowDisplayed = 0;//黄色の枠が表示されていれば1,確定したら２
 
 
+    static AudioClip c = new AudioClip(new File("Music/BGM.wav").toURI().toString());
+    static AudioClip ct = new AudioClip(new File("Music/titlebgm.wav").toURI().toString());
+    static AudioClip cw = new AudioClip(new File("Music/win.wav").toURI().toString());
+
     /*static Text t1 = new Text(30, 250 , "PLAYER1のターン");
     static Text t2 = new Text(730, 250 , "");*/
     Button btn2 = new Button();//ゲーム中の戻るボタン
@@ -99,7 +103,6 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage stage) {
-      AudioClip c = new AudioClip(new File("Music/a.wav").toURI().toString());
         for(int i=0;i<4;i++){//赤い枠の初期化
           for(int j=0;j<3;j++){
             redBack[i][j]=new ImageView("images/redBack.png");
@@ -187,7 +190,6 @@ public class Main extends Application {
             if(event.getCode()==KeyCode.UP){
               System.out.println("上1");
               king[0] = 4;
-            }if(event.getCode()==KeyCode.DOWN){
               System.out.println("下1");
               king[0] = 1;
             }if(event.getCode()==KeyCode.RIGHT){
@@ -217,6 +219,9 @@ public class Main extends Application {
               System.out.println("左2");
               king[1] = 2;
             }
+            ct.stop();
+            c.setCycleCount(AudioClip.INDEFINITE);
+            c.play();
           }
         });
     }
@@ -421,6 +426,8 @@ public class Main extends Application {
       }
 
     private void initTitle(Stage stage, Scene title, Scene scene,Scene selectScene, AnchorPane pane){
+      ct.setCycleCount(AudioClip.INDEFINITE);
+      ct.play();
       ImageView titleImage = new ImageView("images/title.png");
       titleImage.setFitHeight(540);titleImage.setFitWidth(960);
       pane.getChildren().add(titleImage);
@@ -435,6 +442,7 @@ public class Main extends Application {
       btn.setPrefSize(100,50);
       btn_s1.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> {
+        ct.stop();
         c.setCycleCount(AudioClip.INDEFINITE);
 		    c.play();
         root.play();
@@ -516,11 +524,16 @@ public class Main extends Application {
           king[0] = 1;king[1] = 1;
           setScene(stage,title);
           initialize(stage, title, root);
+          c.stop();
+          ct.play();
         });
     }
 
-    //勝ったプレイヤーの画像を表示
+    //勝ったプレイヤーの画像を示
     public static void endImage(int winPlayer){
+      c.stop();
+      cw.setVolume(0.2);
+      cw.play();
       win1.setFitHeight(540);win1.setFitWidth(960);
       win2.setFitHeight(540);win2.setFitWidth(960);
       if(winPlayer==1){
