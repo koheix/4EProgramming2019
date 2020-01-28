@@ -99,6 +99,7 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage stage) {
+      AudioClip c = new AudioClip(new File("Music/a.wav").toURI().toString());
         for(int i=0;i<4;i++){//赤い枠の初期化
           for(int j=0;j<3;j++){
             redBack[i][j]=new ImageView("images/redBack.png");
@@ -434,7 +435,7 @@ public class Main extends Application {
       btn.setPrefSize(100,50);
       btn_s1.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> {
-        AudioClip c = new AudioClip(new File("Music/BGM.wav").toURI().toString());
+        c.setCycleCount(AudioClip.INDEFINITE);
 		    c.play();
         root.play();
         setScene(stage,scene);
@@ -510,6 +511,7 @@ public class Main extends Application {
         drawChara("giraffe", 0, 0 , -1);
 
         btn2.setOnMouseClicked(event -> {
+          c.stop();
           deleteEndImage(Turn.turnPlayer());//"●●が勝ち！！！"を消す
           king[0] = 1;king[1] = 1;
           setScene(stage,title);
