@@ -301,8 +301,8 @@ public class Main extends Application {
               if(Piece.direction[i][j]==true){
                 root.getChildren().remove(redBack[i][j]);
               }
-              }
             }
+          }
         }
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
