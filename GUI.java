@@ -40,6 +40,10 @@ public class GUI{
       Piece.directionReset();
       return;
     }
+    if(Main.field[pieceY][pieceX]*Turn.turn <= 0){
+      Piece.directionReset();
+      return;
+    }
     switch(Main.field[pieceY][pieceX]){
       case 1:
         lion1.movable((int)mouseX,(int)mouseY,1);
@@ -119,12 +123,10 @@ public class GUI{
     System.out.println(Main.directionCopy[pieceY][pieceX]);
     if(Main.directionCopy[pieceY][pieceX]){//そこへ動く
       if(Turn.myTurn(1)){//プレイヤー1のターンがこの手でおわる//文字盤の変更
-        Main.t1.setText("");
-        Main.t2.setText("PLAYER2のターン");
+
       }
       else{
-        Main.t1.setText("PLAYER1のターン");
-        Main.t2.setText("");
+        
       }
       if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[1-(Turn.turnPlayer() - 1)]){//もし王が取られたらゲームオーバー
         System.out.println("プレイヤー"+Turn.turnPlayer()+"の勝ちです。");
@@ -174,9 +176,12 @@ public boolean onMouse(double mouseX,double mouseY){
   else pieceX = (int)(mouseX - 285)/130;
   if(mouseY < 10) pieceY = -560;
   else pieceY = (int)(mouseY - 10)/130;
-  if(Main.yellowDisplayed==2)return false;
+  if((Main.yellowDisplayed==2)||(Main.yellowDisplayed==3))return false;
   if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
     if((Main.field[pieceY][pieceX]*Turn.turn <= 0)||(Turn.turn==1225)||(Turn.turn==-1225)) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
+    System.out.println("sowon");
+    Main.yellowback.setFitHeight(128);
+    Main.yellowback.setFitWidth(128);
     Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
     Main.yellowback.setY(mouseY-(mouseY-10)%130);
     return true;
@@ -184,4 +189,26 @@ public boolean onMouse(double mouseX,double mouseY){
     return false;
   }
 }
+
+public boolean onMyMouse(double mouseX,double mouseY){
+  if((Main.yellowDisplayed==2)||(Main.yellowDisplayed==3))return false;
+  if(MyPiece.onMyPiece(mouseX,mouseY)){
+    Main.yellowback.setFitHeight(80);
+    Main.yellowback.setFitWidth(80);
+    Main.yellowback.setX(MyPiece.eleToX(MyPiece.MouseToElement(mouseX,mouseY)));//黄色の枠の位置を設定
+    Main.yellowback.setY(MyPiece.eleToY(MyPiece.MouseToElement(mouseX,mouseY)));
+    return true;
+  }
+  return false;
+}
+
+/*public boolean onMyfield(double mouseX,double mouseY){
+  int pieceX,pieceY;
+  if(mouseX < 285) pieceX = -1222;
+  else pieceX = (int)(mouseX - 285)/130;
+  if(mouseY < 10) pieceY = -560;
+  else pieceY = (int)(mouseY - 10)/130;
+
+  if(Piece.onBoard(pieceX,pieceY))
+}*/
 }

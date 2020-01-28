@@ -154,15 +154,15 @@ public static ImageView animalnameToImage(String animalname){
     public static void moveMyPiece(){//持ち駒を左上に詰める処理
       if(Turn.myTurn(1)){
         for(int i=0;i<Main.mypiece.getPieceNum();i++){
-        System.out.println(Main.mypiece.eleToX(i));
-        animalnameToImage(Main.mypiece.myimage.get(i)).setX(Main.mypiece.eleToX(i));
-        animalnameToImage(Main.mypiece.myimage.get(i)).setY(Main.mypiece.eleToY(i));
+        System.out.println(MyPiece.eleToX(i));
+        animalnameToImage(Main.mypiece.myimage.get(i)).setX(MyPiece.eleToX(i));
+        animalnameToImage(Main.mypiece.myimage.get(i)).setY(MyPiece.eleToY(i));
       }
       }else if(Turn.myTurn(-1)){
         for(int i=0;i<Main.yourpiece.getPieceNum();i++){
-          System.out.println("2:"+Main.yourpiece.eleToX(i));
-          animalnameToImage(Main.yourpiece.myimage.get(i)).setX(Main.yourpiece.eleToX(i));
-          animalnameToImage(Main.yourpiece.myimage.get(i)).setY(Main.yourpiece.eleToY(i));
+          System.out.println("2:"+MyPiece.eleToX(i));
+          animalnameToImage(Main.yourpiece.myimage.get(i)).setX(MyPiece.eleToX(i));
+          animalnameToImage(Main.yourpiece.myimage.get(i)).setY(MyPiece.eleToY(i));
         }
       }
     }

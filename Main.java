@@ -83,14 +83,14 @@ public class Main extends Application {
     static ImageView win2 = new ImageView("images/win2.png");
     //static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
 
-    static boolean putchick = false; 
+    static boolean putchick = false;
     static int flag = 0;
     int select = 0;
     static int yellowDisplayed = 0;//黄色の枠が表示されていれば1,確定したら２
 
 
-    static Text t1 = new Text(30, 250 , "PLAYER1のターン");
-    static Text t2 = new Text(730, 250 , "");
+    /*static Text t1 = new Text(30, 250 , "PLAYER1のターン");
+    static Text t2 = new Text(730, 250 , "");*/
     Button btn2 = new Button();//ゲーム中の戻るボタン
 
 
@@ -152,11 +152,11 @@ public class Main extends Application {
         mp2.setFont(Font.font("impact",FontWeight.BLACK,30));
         root.getChildren().add(mp2);
 
-        t1.setFont(new Font(30));
+        /*t1.setFont(new Font(30));
         root.getChildren().add(t1);
 
         t2.setFont(new Font(30));
-        root.getChildren().add(t2);
+        root.getChildren().add(t2);*/
 
 
 
@@ -171,7 +171,7 @@ public class Main extends Application {
         yellowback.setFitHeight(128);yellowback.setFitWidth(128);//選択された盤上の駒を光らせるやつの大きさ
 
         scene.setOnMouseClicked(this::mouseClicked);//イベントハンドラ（画面がクリックされた時）
-        scene.setOnMouseMoved(this::mouseMoved);
+        scene.setOnMouseMoved(this::mouseMoved);//mausu ga ugoitatoki
         selectScene.setOnKeyPressed((event)->{
           mode = 1;
           if(select==1){//王選択画面
@@ -220,23 +220,36 @@ public class Main extends Application {
     //マウスが移動した時の処理
     private void mouseMoved(MouseEvent e){
        GUI g = new GUI();
+       System.out.println("yellowDisplayed:"+yellowDisplayed);
         if(g.onMouse(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
           if(yellowDisplayed==0){
             root.getChildren().add(yellowback);
             yellowDisplayed=1;
           }
         }else{
-          if(yellowDisplayed!=2){
+          if((yellowDisplayed!=2)&&(yellowDisplayed!=3)){
             root.getChildren().remove(yellowback);
             yellowDisplayed = 0;
           }
-          
+        }
+
+        if(g.onMyMouse(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
+          if(yellowDisplayed==0){
+            root.getChildren().add(yellowback);
+            yellowDisplayed=1;
+          }
+        }else{
+          if((yellowDisplayed!=2)&&(yellowDisplayed!=1)){
+            root.getChildren().remove(yellowback);
+            yellowDisplayed = 0;
+          }
         }
     }
 
     private void mouseClicked(MouseEvent e){//画面がクリックされた
       if(mypiecesellectionflag == 1){//持ち駒の赤いやつを消す
         root.getChildren().remove(tmpredback);
+        //yellowDisplayed = 0;
         for(int i = 0;i < 4;i++){//赤い枠の初期化
           for(int j = 0;j < 3;j++){
             try{
@@ -257,6 +270,8 @@ public class Main extends Application {
           tmpredback.setX(x);
           tmpredback.setY(y);// redbackを選択された持ち駒の座標にセット
           Main.root.getChildren().add(tmpredback);
+          yellowDisplayed = 3;
+          System.out.println("gen");
 
           for(int i = 0;i < 4;i++){
             for(int j = 0;j < 3;j++){
@@ -267,7 +282,7 @@ public class Main extends Application {
               }
             }
           }
-
+          root.getChildren().remove(yellowback);
           mypiecesellectionflag = 1;//持ち駒のredbackが表示されている
         }
       }
@@ -278,6 +293,7 @@ public class Main extends Application {
           tmpredback.setX(x);
           tmpredback.setY(y);// redbackを選択された持ち駒の座標にセット
           Main.root.getChildren().add(tmpredback);
+          yellowDisplayed = 3;
 
           for(int i = 0;i < 4;i++){
             for(int j = 0;j < 3;j++){
@@ -290,6 +306,7 @@ public class Main extends Application {
           }
 
           mypiecesellectionflag = 1;//持ち駒のredbackが表示されている
+          root.getChildren().remove(yellowback);
         }
       }
 
@@ -314,14 +331,21 @@ public class Main extends Application {
         if(g.selected(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
           if(yellowDisplayed==1){
             yellowDisplayed = 2;
+          }else if(yellowDisplayed==3){
+            yellowDisplayed = 0;
+            g.onMouse(e.getX(),e.getY());
+            yellowDisplayed=2;
           }
+        }else if(MyPiece.onMyPiece(e.getX(),e.getY())){
+
         }else{
           if(yellowDisplayed==2){
             root.getChildren().remove(yellowback);
+            yellowback.setFitWidth(128);yellowback.setFitHeight(128);
             yellowDisplayed = 0;
           }
         }
-        
+
         g.isValid(previousX,previousY,e.getX(),e.getY());//駒が動かせるか判定→駒を動かす
         if(GUI.removeCheck(previousX,previousY,e.getX(),e.getY())){
           Move.doRemove(previousX,previousY,e.getX(),e.getY());
@@ -465,10 +489,10 @@ public class Main extends Application {
           }
 
         Turn.resetGame();//ターンの初期化を行う
-        t1.setText("PLAYER1のターン");
+        /*t1.setText("PLAYER1のターン");
         t2.setText("");
         t1.setUnderline(false);
-        t2.setUnderline(false);
+        t2.setUnderline(false);*/
         drawChara("lion" , 3 , 1 , 1);
         drawChara("chick" , 2 , 1 , 1);
         drawChara("elephant" , 3 , 0 , 1);
@@ -534,6 +558,7 @@ public class Main extends Application {
                 lion1.setFitHeight(128);lion1.setFitWidth(128);
                 lion1.setX(286+130*y);lion1.setY(11+130*x);
                 field[x][y] = 1;animal[x][y] = "l1";
+                lion1.setRotate(0);
               }else{
                 lion2.setFitHeight(128);lion2.setFitWidth(128);
                 lion2.setX(286+130*y);lion2.setY(11+130*x);
@@ -545,6 +570,7 @@ public class Main extends Application {
               if(player==1){
                 elephant1.setFitHeight(128);elephant1.setFitWidth(128);
                 elephant1.setX(286+130*y);elephant1.setY(11+130*x);
+                elephant1.setRotate(0);
                 field[x][y] = 2;animal[x][y] = "e1";
               }else{
                 elephant2.setFitHeight(128);elephant2.setFitWidth(128);
@@ -557,6 +583,7 @@ public class Main extends Application {
               if(player==1){
                 giraffe1.setFitHeight(128);giraffe1.setFitWidth(128);
                 giraffe1.setX(286+130*y);giraffe1.setY(11+130*x);
+                giraffe1.setRotate(0);
                 field[x][y] = 3;animal[x][y] = "g1";
               }else{
                 giraffe2.setFitHeight(128);giraffe2.setFitWidth(128);
@@ -569,6 +596,7 @@ public class Main extends Application {
               if(player==1){
                 chick1.setFitHeight(128);chick1.setFitWidth(128);
                 chick1.setX(286+130*y);chick1.setY(11+130*x);
+                chick1.setRotate(0);
                 field[x][y] = 4;animal[x][y] = "c1";
               }else{
                 chick2.setFitHeight(128);chick2.setFitWidth(128);
@@ -581,6 +609,7 @@ public class Main extends Application {
               if(player==1){
                 Move.animalToImage(y,x).setFitHeight(128);Move.animalToImage(y,x).setFitWidth(128);
                 Move.animalToImage(y,x).setX(286+130*y);Move.animalToImage(y,x).setY(11+130*x);
+                Move.animalToImage(y,x).setRotate(0);
                 field[x][y] = 5;
               }else{
                 Move.animalToImage(y,x).setFitHeight(128);Move.animalToImage(y,x).setFitWidth(128);
@@ -608,19 +637,19 @@ class View extends Group{
     text1.setFill(Color.BLACK);
     getChildren().add(text1);
     TranslateTransition animation1 = new TranslateTransition(Duration.seconds(0.4),text1);
-    TranslateTransition animation2 = new TranslateTransition(Duration.seconds(0.6),text1);
+    TranslateTransition animation2 = new TranslateTransition(Duration.seconds(0.8),text1);
     TranslateTransition animation3 = new TranslateTransition(Duration.seconds(0.4),text1);
     animation1.setFromY(y);
     animation1.setToY(y);
     animation1.setFromX(960);
-    animation1.setToX(380);
+    animation1.setToX(340);
     animation2.setFromY(y);
     animation2.setToY(y);
-    animation2.setFromX(380);
-    animation2.setToX(380);
+    animation2.setFromX(340);
+    animation2.setToX(340);
     animation3.setFromY(y);
     animation3.setToY(y);
-    animation3.setFromX(380);
+    animation3.setFromX(340);
     animation3.setToX(-320);
 
     SequentialTransition animation = new SequentialTransition(animation1,animation2,animation3);
