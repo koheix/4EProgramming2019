@@ -328,10 +328,10 @@ public class Main extends Application {
         }
         for(int i=0;i<3;i++){//ひよこ→にわとり
           if((field[0][i] == 4)&&(Turn.turn==-1)){
-            if(putchick == true){
+            /*if(putchick == true){
               putchick = false;
               continue;
-            }
+            }*/
             if(animal[0][i]=="c1"){
               root.getChildren().add(chicken1);
               root.getChildren().remove(chick1);
@@ -621,7 +621,7 @@ class View extends Group{
     animation3.setFromY(y);
     animation3.setToY(y);
     animation3.setFromX(380);
-    animation3.setToX(-260);
+    animation3.setToX(-320);
 
     SequentialTransition animation = new SequentialTransition(animation1,animation2,animation3);
     animation.play();
