@@ -19,6 +19,7 @@ import javafx.scene.input.*;
 import java.io.File;
 import javafx.animation.*;
 import javafx.util.Duration;
+import javafx.scene.media.AudioClip;
 /* lion is 1 , elephant is 2 , giraffe is 3 , chick is 4 , chiken is 5 null is 0*/
 
 public class Main extends Application {
@@ -83,6 +84,8 @@ public class Main extends Application {
     static ImageView win2 = new ImageView("images/win2.png");
     //static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
 
+    static Text p1 = new Text(55, 325 , "PLAYER1");
+    static Text p2 = new Text(745, 325 , "PLAYER2");
     static boolean putchick = false;
     static int flag = 0;
     int select = 0;
@@ -134,21 +137,21 @@ public class Main extends Application {
         stage.setScene(title);
         stage.show();
 
-        final Text p1 = new Text(55, 325 , "PLAYER1");
+
         p1.setFont(Font.font("impact",35));
         //p1.setFont(Font.font(35));
         root.getChildren().add(p1);
 
-        final Text p2 = new Text(745, 325 , "PLAYER2");
+
         p2.setFont(Font.font("impact",35));
         //p2.setFont(new Font(35));
         root.getChildren().add(p2);
 
-        final Text mp1 = new Text(70, 360 , "持ち駒");
+        final Text mp1 = new Text(80, 360 , "持ち駒");
         mp1.setFont(Font.font("impact",FontWeight.BLACK,30));
         root.getChildren().add(mp1);
 
-        final Text mp2 = new Text(760, 360 , "持ち駒");
+        final Text mp2 = new Text(780, 360 , "持ち駒");
         mp2.setFont(Font.font("impact",FontWeight.BLACK,30));
         root.getChildren().add(mp2);
 
@@ -431,6 +434,8 @@ public class Main extends Application {
       btn.setPrefSize(100,50);
       btn_s1.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> {
+        AudioClip c = new AudioClip(new File("Music/BGM.wav").toURI().toString());
+		    c.play();
         root.play();
         setScene(stage,scene);
       });
@@ -450,6 +455,8 @@ public class Main extends Application {
 
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
+      Main.p1.setUnderline(true);
+      Main.p2.setUnderline(false);
       mode = 0;
       for(int i=0;i<4;i++){//鶏が盤面にあればひよこに戻す
         for(int j=0;j<3;j++){
