@@ -460,6 +460,8 @@ public class Main extends Application {
           System.out.println(king[0]+","+king[1]);
           setScene(stage,scene);
           stage.setTitle("どうぶつしょうぎ-ランダムモード");
+          ct.stop();
+          c.play();
         }
         else{
           setScene(stage,selectScene);
