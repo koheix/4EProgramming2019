@@ -190,6 +190,7 @@ public class Main extends Application {
             if(event.getCode()==KeyCode.UP){
               System.out.println("上1");
               king[0] = 4;
+            }if(event.getCode()==KeyCode.DOWN){
               System.out.println("下1");
               king[0] = 1;
             }if(event.getCode()==KeyCode.RIGHT){
