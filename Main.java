@@ -429,29 +429,46 @@ public class Main extends Application {
       ct.setCycleCount(AudioClip.INDEFINITE);
       ct.play();
       ImageView titleImage = new ImageView("images/title.png");
+      ImageView randomking = new ImageView("images/random.png");
       titleImage.setFitHeight(540);titleImage.setFitWidth(960);
       pane.getChildren().add(titleImage);
       Button btn = new Button();
       Button btn_s1 = new Button();
+      Button btn_s2 = new Button();
       normal.setFitHeight(50);normal.setFitWidth(210);//ノーマルボタンの設定
       btn.setStyle("-fx-base:#ff9900");
       btn.setGraphic(normal);
       selectking.setFitHeight(50);selectking.setFitWidth(210);
+      randomking.setFitHeight(50);randomking.setFitWidth(210);
       btn_s1.setStyle("-fx-base:#ff9900");
       btn_s1.setGraphic(selectking);
       btn.setPrefSize(100,50);
       btn_s1.setPrefSize(100,50);
+      btn_s2.setStyle("-fx-base:#ff9900");
+      btn_s2.setGraphic(randomking);
+      btn_s2.setPrefSize(100,50);
       btn.setOnMouseClicked(event -> {
         ct.stop();
         c.setCycleCount(AudioClip.INDEFINITE);
 		    c.play();
         root.play();
         setScene(stage,scene);
+        stage.setTitle("どうぶつしょうぎ-ノーマルモード");
       });
       btn_s1.setOnMouseClicked(event -> {
         setScene(stage,selectScene);
         root2.getChildren().add(select1);
         select = 1;
+        stage.setTitle("どうぶつしょうぎ-王選択モード");
+      });
+      btn_s2.setOnMouseClicked(event -> {
+        root.play();
+        Random r = new Random();
+        king[0] = 1+r.nextInt(4);
+        king[1] = 1+r.nextInt(4);
+        System.out.println(king[0]+","+king[1]);
+        setScene(stage,scene);
+        stage.setTitle("どうぶつしょうぎ-ランダムモード");
       });
       pane.getChildren().add(btn);
       pane.getChildren().add(btn_s1);
@@ -459,6 +476,9 @@ public class Main extends Application {
       pane.setTopAnchor(btn,235.);
       pane.setLeftAnchor(btn_s1,355.);
       pane.setTopAnchor(btn_s1,300.);
+      pane.getChildren().add(btn_s2);
+      pane.setLeftAnchor(btn_s2,355.);
+      pane.setTopAnchor(btn_s2,365.);
       //drawField();
     }
 
@@ -526,6 +546,7 @@ public class Main extends Application {
           initialize(stage, title, root);
           c.stop();
           ct.play();
+          stage.setTitle("どうぶつしょうぎ");
         });
     }
 
