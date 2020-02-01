@@ -82,12 +82,12 @@ public class Main extends Application {
     ImageView normal = new ImageView("images/normal.png");//タイトル画面のボタンの画像
     ImageView selectking = new ImageView("images/selectking.png");
     ImageView modoru = new ImageView("images/return.png");//戻るボタンの画像
-    ImageView win1 = new ImageView("images/win1.png");//勝った場合の画面
-    ImageView win2 = new ImageView("images/win2.png");
+    static ImageView win1 = new ImageView("images/win1.png");//勝った場合の画面
+    static ImageView win2 = new ImageView("images/win2.png");
 
     Text p1 = new Text(55, 325 , "PLAYER1");
     Text p2 = new Text(755, 325 , "PLAYER2");
-    boolean putchick = false;
+    //boolean putchick = false;
     int flag = 0;
     int select = 0;
     static int yellowDisplayed = 0;//黄色の枠が表示されていれば1,確定したら２
