@@ -379,10 +379,10 @@ public class Main extends Application {
             }
             drawChara("chicken",0,i,1);
           }else if((field[3][i] == -4)&&(Turn.turn==1)){
-            if(putchick == true){
+            /*if(putchick == true){
               putchick = false;
               continue;
-            }
+            }*/
             if(animal[3][i]=="c1"){
               root.getChildren().add(chicken1);
               root.getChildren().remove(chick1);
