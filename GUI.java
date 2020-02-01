@@ -130,17 +130,8 @@ public class GUI{
       }
       if(Math.abs(Main.field[pieceY][pieceX]) == Main.king[1-(Turn.turnPlayer() - 1)]){//もし王が取られたらゲームオーバー
         System.out.println("プレイヤー"+Turn.turnPlayer()+"の勝ちです。");
-        /*if(Turn.turnPlayer() == 1){//プレイヤー1の勝ち
-          Main.t1.setUnderline(true);
-          Main.t1.setText("あなたの勝利！");
-          Main.t2.setText("あなたの負け...");
-        }
-        else{//プレイヤー2の勝ち
-          Main.t2.setText("あなたの勝利！");
-          Main.t2.setUnderline(true);
-          Main.t1.setText("あなたの負け...");
-        }*/
-        Main.endImage(Turn.turnPlayer());
+        Main main = new Main();
+        main.endImage(Turn.turnPlayer());
         Turn.gameOver();
       }
       Move m = new Move();
@@ -160,7 +151,7 @@ public boolean selected(double mouseX,double mouseY){
     else pieceY = (int)(mouseY - 10)/130;
     if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
           if((Main.field[pieceY][pieceX]*Turn.turn <= 0)||(Turn.turn==1225)||(Turn.turn==-1225)) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
-          System.out.println("黄色:"+pieceY+","+pieceX);
+          //System.out.println("黄色:"+pieceY+","+pieceX);
           Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
           Main.yellowback.setY(mouseY-(mouseY-10)%130);
           return true;
@@ -170,45 +161,34 @@ public boolean selected(double mouseX,double mouseY){
 }
 
 //マウスがあるところが選択できる駒ならTrue
-public boolean onMouse(double mouseX,double mouseY){
-  int pieceX,pieceY;
-  if(mouseX < 285) pieceX = -1222;
-  else pieceX = (int)(mouseX - 285)/130;
-  if(mouseY < 10) pieceY = -560;
-  else pieceY = (int)(mouseY - 10)/130;
-  if((Main.yellowDisplayed==2)||(Main.yellowDisplayed==3))return false;
-  if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
-    if((Main.field[pieceY][pieceX]*Turn.turn <= 0)||(Turn.turn==1225)||(Turn.turn==-1225)) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
-    System.out.println("sowon");
-    Main.yellowback.setFitHeight(128);
-    Main.yellowback.setFitWidth(128);
-    Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
-    Main.yellowback.setY(mouseY-(mouseY-10)%130);
-    return true;
-  }else{
+  public boolean onMouse(double mouseX,double mouseY){
+    int pieceX,pieceY;
+    if(mouseX < 285) pieceX = -1222;
+    else pieceX = (int)(mouseX - 285)/130;
+    if(mouseY < 10) pieceY = -560;
+    else pieceY = (int)(mouseY - 10)/130;
+    if((Main.yellowDisplayed==2)||(Main.yellowDisplayed==3))return false;
+    if(Piece.onBoard(pieceX,pieceY)){//選択された場所が盤面上
+      if((Main.field[pieceY][pieceX]*Turn.turn <= 0)||(Turn.turn==1225)||(Turn.turn==-1225)) return false;//自分の駒じゃない、もしくは空白をクリックしたときはfalse
+      Main.yellowback.setFitHeight(128);
+      Main.yellowback.setFitWidth(128);
+      Main.yellowback.setX(mouseX-(mouseX-285)%130);//黄色の枠の位置を設定
+      Main.yellowback.setY(mouseY-(mouseY-10)%130);
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public boolean onMyMouse(double mouseX,double mouseY){
+    if((Main.yellowDisplayed==2)||(Main.yellowDisplayed==3))return false;
+    if(MyPiece.onMyPiece(mouseX,mouseY)){
+      Main.yellowback.setFitHeight(80);
+      Main.yellowback.setFitWidth(80);
+      Main.yellowback.setX(MyPiece.eleToX(MyPiece.MouseToElement(mouseX,mouseY)));//黄色の枠の位置を設定
+      Main.yellowback.setY(MyPiece.eleToY(MyPiece.MouseToElement(mouseX,mouseY)));
+      return true;
+    }
     return false;
   }
-}
-
-public boolean onMyMouse(double mouseX,double mouseY){
-  if((Main.yellowDisplayed==2)||(Main.yellowDisplayed==3))return false;
-  if(MyPiece.onMyPiece(mouseX,mouseY)){
-    Main.yellowback.setFitHeight(80);
-    Main.yellowback.setFitWidth(80);
-    Main.yellowback.setX(MyPiece.eleToX(MyPiece.MouseToElement(mouseX,mouseY)));//黄色の枠の位置を設定
-    Main.yellowback.setY(MyPiece.eleToY(MyPiece.MouseToElement(mouseX,mouseY)));
-    return true;
-  }
-  return false;
-}
-
-/*public boolean onMyfield(double mouseX,double mouseY){
-  int pieceX,pieceY;
-  if(mouseX < 285) pieceX = -1222;
-  else pieceX = (int)(mouseX - 285)/130;
-  if(mouseY < 10) pieceY = -560;
-  else pieceY = (int)(mouseY - 10)/130;
-
-  if(Piece.onBoard(pieceX,pieceY))
-}*/
 }

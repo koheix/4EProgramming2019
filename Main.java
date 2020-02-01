@@ -52,6 +52,8 @@ public class Main extends Application {
     GraphicsContext g;
     static View root = new View();//ゲーム画面のGroup
     Group root2 = new Group();//選択画面のGroup
+    AnchorPane pane = new AnchorPane();//タイトル画面のpane
+
     boolean PieceClicked = false;  //クリックされた
     int first = 0;
     double previousX = 0,previousY = 0;
@@ -70,34 +72,31 @@ public class Main extends Application {
     static ImageView chick2 = new ImageView("images/hiyoko.png");
     static ImageView chicken1 = new ImageView("images/niwatori.png");
     static ImageView chicken2 = new ImageView("images/niwatori.png");
-    static ImageView tmpredback = new ImageView("images/yellowback.png");//持ち駒を囲む用
-    static ImageView[][] fldtmpredback = new ImageView[4][3];//持ち駒洗濯時における場所を照らす用
-    ImageView[][] redBack = new ImageView[4][3];  //赤い背景
-    static ImageView yellowback = new ImageView("images/yellowback.png");
+    static ImageView yellowback = new ImageView("images/yellowback.png");//黄色の囲み
+    ImageView[][] fldtmpredback = new ImageView[4][3];//持ち駒洗濯時における場所を照らす用
+    ImageView tmpredback = new ImageView("images/yellowback.png");//持ち駒を囲む用
+    ImageView[][] redBack = new ImageView[4][3];  //赤い囲み
     ImageView backImage = new ImageView("images/background.png");//ゲーム画面の背景
     ImageView select1 = new ImageView("images/select1.png");  //王選択画面の背景画像
     ImageView select2 = new ImageView("images/select2.png");
     ImageView normal = new ImageView("images/normal.png");//タイトル画面のボタンの画像
     ImageView selectking = new ImageView("images/selectking.png");
     ImageView modoru = new ImageView("images/return.png");//戻るボタンの画像
-    static ImageView win1 = new ImageView("images/win1.png");//勝った場合の画面
-    static ImageView win2 = new ImageView("images/win2.png");
-    //static ImageView toTitle = new ImageView("images/toTitle.png");//”タイトルへ”のボタン
+    ImageView win1 = new ImageView("images/win1.png");//勝った場合の画面
+    ImageView win2 = new ImageView("images/win2.png");
 
-    static Text p1 = new Text(55, 325 , "PLAYER1");
-    static Text p2 = new Text(745, 325 , "PLAYER2");
-    static boolean putchick = false;
-    static int flag = 0;
+    Text p1 = new Text(55, 325 , "PLAYER1");
+    Text p2 = new Text(755, 325 , "PLAYER2");
+    boolean putchick = false;
+    int flag = 0;
     int select = 0;
     static int yellowDisplayed = 0;//黄色の枠が表示されていれば1,確定したら２
 
 
-    static AudioClip c = new AudioClip(new File("Music/BGM.wav").toURI().toString());
-    static AudioClip ct = new AudioClip(new File("Music/titlebgm.wav").toURI().toString());
-    static AudioClip cw = new AudioClip(new File("Music/win.wav").toURI().toString());
+    AudioClip c = new AudioClip(new File("Music/BGM.wav").toURI().toString());
+    AudioClip ct = new AudioClip(new File("Music/titlebgm.wav").toURI().toString());
+    AudioClip cw = new AudioClip(new File("Music/win.wav").toURI().toString());
 
-    /*static Text t1 = new Text(30, 250 , "PLAYER1のターン");
-    static Text t2 = new Text(730, 250 , "");*/
     Button btn2 = new Button();//ゲーム中の戻るボタン
 
 
@@ -109,7 +108,6 @@ public class Main extends Application {
             fldtmpredback[i][j] = new ImageView("images/redBack.png");
           }
         }
-        AnchorPane pane = new AnchorPane();//タイトル画面のpane
 
 
         //描画用キャンバスノードの作成
@@ -128,14 +126,7 @@ public class Main extends Application {
         initTitle(stage,title,scene,selectScene,pane);
         initialize(stage,title,root);
 
-        root.getChildren().add(lion1);
-        root.getChildren().add(lion2);
-        root.getChildren().add(elephant1);
-        root.getChildren().add(elephant2);
-        root.getChildren().add(giraffe1);
-        root.getChildren().add(giraffe2);
-        root.getChildren().add(chick1);
-        root.getChildren().add(chick2);
+        root.getChildren().addAll(lion1,lion2,elephant1,elephant2,giraffe1,giraffe2,chick1,chick2);
 
         stage.setTitle("どうぶつしょうぎ");
         stage.setScene(title);
@@ -143,28 +134,12 @@ public class Main extends Application {
 
 
         p1.setFont(Font.font("impact",35));
-        //p1.setFont(Font.font(35));
-        root.getChildren().add(p1);
-
-
         p2.setFont(Font.font("impact",35));
-        //p2.setFont(new Font(35));
-        root.getChildren().add(p2);
-
-        final Text mp1 = new Text(80, 360 , "持ち駒");
+        Text mp1 = new Text(80, 360 , "持ち駒");
         mp1.setFont(Font.font("impact",FontWeight.BLACK,30));
-        root.getChildren().add(mp1);
-
-        final Text mp2 = new Text(780, 360 , "持ち駒");
+        Text mp2 = new Text(780, 360 , "持ち駒");
         mp2.setFont(Font.font("impact",FontWeight.BLACK,30));
-        root.getChildren().add(mp2);
-
-        /*t1.setFont(new Font(30));
-        root.getChildren().add(t1);
-
-        t2.setFont(new Font(30));
-        root.getChildren().add(t2);*/
-
+        root.getChildren().addAll(p1,p2,mp1,mp2);
 
 
         modoru.setFitHeight(50);modoru.setFitWidth(100);//戻るボタンの設定
@@ -190,6 +165,7 @@ public class Main extends Application {
             if(event.getCode()==KeyCode.UP){
               System.out.println("上1");
               king[0] = 4;
+            }if(event.getCode()==KeyCode.DOWN){
               System.out.println("下1");
               king[0] = 1;
             }if(event.getCode()==KeyCode.RIGHT){
@@ -205,6 +181,9 @@ public class Main extends Application {
             select=0;
             setScene(stage,scene);
             root.play();
+            ct.stop();//タイトルBGMの停止
+            c.setCycleCount(AudioClip.INDEFINITE);//無限ループ
+            c.play();//ゲーム音楽スタート
             }
             if(event.getCode()==KeyCode.UP){
               System.out.println("上2");
@@ -219,9 +198,6 @@ public class Main extends Application {
               System.out.println("左2");
               king[1] = 2;
             }
-            ct.stop();
-            c.setCycleCount(AudioClip.INDEFINITE);
-            c.play();
           }
         });
     }
@@ -229,7 +205,7 @@ public class Main extends Application {
     //マウスが移動した時の処理
     private void mouseMoved(MouseEvent e){
        GUI g = new GUI();
-       System.out.println("yellowDisplayed:"+yellowDisplayed);
+       //System.out.println("yellowDisplayed:"+yellowDisplayed);
         if(g.onMouse(e.getX(),e.getY())){//選択された場所が自分の駒であれば駒を黄色で囲む
           if(yellowDisplayed==0){
             root.getChildren().add(yellowback);
@@ -400,14 +376,6 @@ public class Main extends Application {
           }
         }
 
-
-       /* if((e.getX()>285)&&(e.getX()<675)&&(e.getY()>10)&&(e.getY()<530)){
-          yellowback.setX(e.getX()-(e.getX()-285)%130);
-          yellowback.setY(e.getY()-(e.getY()-10)%130);
-          root.getChildren().add(yellowback);
-        }else{
-          root.getChildren().remove(yellowback);
-        }*/
         previousX = e.getX();previousY = e.getY();
         for(int i=0;i<4;i++){
           for(int j=0;j<3;j++){
@@ -460,6 +428,8 @@ public class Main extends Application {
           System.out.println(king[0]+","+king[1]);
           setScene(stage,scene);
           stage.setTitle("どうぶつしょうぎ-ランダムモード");
+          ct.stop();
+          c.play();
         }
         else{
           setScene(stage,selectScene);
@@ -479,8 +449,8 @@ public class Main extends Application {
 
 
     private void initialize(Stage stage, Scene title, Group root){//はじめに実行
-      Main.p1.setUnderline(true);
-      Main.p2.setUnderline(false);
+      //p1.setUnderline(true);
+      //p2.setUnderline(false);
       mode = 0;
       for(int i=0;i<4;i++){//鶏が盤面にあればひよこに戻す
         for(int j=0;j<3;j++){
@@ -545,8 +515,8 @@ public class Main extends Application {
         });
     }
 
-    //勝ったプレイヤーの画像を示
-    public static void endImage(int winPlayer){
+    //勝ったプレイヤーの画像を表示
+    public void endImage(int winPlayer){
       c.stop();
       cw.setVolume(0.2);
       cw.play();
@@ -570,23 +540,6 @@ public class Main extends Application {
     stage.setScene(changeScene);
     stage.show();
   }
-
-    /*private void drawField() {//描画のプログラム
-        for(int i = 0;i < 4;i++){
-            for(int j = 0;j < 3;j++){
-                g.strokeRect(//盤面の左上は(285 , 10)
-                    (width / 2) - ((height - 20) / 4)*3/2 + 130*j, 10 + 130*i,130, 130
-                 );//盤面の描画//右上座標が100,20//盤面の描画
-                g.strokeRect(//もち米の枠
-                    10 , 370 , 240 , 160
-                );//左
-                g.strokeRect(
-                    710 , 370 , 240 , 160
-                );//右
-
-            }
-        }
-    }*/
 
     public void drawChara(String animalname , int x , int y ,int player) {//x ,yは盤面の配列の座標
         switch(animalname){//動物判定
@@ -663,6 +616,7 @@ public class Main extends Application {
 
 }
 
+//次のターン表示のアニメーション
 class View extends Group{
   public View(){
   }
